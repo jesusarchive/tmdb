@@ -1,11 +1,13 @@
 import React from 'react';
 
-import HomePage from './pages/home-page/home-page';
+import HomePage from './pages/home';
+import MoviesPage from './pages/movies/movies-page';
 
 const App = () => {
   return (
-    <div className="text-3xl font-bold underline">
+    <div>
       <HomePage></HomePage>
+      <MoviesPage></MoviesPage>
     </div>
   );
 };
