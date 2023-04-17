@@ -1,5 +1,6 @@
-const API_KEY = '8f781d70654b5a6f2fa69770d1d115a3';
-const BASE_URL = 'https://api.themoviedb.org';
+export const API_KEY = '8f781d70654b5a6f2fa69770d1d115a3';
+export const BASE_URL = 'https://api.themoviedb.org';
+export const IMAGE_BASE_URL = 'https://image.tmdb.org/t/p/w500';
 
 export type MovieType = {
   adult: boolean;
@@ -25,8 +26,17 @@ export type MoviesDataType = {
   total_results: number;
 };
 
-export const getMovies = async (page = 1): Promise<MoviesDataType> => {
+export const getPopularMovies = async (page = 1): Promise<MoviesDataType> => {
   const response = await fetch(`${BASE_URL}/3/movie/popular?api_key=${API_KEY}&language=en-US&page=${page}`);
+  const data = await response.json();
+
+  return data;
+};
+
+export const getMoviesBySearch = async (page = 1, search = ''): Promise<MoviesDataType> => {
+  const response = await fetch(
+    `${BASE_URL}/3/search/movie?api_key=${API_KEY}&language=en-US&page=${page}&query=${search}&include_adult=false`
+  );
   const data = await response.json();
 
   return data;
