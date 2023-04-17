@@ -1,13 +1,15 @@
 import React from 'react';
 
 import HomePage from './pages/home';
-import MoviesPage from './pages/movies/movies-page';
+import MoviePage from './pages/movie';
+// import MoviesPage from './pages/movies';
 
 const App = () => {
   return (
     <div>
       <HomePage></HomePage>
-      <MoviesPage></MoviesPage>
+      {/* <MoviesPage></MoviesPage> */}
+      <MoviePage></MoviePage>
     </div>
   );
 };
