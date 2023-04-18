@@ -4,10 +4,10 @@ import { useLoaderData } from 'react-router-dom';
 export async function loader() {
   await new Promise((r) => setTimeout(r, 500));
 
-  return 'I came from the About.tsx loader function!';
+  return 'I came from the about.tsx loader function!';
 }
 
-export function Component() {
+function About() {
   const data = useLoaderData() as string;
 
   return (
@@ -18,4 +18,4 @@ export function Component() {
   );
 }
 
-Component.displayName = 'AboutPage';
+export default About;
