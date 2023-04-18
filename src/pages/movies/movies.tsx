@@ -1,11 +1,11 @@
 import { StarIcon as StarIconOutline } from '@heroicons/react/24/outline';
-import { MagnifyingGlassIcon,StarIcon } from '@heroicons/react/24/solid';
+import { MagnifyingGlassIcon, StarIcon } from '@heroicons/react/24/solid';
 import React, { useEffect, useState } from 'react';
 
 import { Button, Pagination, Table } from '../../components';
 import { getMoviesBySearch, getPopularMovies, IMAGE_BASE_URL, MovieType } from './api';
 
-const MoviesPage = () => {
+const Movies = () => {
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(1);
   const [maxPage, setMaxPage] = useState(-1);
@@ -156,4 +156,4 @@ const MoviesPage = () => {
   );
 };
 
-export default MoviesPage;
+export default Movies;

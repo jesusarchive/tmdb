@@ -6,7 +6,7 @@ import { Badge } from '../../components';
 import { IMAGE_BASE_URL } from '../movies/api';
 import { CastType, CrewType, getMovie, getMovieCredits, getMovieVideos, MovieDetailType, MovieVideoType } from './api';
 
-const MoviesPage = () => {
+const Movie = () => {
   const [loading, setLoading] = useState(false);
   const [movie, setMovie] = useState({} as MovieDetailType);
   const [videos, setVideos] = useState([] as Array<MovieVideoType>);
@@ -185,4 +185,4 @@ const MoviesPage = () => {
   );
 };
 
-export default MoviesPage;
+export default Movie;
