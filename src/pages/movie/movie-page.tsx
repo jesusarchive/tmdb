@@ -10,8 +10,6 @@ const MoviesPage = () => {
   const [loading, setLoading] = useState(false);
   const [movie, setMovie] = useState({} as MovieDetailType);
   const [videos, setVideos] = useState([] as Array<MovieVideoType>);
-  const [cast, setCast] = useState([] as Array<CastType>);
-  const [crew, setCrew] = useState([] as Array<CrewType>);
   const [director, setDirector] = useState({} as CrewType);
   const [writers, setWriters] = useState([] as Array<CrewType>);
   const [stars, setStars] = useState([] as Array<CastType>);
@@ -25,12 +23,23 @@ const MoviesPage = () => {
 
   const getTrailer = () => videos.find(({ type, name }) => type === 'Trailer' && name === 'Trailer');
 
-  const getDirector = (): CrewType => crew.find(({ job }) => job.toLowerCase() === 'director') || ({} as CrewType);
+  const getDirector = (crew: Array<CrewType>): CrewType => {
+    return crew.find(({ job }) => job.toLowerCase() === 'director') || ({} as CrewType);
+  };
 
-  const getWriters = (): Array<CrewType> =>
-    crew.filter(({ department }) => department.toLowerCase() === 'writing') || ([] as Array<CrewType>);
+  const getWriters = (crew: Array<CrewType>): Array<CrewType> => {
+    return crew.filter(({ department }) => department.toLowerCase() === 'writing') || ([] as Array<CrewType>);
+  };
 
-  const getStars = (): Array<CastType> => cast.slice(0, 3);
+  const getStars = (cast: Array<CastType>): Array<CastType> => {
+    return cast.slice(0, 3);
+  };
+
+  const handleMovieCreditsData = (movieCredits: { id: number; crew: Array<CrewType>; cast: Array<CastType> }) => {
+    setDirector(getDirector(movieCredits.crew));
+    setWriters(getWriters(movieCredits.crew));
+    setStars(getStars(movieCredits.cast));
+  };
 
   const init = async () => {
     setLoading(true);
@@ -45,11 +54,7 @@ const MoviesPage = () => {
     setVideos(movieVideosData.results);
 
     const movieCredits = await getMovieCredits(MOCK_ID);
-    setCast(movieCredits.cast);
-    setCrew(movieCredits.crew);
-    setDirector(getDirector());
-    setWriters(getWriters());
-    setStars(getStars());
+    handleMovieCreditsData(movieCredits);
 
     setLoading(false);
   };
