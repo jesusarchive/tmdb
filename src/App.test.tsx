@@ -10,8 +10,8 @@ describe('<App />', () => {
     expect(wrapper).toBeTruthy();
 
     // Get by element
-    const h1 = wrapper.container.querySelector('div');
-    expect(h1?.textContent).toBe('APP');
+    const div = wrapper.container.querySelector('div');
+    expect(div?.textContent).toBe('APP');
 
     // Get by text using the React testing library
     const text = screen.getByText(/APP/i);
