@@ -1,5 +1,5 @@
 import { StarIcon as StarIconOutline } from '@heroicons/react/24/outline';
-import { MagnifyingGlassIcon, StarIcon, PlusIcon } from '@heroicons/react/24/solid';
+import { MagnifyingGlassIcon,StarIcon } from '@heroicons/react/24/solid';
 import React, { useEffect, useState } from 'react';
 
 import { Button, Pagination, Table } from '../../components';
@@ -52,7 +52,7 @@ const MoviesPage = () => {
 
   return (
     <div className="h-full w-full flex p-5">
-      <div className="container flex flex-col justify-around">
+      <div className="container mx-auto flex flex-col justify-around">
         <div className="h-full w-full flex flex-col justify-around">
           {/* SEARCH */}
           <div className="form-control p-10 self-center">
@@ -122,9 +122,9 @@ const MoviesPage = () => {
                         xmlns="http://www.w3.org/2000/svg"
                         fill="black"
                         stroke="white"
-                        stroke-width="1"
-                        stroke-linecap="round"
-                        stroke-linejoin="miter"
+                        strokeWidth="1"
+                        strokeLinecap="round"
+                        strokeLinejoin="miter"
                       >
                         <polygon points="20 22 12 16 4 22 4 2 20 2 20 22"></polygon>
                         <line x1="12" y1="6" x2="12" y2="12"></line>
