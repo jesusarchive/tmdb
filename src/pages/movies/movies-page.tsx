@@ -106,7 +106,7 @@ const MoviesPage = () => {
                     {/* RATING */}
                     <div className="flex space-x-1">
                       <StarIcon className="h-6 w-6 text-yellow-600" />
-                      <span className="font-bold">{movie.vote_average}</span>
+                      <span className="font-bold">{movie.vote_average.toFixed(1)}</span>
                     </div>
                     {/* USER RATING */}
                     <div className="flex space-x-1">
