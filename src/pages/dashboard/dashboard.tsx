@@ -1,5 +1,5 @@
 import React from 'react';
-import { Outlet, Link, useLoaderData } from 'react-router-dom';
+import { Link, Outlet, useLoaderData } from 'react-router-dom';
 
 export function DashboardLayout() {
   return (
@@ -36,6 +36,7 @@ interface MessagesData {
 
 export async function dashboardMessagesLoader() {
   await new Promise((r) => setTimeout(r, 500));
+
   return {
     messages: [
       'Message 1 from Dashboard.tsx loader',
@@ -46,7 +47,7 @@ export async function dashboardMessagesLoader() {
 }
 
 export function DashboardMessages() {
-  let { messages } = useLoaderData() as MessagesData;
+  const { messages } = useLoaderData() as MessagesData;
 
   return (
     <div>
