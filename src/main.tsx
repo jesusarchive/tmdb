@@ -6,6 +6,8 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 import Layout from './layouts/layout';
 import Home from './pages/home';
+import Movie from './pages/movie';
+import Movies from './pages/movies/movies';
 import NoMatch from './pages/no-match';
 
 const router = createBrowserRouter([
@@ -28,6 +30,8 @@ const router = createBrowserRouter([
           };
         }
       },
+      { path: 'movie', element: <Movie /> },
+      { path: 'movies', element: <Movies /> },
       {
         path: '*',
         element: <NoMatch />

@@ -1,2 +1,2 @@
-export { default } from './movie-page';
-export * from './movie-page';
+export { default } from './movie';
+export * from './movie';
