@@ -1,5 +1,8 @@
+import { StarIcon as StarIconOutline } from '@heroicons/react/24/outline';
+import { MagnifyingGlassIcon, StarIcon, PlusIcon } from '@heroicons/react/24/solid';
 import React, { useEffect, useState } from 'react';
 
+import { Button, Pagination, Table } from '../../components';
 import { getMoviesBySearch, getPopularMovies, IMAGE_BASE_URL, MovieType } from './api';
 
 const MoviesPage = () => {
@@ -49,8 +52,9 @@ const MoviesPage = () => {
 
   return (
     <div className="h-full w-full flex p-5">
-      <div className="h-full w-full flex flex-col justify-around">
+      <div className="container flex flex-col justify-around">
         <div className="h-full w-full flex flex-col justify-around">
+          {/* SEARCH */}
           <div className="form-control p-10 self-center">
             <div className="input-group">
               <input
@@ -59,60 +63,94 @@ const MoviesPage = () => {
                 className="input input-bordered"
                 onChange={(e) => handleSearchInputChange(e.target.value)}
               />
-              <button className="btn btn-square" onClick={handleSearchClick}>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-6 w-6"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-                  />
-                </svg>
-              </button>
+              <Button className="btn btn-square" onClick={handleSearchClick}>
+                <MagnifyingGlassIcon className="h-6 w-6" />
+              </Button>
             </div>
           </div>
-          <h2 className="text-5xl font-bold pb-10">{search ? 'Movies' : 'Popular movies'}</h2>
+
+          <div className="pb-5">
+            <h3>TMDb Charts</h3>
+            {/* CHART TITLE */}
+            <h1 className="text-3xl">{search ? 'Movies' : 'Most Popular movies'}</h1>
+            {/* DESCRIPTION */}
+            <p>As determined by TMDb Users</p>
+          </div>
 
           {loading ? (
             <div className="h-full w-full flex">
               <span>loading...</span>
             </div>
           ) : (
-            <div className="h-full w-full space-y-4">
-              {movies.map((movie) => (
-                <div className="w-full flex space-x-4" key={movie.id}>
-                  <img className="w-20" src={`${IMAGE_BASE_URL}${movie.poster_path}`} alt="poster" />
-                  <div className="w-full flex flex-col">
-                    <span className="h-12 w-full flex text-3xl font-bold cursor-pointer hover:text-purple-500">
-                      {movie.title}
-                    </span>
-                    <span>{movie.release_date}</span>
-                    <span className="text-2xl font-bold text-blue-200">{movie.vote_average}</span>
-                  </div>
-                </div>
-              ))}
-            </div>
+            <Table className="w-full">
+              <Table.Head>
+                <span />
+                <span>Title</span>
+                <span>TMDb Rating</span>
+                <span>Your Rating</span>
+                <span />
+              </Table.Head>
+
+              <Table.Body className="overflow-scroll">
+                {movies.map((movie) => (
+                  <Table.Row key={movie.id}>
+                    {/* POSTER */}
+                    <div>
+                      <img className="w-14" src={`${IMAGE_BASE_URL}${movie.poster_path}`} alt="poster" />
+                    </div>
+                    {/* TITLE */}
+                    <div className="space-x-2">
+                      <a className="link">{movie.title}</a>
+                      <span>{`(${new Date(movie.release_date).getFullYear()})`}</span>
+                    </div>
+                    {/* RATING */}
+                    <div className="flex space-x-1">
+                      <StarIcon className="h-6 w-6 text-yellow-600" />
+                      <span className="font-bold">{movie.vote_average}</span>
+                    </div>
+                    {/* USER RATING */}
+                    <div className="flex space-x-1">
+                      <StarIconOutline className="h-6 w-6" />
+                    </div>
+                    {/* BOOKMARK */}
+                    <div>
+                      <svg
+                        className="cursor-pointer"
+                        width="30px"
+                        height="30px"
+                        viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="black"
+                        stroke="white"
+                        stroke-width="1"
+                        stroke-linecap="round"
+                        stroke-linejoin="miter"
+                      >
+                        <polygon points="20 22 12 16 4 22 4 2 20 2 20 22"></polygon>
+                        <line x1="12" y1="6" x2="12" y2="12"></line>
+                        <line x1="15" y1="9" x2="9" y2="9"></line>
+                      </svg>
+                    </div>
+                  </Table.Row>
+                ))}
+              </Table.Body>
+            </Table>
           )}
         </div>
 
-        <div className="btn-group pt-12 self-center">
-          <button className="btn" onClick={handlePreviousPaginationClick}>
+        {/* PAGINATION */}
+        <Pagination className="self-center">
+          <Button className="btn" onClick={handlePreviousPaginationClick}>
             «
-          </button>
-          <button className="btn">1</button>
-          <button className="btn">2</button>
-          <button className="btn">3</button>
-          <button className="btn">4</button>
-          <button className="btn" onClick={handleNextPaginationClick}>
+          </Button>
+          <Button className="btn">1</Button>
+          <Button className="btn">2</Button>
+          <Button className="btn">3</Button>
+          <Button className="btn">4</Button>
+          <Button className="btn" onClick={handleNextPaginationClick}>
             »
-          </button>
-        </div>
+          </Button>
+        </Pagination>
       </div>
     </div>
   );

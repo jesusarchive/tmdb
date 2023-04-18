@@ -62,6 +62,10 @@ export * from './modal';
 export { default as Navbar } from './navbar';
 export * from './navbar';
 
+// PAGINATION
+export { default as Pagination } from './pagination';
+export * from './pagination';
+
 // SELECT
 export { default as Select } from './select';
 export * from './select';
