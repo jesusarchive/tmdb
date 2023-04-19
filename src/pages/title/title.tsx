@@ -1,12 +1,22 @@
 import { StarIcon as StarIconOutline } from '@heroicons/react/24/outline';
 import { FireIcon, PhotoIcon, StarIcon, VideoCameraIcon } from '@heroicons/react/24/solid';
 import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 
 import { Badge } from '../../components';
 import { IMAGE_BASE_URL } from '../../services/helpers/constants';
-import { CastType, CrewType, getMovie, getMovieCredits, getMovieVideos , MovieDetailType, MovieVideoType } from '../../services/movie';
+import {
+  CastType,
+  CrewType,
+  getMovie,
+  getMovieCredits,
+  getMovieVideos,
+  MovieDetailType,
+  MovieVideoType
+} from '../../services/movie';
 
 const Title = () => {
+  const params = useParams();
   const [loading, setLoading] = useState(false);
   const [movie, setMovie] = useState({} as MovieDetailType);
   const [videos, setVideos] = useState([] as Array<MovieVideoType>);
@@ -21,7 +31,11 @@ const Title = () => {
     return `${hours}h${minutes > 0 ? ` ${minutes}m` : ''}`;
   };
 
-  const getTrailer = () => videos.find(({ type, name }) => type === 'Trailer' && name === 'Trailer');
+  const getTrailer = () => {
+    return videos.find(
+      ({ type, name }) => type === 'Trailer' && (name === 'Trailer' || name.toLowerCase().includes('trailer'))
+    );
+  };
 
   const getDirector = (crew: Array<CrewType>): CrewType => {
     return crew.find(({ job }) => job.toLowerCase() === 'director') || ({} as CrewType);
@@ -44,17 +58,18 @@ const Title = () => {
   const init = async () => {
     setLoading(true);
 
-    // ! MOCK
-    const MOCK_ID = 671;
+    const { id } = params;
 
-    const movieDetailData = await getMovie(MOCK_ID);
-    setMovie(movieDetailData);
+    if (id) {
+      const movieDetailData = await getMovie(Number(id));
+      setMovie(movieDetailData);
 
-    const movieVideosData = await getMovieVideos(MOCK_ID);
-    setVideos(movieVideosData.results);
+      const movieVideosData = await getMovieVideos(Number(id));
+      setVideos(movieVideosData.results);
 
-    const movieCredits = await getMovieCredits(MOCK_ID);
-    handleMovieCreditsData(movieCredits);
+      const movieCredits = await getMovieCredits(Number(id));
+      handleMovieCreditsData(movieCredits);
+    }
 
     setLoading(false);
   };

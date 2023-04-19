@@ -1,6 +1,7 @@
 import { StarIcon as StarIconOutline } from '@heroicons/react/24/outline';
 import { MagnifyingGlassIcon, StarIcon } from '@heroicons/react/24/solid';
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 
 import { Button, Pagination, Table } from '../../components';
 import { IMAGE_BASE_URL } from '../../services/helpers/constants';
@@ -51,6 +52,8 @@ const Chart = () => {
     }
   };
 
+  const handleTitleClick = (titleId) => {};
+
   return (
     <div className="h-full w-full flex p-5">
       <div className="container mx-auto flex flex-col justify-around">
@@ -97,11 +100,15 @@ const Chart = () => {
                   <Table.Row key={movie.id}>
                     {/* POSTER */}
                     <div>
-                      <img className="w-14" src={`${IMAGE_BASE_URL}${movie.poster_path}`} alt="poster" />
+                      <Link to={`/title/${movie.id}`}>
+                        <img className="w-14" src={`${IMAGE_BASE_URL}${movie.poster_path}`} alt="poster" />
+                      </Link>
                     </div>
                     {/* TITLE */}
                     <div className="space-x-2">
-                      <a className="link">{movie.title}</a>
+                      <Link className="link-info" to={`/title/${movie.id}`}>
+                        {movie.title}{' '}
+                      </Link>
                       <span>{`(${new Date(movie.release_date).getFullYear()})`}</span>
                     </div>
                     {/* RATING */}
