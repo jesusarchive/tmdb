@@ -42,68 +42,68 @@ const Find = () => {
 
   useEffect(() => {
     const newSearch = searchParams.get('q');
-    if (newSearch) {
-      setSearch(newSearch);
-    }
+    setSearch(newSearch || '');
   }, [searchParams]);
 
   return (
-    <div className="h-full w-full flex p-5">
-      <div className="container mx-auto flex flex-col justify-around">
-        <div className="h-full w-full flex flex-col justify-around">
-          <div className="pb-20">
-            {search ? (
-              <h1 className="text-6xl">{`Search "${search}"`}</h1>
-            ) : (
-              <>
-                <h1 className="text-5xl pb-4">Search TMDb</h1>
-                <p className="text-lg">
-                  Search TMDb by typing a word or phrase in the search box at the top of this page.
-                </p>
-              </>
-            )}
-          </div>
-
-          {loading ? (
-            <div className="h-full w-full flex">
-              <span>loading...</span>
-            </div>
-          ) : search ? (
+    <div className="min-h-[80vh] w-full flex p-5">
+      <div className="container mx-auto flex flex-col">
+        <div className="pb-20">
+          {/* HEADING */}
+          {search ? (
+            <h1 className="text-6xl">{`Search "${search}"`}</h1>
+          ) : (
             <>
-              <h3 className="text-4xl font-bold border-l-4 border-primary pl-3">Titles</h3>
-              <div className="border-2 border-base-200 p-4 mt-8">
-                {movies.length ? (
-                  <ul>
-                    {movies?.map((movie, i) => (
-                      <li
-                        className={clsx('w-full h-24 flex space-x-2 border-base-200 pt-1', i !== 0 && ' border-t-2')}
-                        key={movie.id}
-                      >
-                        {/* POSTER */}
-                        <div>
-                          <Link to={`/title/${movie.id}`}>
-                            <img className="w-14" src={`${IMAGE_BASE_URL}${movie.poster_path}`} alt="poster" />
-                          </Link>
-                        </div>
-                        {/* TITLE */}
-                        <div className="flex flex-col">
-                          <Link className="link-info" to={`/title/${movie.id}`}>
-                            {movie.title}
-                          </Link>
-                          <span>{`(${new Date(movie.release_date).getFullYear()})`}</span>
-                        </div>
-                      </li>
-                    ))}
-                  </ul>
-                ) : (
-                  <div className="p-5">
-                    <span>{`No results found for "${search}"`}</span>
-                  </div>
-                )}
-              </div>
+              <h1 className="text-5xl pb-4">Search TMDb</h1>
+              <p className="text-lg">
+                Search TMDb by typing a word or phrase in the search box at the top of this page.
+              </p>
             </>
-          ) : null}
+          )}
         </div>
+
+        {loading ? (
+          // LOADING
+          <div className="h-full w-full flex">
+            <span>loading...</span>
+          </div>
+        ) : search ? (
+          <>
+            {/* RESULT LIST */}
+            <h3 className="text-4xl font-bold border-l-4 border-primary pl-3">Titles</h3>
+            <div className="border-2 border-base-200 p-4 mt-8">
+              {movies.length ? (
+                <ul>
+                  {movies?.map((movie, i) => (
+                    <li
+                      className={clsx('w-full h-24 flex space-x-2 border-base-200 pt-1', i !== 0 && ' border-t-2')}
+                      key={movie.id}
+                    >
+                      {/* POSTER */}
+                      <div>
+                        <Link to={`/title/${movie.id}`}>
+                          <img className="w-14" src={`${IMAGE_BASE_URL}${movie.poster_path}`} alt="poster" />
+                        </Link>
+                      </div>
+                      {/* TITLE */}
+                      <div className="flex flex-col">
+                        <Link className="link-info" to={`/title/${movie.id}`}>
+                          {movie.title}
+                        </Link>
+                        {movie.release_date && <span>{`(${new Date(movie.release_date).getFullYear()})`}</span>}
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                // NO RESULTS
+                <div className="p-5">
+                  <span>{`No results found for "${search}"`}</span>
+                </div>
+              )}
+            </div>
+          </>
+        ) : null}
       </div>
     </div>
   );

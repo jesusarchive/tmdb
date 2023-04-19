@@ -86,7 +86,7 @@ const Title = () => {
   }, []);
 
   return (
-    <div className="h-screen w-full flex p-5">
+    <div className="min-h-[80vh] w-full flex p-5">
       {loading ? (
         'loading...'
       ) : (
@@ -128,8 +128,8 @@ const Title = () => {
             </div>
           </div>
           {/* MEDIA */}
-          <div className="w-full h-2/6 flex justify-around space-x-2">
-            <img className="w-1/6" src={`${IMAGE_BASE_URL}${movie.poster_path}`} alt="poster" />
+          <div className="w-full flex justify-around space-x-2">
+            <img className="w-3/12" src={`${IMAGE_BASE_URL}${movie.poster_path}`} alt="poster" />
             <iframe
               className="w-4/6"
               src={`https://www.youtube.com/embed/${getTrailer()?.key}`}
@@ -138,7 +138,7 @@ const Title = () => {
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
               allowfullscreen
             ></iframe>
-            <div className="w-1/6 h-full flex flex-col space-y-2 justify-around">
+            <div className="w-1/6 h-full flex flex-col space-y-1 justify-around">
               <div className="h-full border-1 bg-base-200 flex flex-col items-center justify-center space-y-4 cursor-pointer">
                 <VideoCameraIcon className="h-10 w-10"></VideoCameraIcon>
                 <span className="font-bold">25 VIDEOS</span>

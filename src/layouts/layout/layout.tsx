@@ -23,11 +23,7 @@ function Layout() {
   };
 
   return (
-    <div className="">
-      <div style={{ position: 'fixed', top: 0, right: 0 }}>
-        {navigation.state !== 'idle' && <p>Navigation in progress...</p>}
-      </div>
-
+    <div className="min-h-screen w-full flex flex-col justify-between">
       {/* <nav>
         <ul>
           <li>
@@ -47,7 +43,7 @@ function Layout() {
 
       <hr /> */}
 
-      <Navbar className="flex justify-between p-3 bg-base-100 shadow mb-5">
+      <Navbar className="h-[6vh] flex justify-between p-3 bg-base-100 shadow mb-5">
         <Button className="text-xl normal-case" color="ghost" onClick={() => navigate({ pathname: '/' })}>
           TMDb
         </Button>
@@ -72,21 +68,16 @@ function Layout() {
             </div>
           </Button>
           <Dropdown.Menu className="w-52 menu-compact">
-            <li>
-              <a className="justify-between">
-                Profile
-                <span className="badge">New</span>
-              </a>
-            </li>
-            <Dropdown.Item>Settings</Dropdown.Item>
-            <Dropdown.Item>Logout</Dropdown.Item>
+            <Dropdown.Item>Your watchlist</Dropdown.Item>
+            <Dropdown.Item>Your ratings</Dropdown.Item>
+            <Dropdown.Item>Sign out</Dropdown.Item>
           </Dropdown.Menu>
         </Dropdown>
       </Navbar>
 
       <Outlet />
 
-      <footer className="footer footer-center p-4 bg-base-300 text-base-content">
+      <footer className="h-[5vh] footer footer-center p-4 bg-base-300 text-base-content mt-20">
         <div>
           <p>Copyright © 2023 - All right reserved by TEST Industries Ltd</p>
         </div>

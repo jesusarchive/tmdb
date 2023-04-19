@@ -52,7 +52,7 @@ const Chart = () => {
   };
 
   return (
-    <div className="h-full w-full flex p-5">
+    <div className="min-h-[80vh] w-full flex p-5">
       <div className="container mx-auto flex flex-col justify-around">
         <div className="h-full w-full flex flex-col justify-around">
           <div className="pb-5">
@@ -68,7 +68,7 @@ const Chart = () => {
               <span>loading...</span>
             </div>
           ) : (
-            <Table className="w-full">
+            <Table className="min-h-[65vh] w-full">
               <Table.Head>
                 <span />
                 <span>Title</span>
@@ -129,7 +129,7 @@ const Chart = () => {
         </div>
 
         {/* PAGINATION */}
-        <Pagination className="self-center">
+        <Pagination className="pt-20 self-center">
           <Button className="btn" onClick={handlePreviousPaginationClick}>
             «
           </Button>
