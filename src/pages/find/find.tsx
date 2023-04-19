@@ -17,20 +17,8 @@ const Find = () => {
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(1);
   const [maxPage, setMaxPage] = useState(-1);
-  const [currentSearchValue, setCurrentSearchValue] = useState('');
   const [search, setSearch] = useState('');
   const [movies, setMovies] = useState([] as Array<MovieType>);
-
-  const handleSearchChange = (value: string) => {
-    setCurrentSearchValue(value);
-  };
-
-  const handleSearchSubmit = (event: FormEvent) => {
-    event.preventDefault();
-    setCurrentSearchValue('');
-    setSearch(currentSearchValue);
-    setSearchParams({ ...searchParams, q: currentSearchValue });
-  };
 
   // const getMovieStars = async (movieId: number): Promise<CastType[]> => {
   //   const movieCredits = await getMovieCredits(Number(movieId));
@@ -55,7 +43,6 @@ const Find = () => {
   useEffect(() => {
     const newSearch = searchParams.get('q');
     if (newSearch) {
-      setCurrentSearchValue('');
       setSearch(newSearch);
     }
   }, [searchParams]);
@@ -64,22 +51,6 @@ const Find = () => {
     <div className="h-full w-full flex p-5">
       <div className="container mx-auto flex flex-col justify-around">
         <div className="h-full w-full flex flex-col justify-around">
-          {/* SEARCH */}
-          <Form className="p-10 self-center" onSubmit={handleSearchSubmit}>
-            <InputGroup className="input-group">
-              <Input
-                type="text"
-                placeholder="Search…"
-                bordered
-                value={currentSearchValue}
-                onChange={(e) => handleSearchChange(e.target.value)}
-              />
-              <Button className="btn btn-square">
-                <MagnifyingGlassIcon className="h-6 w-6" />
-              </Button>
-            </InputGroup>
-          </Form>
-
           <div className="pb-20">
             {search ? (
               <h1 className="text-6xl">{`Search "${search}"`}</h1>

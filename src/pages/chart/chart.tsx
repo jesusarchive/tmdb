@@ -56,7 +56,7 @@ const Chart = () => {
       <div className="container mx-auto flex flex-col justify-around">
         <div className="h-full w-full flex flex-col justify-around">
           <div className="pb-5">
-            <h3>TMDb Charts</h3>
+            <h3 className="text-xl pb-2">TMDb Charts</h3>
             {/* CHART TITLE */}
             <h1 className="text-3xl">Most Popular movies</h1>
             {/* DESCRIPTION */}
