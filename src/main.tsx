@@ -33,7 +33,7 @@ const router = createBrowserRouter([
       },
       { path: 'title/:id', element: <Title /> },
       { path: 'chart/popular', element: <Chart /> },
-      { path: 'find/:query', element: <Find /> },
+      { path: 'find', element: <Find /> },
       {
         path: '*',
         element: <NoMatch />

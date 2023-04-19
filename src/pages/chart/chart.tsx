@@ -1,38 +1,28 @@
 import { StarIcon as StarIconOutline } from '@heroicons/react/24/outline';
-import { MagnifyingGlassIcon, StarIcon } from '@heroicons/react/24/solid';
+import { StarIcon } from '@heroicons/react/24/solid';
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import { Button, Pagination, Table } from '../../components';
 import { IMAGE_BASE_URL } from '../../services/helpers/constants';
-import { getMoviesBySearch, getPopularMovies, MovieType } from '../../services/movie';
+import { getPopularMovies, MovieType } from '../../services/movie';
 
 const Chart = () => {
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(1);
   const [maxPage, setMaxPage] = useState(-1);
-  const [currentSearchValue, setCurrentSearchValue] = useState('');
-  const [search, setSearch] = useState('');
   const [movies, setMovies] = useState([] as Array<MovieType>);
 
   useEffect(() => {
     (async () => {
       setLoading(true);
-      const data = search ? await getMoviesBySearch(page, search) : await getPopularMovies(page);
+      const data = await getPopularMovies(page);
       console.log(data);
       setMaxPage(data.total_pages);
       setMovies(data.results);
       setLoading(false);
     })();
-  }, [page, search]);
-
-  const handleSearchInputChange = (value: string) => {
-    setCurrentSearchValue(value);
-  };
-
-  const handleSearchClick = () => {
-    setSearch(currentSearchValue);
-  };
+  }, [page]);
 
   const handlePreviousPaginationClick = () => {
     const newPage = page - 1;
@@ -52,31 +42,14 @@ const Chart = () => {
     }
   };
 
-  const handleTitleClick = (titleId) => {};
-
   return (
     <div className="h-full w-full flex p-5">
       <div className="container mx-auto flex flex-col justify-around">
         <div className="h-full w-full flex flex-col justify-around">
-          {/* SEARCH */}
-          <div className="form-control p-10 self-center">
-            <div className="input-group">
-              <input
-                type="text"
-                placeholder="Search…"
-                className="input input-bordered"
-                onChange={(e) => handleSearchInputChange(e.target.value)}
-              />
-              <Button className="btn btn-square" onClick={handleSearchClick}>
-                <MagnifyingGlassIcon className="h-6 w-6" />
-              </Button>
-            </div>
-          </div>
-
           <div className="pb-5">
             <h3>TMDb Charts</h3>
             {/* CHART TITLE */}
-            <h1 className="text-3xl">{search ? 'Movies' : 'Most Popular movies'}</h1>
+            <h1 className="text-3xl">Most Popular movies</h1>
             {/* DESCRIPTION */}
             <p>As determined by TMDb Users</p>
           </div>
@@ -107,7 +80,7 @@ const Chart = () => {
                     {/* TITLE */}
                     <div className="space-x-2">
                       <Link className="link-info" to={`/title/${movie.id}`}>
-                        {movie.title}{' '}
+                        {movie.title}
                       </Link>
                       <span>{`(${new Date(movie.release_date).getFullYear()})`}</span>
                     </div>

@@ -1,4 +1,5 @@
 import React from 'react';
+
 import HomeCinema from '../../assets/home-cinema.svg';
 
 const Home = () => {

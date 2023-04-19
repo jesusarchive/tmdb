@@ -19,7 +19,7 @@ function Layout() {
             <Link to="/chart/popular">Most Popular Movies</Link>
           </li>
           <li>
-            <Link to="/find">Find</Link>
+            <Link to="/find">Search</Link>
           </li>
           <li>
             <Link to="/about">About</Link>
