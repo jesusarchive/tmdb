@@ -3,10 +3,10 @@ import { FireIcon, PhotoIcon, StarIcon, VideoCameraIcon } from '@heroicons/react
 import React, { useEffect, useState } from 'react';
 
 import { Badge } from '../../components';
-import { IMAGE_BASE_URL } from '../movies/api';
+import { IMAGE_BASE_URL } from '../chart/api';
 import { CastType, CrewType, getMovie, getMovieCredits, getMovieVideos, MovieDetailType, MovieVideoType } from './api';
 
-const Movie = () => {
+const Title = () => {
   const [loading, setLoading] = useState(false);
   const [movie, setMovie] = useState({} as MovieDetailType);
   const [videos, setVideos] = useState([] as Array<MovieVideoType>);
@@ -185,4 +185,4 @@ const Movie = () => {
   );
 };
 
-export default Movie;
+export default Title;

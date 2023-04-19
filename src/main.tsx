@@ -5,10 +5,10 @@ import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 import Layout from './layouts/layout';
+import Chart from './pages/chart';
 import Home from './pages/home';
-import Movie from './pages/movie';
-import Movies from './pages/movies/movies';
 import NoMatch from './pages/no-match';
+import Title from './pages/title';
 
 const router = createBrowserRouter([
   {
@@ -30,8 +30,8 @@ const router = createBrowserRouter([
           };
         }
       },
-      { path: 'movie', element: <Movie /> },
-      { path: 'movies', element: <Movies /> },
+      { path: 'title', element: <Title /> },
+      { path: 'chart/popular', element: <Chart /> },
       {
         path: '*',
         element: <NoMatch />

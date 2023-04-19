@@ -5,7 +5,7 @@ import React, { useEffect, useState } from 'react';
 import { Button, Pagination, Table } from '../../components';
 import { getMoviesBySearch, getPopularMovies, IMAGE_BASE_URL, MovieType } from './api';
 
-const Movies = () => {
+const Chart = () => {
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(1);
   const [maxPage, setMaxPage] = useState(-1);
@@ -91,8 +91,8 @@ const Movies = () => {
                 <span />
               </Table.Head>
 
-              <Table.Body className="overflow-scroll">
-                {movies.map((movie) => (
+              <Table.Body>
+                {movies?.map((movie) => (
                   <Table.Row key={movie.id}>
                     {/* POSTER */}
                     <div>
@@ -156,4 +156,4 @@ const Movies = () => {
   );
 };
 
-export default Movies;
+export default Chart;
