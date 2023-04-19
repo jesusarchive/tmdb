@@ -3,8 +3,8 @@ import { FireIcon, PhotoIcon, StarIcon, VideoCameraIcon } from '@heroicons/react
 import React, { useEffect, useState } from 'react';
 
 import { Badge } from '../../components';
-import { IMAGE_BASE_URL } from '../chart/api';
-import { CastType, CrewType, getMovie, getMovieCredits, getMovieVideos, MovieDetailType, MovieVideoType } from './api';
+import { IMAGE_BASE_URL } from '../../services/helpers/constants';
+import { CastType, CrewType, getMovie, getMovieCredits, getMovieVideos , MovieDetailType, MovieVideoType } from '../../services/movie';
 
 const Title = () => {
   const [loading, setLoading] = useState(false);

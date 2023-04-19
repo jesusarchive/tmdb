@@ -3,7 +3,8 @@ import { MagnifyingGlassIcon, StarIcon } from '@heroicons/react/24/solid';
 import React, { useEffect, useState } from 'react';
 
 import { Button, Pagination, Table } from '../../components';
-import { getMoviesBySearch, getPopularMovies, IMAGE_BASE_URL, MovieType } from './api';
+import { IMAGE_BASE_URL } from '../../services/helpers/constants';
+import { getMoviesBySearch, getPopularMovies, MovieType } from '../../services/movie';
 
 const Chart = () => {
   const [loading, setLoading] = useState(false);

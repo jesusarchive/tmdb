@@ -1,6 +1,26 @@
-export const API_KEY = '';
-export const BASE_URL = 'https://api.themoviedb.org';
-export const IMAGE_BASE_URL = 'https://image.tmdb.org/t/p/w500';
+export type MovieType = {
+  adult: boolean;
+  backdrop_path: string;
+  genre_ids: Array<number>;
+  id: number;
+  original_language: string;
+  original_title: string;
+  overview: string;
+  popularity: number;
+  poster_path: string;
+  release_date: string;
+  title: string;
+  video: boolean;
+  vote_average: number;
+  vote_count: number;
+};
+
+export type MoviesDataType = {
+  page: number;
+  results: Array<MovieType>;
+  total_pages: number;
+  total_results: number;
+};
 
 export type MovieDetailType = {
   adult: boolean;
@@ -75,27 +95,4 @@ export type CrewType = {
   original_name: string;
   popularity: number;
   profile_path: string;
-};
-
-export const getMovie = async (id: number): Promise<MovieDetailType> => {
-  const response = await fetch(`${BASE_URL}/3/movie/${id}?api_key=${API_KEY}&language=en-US`);
-  const data = await response.json();
-
-  return data;
-};
-
-export const getMovieVideos = async (id: number): Promise<{ id: number; results: Array<MovieVideoType> }> => {
-  const response = await fetch(`${BASE_URL}/3/movie/${id}/videos?api_key=${API_KEY}&language=en-US`);
-  const data = await response.json();
-
-  return data;
-};
-
-export const getMovieCredits = async (
-  id: number
-): Promise<{ id: number; cast: Array<CastType>; crew: Array<CrewType> }> => {
-  const response = await fetch(`${BASE_URL}/3/movie/${id}/credits?api_key=${API_KEY}&language=en-US`);
-  const data = await response.json();
-
-  return data;
 };
