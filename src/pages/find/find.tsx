@@ -1,9 +1,9 @@
 import { MagnifyingGlassIcon } from '@heroicons/react/24/solid';
 import clsx from 'clsx';
-import React, { useEffect, useState } from 'react';
+import React, { FormEvent, useEffect, useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 
-import { Button } from '../../components';
+import { Button, Form, Input, InputGroup } from '../../components';
 import { IMAGE_BASE_URL } from '../../services/helpers/constants';
 import { getMoviesBySearch, MovieType } from '../../services/movie';
 
@@ -16,11 +16,12 @@ const Find = () => {
   const [search, setSearch] = useState('');
   const [movies, setMovies] = useState([] as Array<MovieType>);
 
-  const handleSearchInputChange = (value: string) => {
+  const handleSearchChange = (value: string) => {
     setCurrentSearchValue(value);
   };
 
-  const handleSearchClick = () => {
+  const handleSearchSubmit = (event: FormEvent) => {
+    event.preventDefault();
     setCurrentSearchValue('');
     setSearch(currentSearchValue);
     setSearchParams({ ...searchParams, q: currentSearchValue });
@@ -59,20 +60,20 @@ const Find = () => {
       <div className="container mx-auto flex flex-col justify-around">
         <div className="h-full w-full flex flex-col justify-around">
           {/* SEARCH */}
-          <div className="form-control p-10 self-center">
-            <div className="input-group">
-              <input
+          <Form className="p-10 self-center" onSubmit={handleSearchSubmit}>
+            <InputGroup className="input-group">
+              <Input
                 type="text"
                 placeholder="Search…"
-                className="input input-bordered"
+                bordered
                 value={currentSearchValue}
-                onChange={(e) => handleSearchInputChange(e.target.value)}
+                onChange={(e) => handleSearchChange(e.target.value)}
               />
-              <Button className="btn btn-square" onClick={handleSearchClick}>
+              <Button className="btn btn-square">
                 <MagnifyingGlassIcon className="h-6 w-6" />
               </Button>
-            </div>
-          </div>
+            </InputGroup>
+          </Form>
 
           <div className="pb-20">
             {search ? (
@@ -94,28 +95,36 @@ const Find = () => {
           ) : search ? (
             <>
               <h3 className="text-4xl font-bold border-l-4 border-primary pl-3">Titles</h3>
-              <ul className="border-2 border-base-200 p-4 mt-8">
-                {movies?.map((movie, i) => (
-                  <li
-                    className={clsx('w-full h-24 flex space-x-2 border-base-200 pt-1', i !== 0 && ' border-t-2')}
-                    key={movie.id}
-                  >
-                    {/* POSTER */}
-                    <div>
-                      <Link to={`/title/${movie.id}`}>
-                        <img className="w-14" src={`${IMAGE_BASE_URL}${movie.poster_path}`} alt="poster" />
-                      </Link>
-                    </div>
-                    {/* TITLE */}
-                    <div className="flex flex-col">
-                      <Link className="link-info" to={`/title/${movie.id}`}>
-                        {movie.title}
-                      </Link>
-                      <span>{`(${new Date(movie.release_date).getFullYear()})`}</span>
-                    </div>
-                  </li>
-                ))}
-              </ul>
+              <div className="border-2 border-base-200 p-4 mt-8">
+                {movies.length ? (
+                  <ul>
+                    {movies?.map((movie, i) => (
+                      <li
+                        className={clsx('w-full h-24 flex space-x-2 border-base-200 pt-1', i !== 0 && ' border-t-2')}
+                        key={movie.id}
+                      >
+                        {/* POSTER */}
+                        <div>
+                          <Link to={`/title/${movie.id}`}>
+                            <img className="w-14" src={`${IMAGE_BASE_URL}${movie.poster_path}`} alt="poster" />
+                          </Link>
+                        </div>
+                        {/* TITLE */}
+                        <div className="flex flex-col">
+                          <Link className="link-info" to={`/title/${movie.id}`}>
+                            {movie.title}
+                          </Link>
+                          <span>{`(${new Date(movie.release_date).getFullYear()})`}</span>
+                        </div>
+                      </li>
+                    ))}
+                  </ul>
+                ) : (
+                  <div className="p-5">
+                    <span>{`No results found for "${search}"`}</span>
+                  </div>
+                )}
+              </div>
             </>
           ) : null}
         </div>
