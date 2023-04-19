@@ -7,6 +7,15 @@ import { Button, Pagination, Table } from '../../components';
 import { IMAGE_BASE_URL } from '../../services/helpers/constants';
 import { getPopularMovies, MovieType } from '../../services/movie';
 
+/**
+ *
+ * View with a table showing TMDb charts
+ *
+ * Example charts:
+ *   - Most Popular Movies
+ *   - Top Rated Movies
+ *
+ */
 const Chart = () => {
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(1);

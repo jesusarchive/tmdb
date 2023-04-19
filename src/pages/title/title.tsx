@@ -15,6 +15,11 @@ import {
   MovieVideoType
 } from '../../services/movie';
 
+/**
+ *
+ * View of title (movie, tv show...) detail data
+ *
+ */
 const Title = () => {
   const params = useParams();
   const [loading, setLoading] = useState(false);

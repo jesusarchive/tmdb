@@ -7,6 +7,11 @@ import { Button, Form, Input, InputGroup } from '../../components';
 import { IMAGE_BASE_URL } from '../../services/helpers/constants';
 import { getMoviesBySearch, MovieType } from '../../services/movie';
 
+/**
+ *
+ * View with a list of search results
+ *
+ */
 const Find = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [loading, setLoading] = useState(false);
