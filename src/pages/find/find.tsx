@@ -74,12 +74,12 @@ const Find = () => {
             </div>
           </div>
 
-          <div className="pb-5">
+          <div className="pb-20">
             {search ? (
               <h1 className="text-6xl">{`Search "${search}"`}</h1>
             ) : (
               <>
-                <h1 className="text-6xl pb-4">Search TMDb</h1>
+                <h1 className="text-5xl pb-4">Search TMDb</h1>
                 <p className="text-lg">
                   Search TMDb by typing a word or phrase in the search box at the top of this page.
                 </p>
@@ -92,28 +92,31 @@ const Find = () => {
               <span>loading...</span>
             </div>
           ) : search ? (
-            <ul className="border-2 border-base-200 p-4">
-              {movies?.map((movie, i) => (
-                <li
-                  className={clsx('w-full h-24 flex space-x-2 border-base-200 pt-1', i !== 0 && ' border-t-2')}
-                  key={movie.id}
-                >
-                  {/* POSTER */}
-                  <div>
-                    <Link to={`/title/${movie.id}`}>
-                      <img className="w-14" src={`${IMAGE_BASE_URL}${movie.poster_path}`} alt="poster" />
-                    </Link>
-                  </div>
-                  {/* TITLE */}
-                  <div className="flex flex-col">
-                    <Link className="link-info" to={`/title/${movie.id}`}>
-                      {movie.title}
-                    </Link>
-                    <span>{`(${new Date(movie.release_date).getFullYear()})`}</span>
-                  </div>
-                </li>
-              ))}
-            </ul>
+            <>
+              <h3 className="text-4xl font-bold border-l-4 border-primary pl-3">Titles</h3>
+              <ul className="border-2 border-base-200 p-4 mt-8">
+                {movies?.map((movie, i) => (
+                  <li
+                    className={clsx('w-full h-24 flex space-x-2 border-base-200 pt-1', i !== 0 && ' border-t-2')}
+                    key={movie.id}
+                  >
+                    {/* POSTER */}
+                    <div>
+                      <Link to={`/title/${movie.id}`}>
+                        <img className="w-14" src={`${IMAGE_BASE_URL}${movie.poster_path}`} alt="poster" />
+                      </Link>
+                    </div>
+                    {/* TITLE */}
+                    <div className="flex flex-col">
+                      <Link className="link-info" to={`/title/${movie.id}`}>
+                        {movie.title}
+                      </Link>
+                      <span>{`(${new Date(movie.release_date).getFullYear()})`}</span>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            </>
           ) : null}
         </div>
       </div>
