@@ -10,6 +10,7 @@ import Find from './pages/find/find';
 import Home from './pages/home';
 import NoMatch from './pages/no-match';
 import Title from './pages/title';
+import { StoreProvider } from './store/store';
 
 const router = createBrowserRouter([
   {
@@ -44,6 +45,8 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
-    <RouterProvider router={router} fallbackElement={<p>Loading...</p>} />
+    <StoreProvider>
+      <RouterProvider router={router} fallbackElement={<p>Loading...</p>} />
+    </StoreProvider>
   </React.StrictMode>
 );
