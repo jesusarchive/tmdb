@@ -1,9 +1,7 @@
-import { MagnifyingGlassIcon } from '@heroicons/react/24/solid';
 import clsx from 'clsx';
-import React, { FormEvent, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 
-import { Button, Form, Input, InputGroup } from '../../components';
 import { IMAGE_BASE_URL } from '../../services/helpers/constants';
 import { getMoviesBySearch, MovieType } from '../../services/movie';
 
