@@ -61,8 +61,8 @@ function Layout() {
         </div>
 
         <div className="flex justify-end space-x-4">
-          {/* USER MENU */}
-          <UserMenu user={state.user} />
+          {/* LOGIN/USER MENU */}
+          {state?.user?.token ? <UserMenu user={state.user} /> : <Button color="ghost">Sign In</Button>}
 
           {/* THEME SWAP*/}
           <ThemeSwap />
