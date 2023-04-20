@@ -1,4 +1,4 @@
-import { StarIcon as StarIconOutline } from '@heroicons/react/24/outline';
+import { StarIcon as StarOutlineIcon } from '@heroicons/react/24/outline';
 import { FireIcon, StarIcon } from '@heroicons/react/24/solid';
 import React from 'react';
 
@@ -7,11 +7,12 @@ import { toHoursAndMinutes } from './utils';
 
 export type TitleHeaderDataProps = {
   movie: MovieDetailType;
+  userRating: number;
   onRateClick: (...args: any) => any;
 };
 
 // Data showed in the header of title (movies, tv shows...) detail view
-const TitleHeaderData: React.FC<TitleHeaderDataProps> = ({ movie, onRateClick }) => {
+const TitleHeaderData: React.FC<TitleHeaderDataProps> = ({ movie, userRating, onRateClick }) => {
   return (
     <div className="w-full flex justify-between">
       <div className="w-4/6 flex flex-col">
@@ -34,9 +35,18 @@ const TitleHeaderData: React.FC<TitleHeaderDataProps> = ({ movie, onRateClick })
         <div className="w-2/6 flex flex-col">
           <span className="font-bold">YOUR RATING</span>
           {/* USER RATING */}
-          <div className="flex space-x-2 text-blue-600 font-bold cursor-pointer" onClick={onRateClick}>
-            <StarIconOutline className="h-8 w-8" />
-            <span className="text-2xl">Rate</span>
+          <div className="flex space-x-2  font-bold cursor-pointer" onClick={onRateClick}>
+            {userRating ? (
+              <>
+                <StarIcon className="h-8 w-8 text-blue-600" />
+                <span className="text-2xl">{userRating}</span>
+              </>
+            ) : (
+              <>
+                <StarOutlineIcon className="h-8 w-8 text-blue-600" />
+                <span className="text-2xl text-blue-600">Rate</span>
+              </>
+            )}
           </div>
         </div>
         {/* POPULARITY */}

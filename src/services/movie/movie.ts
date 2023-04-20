@@ -1,6 +1,9 @@
 import { API_KEY, BASE_URL } from '../constants';
 import { CastType, CrewType, MovieDetailType, MoviesDataType, MovieVideoType } from './types';
 
+// TODO: ADD VERBS API UTILS
+
+// GET
 export const getPopularMovies = async (page = 1): Promise<MoviesDataType> => {
   const response = await fetch(`${BASE_URL}/3/movie/popular?api_key=${API_KEY}&language=en-US&page=${page}`);
   const data = await response.json();
@@ -35,6 +38,25 @@ export const getMovieCredits = async (
   id: number
 ): Promise<{ id: number; cast: Array<CastType>; crew: Array<CrewType> }> => {
   const response = await fetch(`${BASE_URL}/3/movie/${id}/credits?api_key=${API_KEY}&language=en-US`);
+  const data = await response.json();
+
+  return data;
+};
+
+// POST
+export const postMovieRating = async (
+  id: number,
+  guest_session_id: number,
+  payload: { value: number }
+): Promise<any> => {
+  const response = await fetch(
+    `${BASE_URL}/3/movie/${id}/rating?api_key=${API_KEY}&guest_session_id=${guest_session_id}`,
+    {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    }
+  );
   const data = await response.json();
 
   return data;

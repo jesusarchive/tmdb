@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 import { Button, Modal } from '../../components';
+import { getGuestSessionRatedMovies } from '../../services/auth/auth';
 import {
   CastType,
   CrewType,
@@ -9,8 +10,11 @@ import {
   getMovieCredits,
   getMovieVideos,
   MovieDetailType,
-  MovieVideoType
+  MovieVideoType,
+  postMovieRating
 } from '../../services/movie';
+import { updateGuestSessionRatedMovies } from '../../store/actions';
+import { useStore } from '../../store/store';
 import Rating from './rating';
 import TitleData from './title-data';
 import TitleHeaderData from './title-header-data';
@@ -23,6 +27,7 @@ import TitleMedia from './title-media';
  */
 const Title = () => {
   const params = useParams();
+  const { state, dispatch } = useStore();
   const [loading, setLoading] = useState(false);
   const [movie, setMovie] = useState({} as MovieDetailType);
   const [videos, setVideos] = useState([] as Array<MovieVideoType>);
@@ -30,9 +35,31 @@ const Title = () => {
   const [writers, setWriters] = useState([] as Array<CrewType>);
   const [stars, setStars] = useState([] as Array<CastType>);
   const [openRatingModal, setOpenRatingModal] = useState(false);
+  const [currentUserRating, setCurrentUserRating] = useState(null as any);
+  const [newUserRating, setNewUserRating] = useState(0);
 
-  const handleRateClick = () => {
-    setOpenRatingModal(true);
+  const handleRateOpenClick = () => {
+    if (state?.guest?.guest_session_id) {
+      setOpenRatingModal(true);
+    }
+  };
+
+  const updateUserRatedMovies = async () => {
+    if (state?.guest?.guest_session_id) {
+      const guestSessionRatedMovies = await getGuestSessionRatedMovies(state.guest.guest_session_id);
+      dispatch(updateGuestSessionRatedMovies(guestSessionRatedMovies));
+      console.log(guestSessionRatedMovies);
+
+      return guestSessionRatedMovies;
+    }
+  };
+
+  const handleUserRateClick = async () => {
+    const result = await postMovieRating(movie.id, state.guest.guest_session_id, { value: newUserRating });
+    console.log(result);
+    setCurrentUserRating(newUserRating);
+    const updateResult = await updateUserRatedMovies();
+    console.log(updateResult);
   };
 
   const getTrailer = () => {
@@ -62,6 +89,10 @@ const Title = () => {
   const init = async () => {
     setLoading(true);
 
+    // update guest session rated movies if logged in
+    const response = await updateUserRatedMovies();
+
+    // get current id movie data
     const { id } = params;
 
     if (id) {
@@ -73,6 +104,10 @@ const Title = () => {
 
       const movieCredits = await getMovieCredits(Number(id));
       handleMovieCreditsData(movieCredits);
+
+      const movieUserRating =
+        state.guest && state.guest?.rated_movies?.results?.find((el) => el.id === movieDetailData.id)?.rating;
+      setCurrentUserRating(movieUserRating);
     }
 
     setLoading(false);
@@ -92,7 +127,7 @@ const Title = () => {
         Object.keys(movie).length > 0 && (
           <div className="container mx-auto flex flex-col space-y-5">
             {/* HEADER DATA */}
-            <TitleHeaderData movie={movie} onRateClick={handleRateClick} />
+            <TitleHeaderData movie={movie} userRating={currentUserRating} onRateClick={handleRateOpenClick} />
             {/* MEDIA */}
             <TitleMedia movie={movie} trailer={getTrailer()} />
             {/* DATA */}
@@ -102,10 +137,10 @@ const Title = () => {
               <Modal.Header className="font-bold flex items-center justify-center mb-3">Rate this</Modal.Header>
               <Modal.Body className="flex flex-col justify-center items-center">
                 <span className="pb-5 text-xl">{movie.original_title}</span>
-                <Rating onChange={console.log} />
+                <Rating initialValue={currentUserRating} onChange={setNewUserRating} />
               </Modal.Body>
               <Modal.Actions className="flex items-center justify-center">
-                <Button onClick={() => setOpenRatingModal(false)}>Rate</Button>
+                <Button onClick={handleUserRateClick}>Rate</Button>
               </Modal.Actions>
             </Modal>
           </div>

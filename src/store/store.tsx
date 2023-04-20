@@ -3,7 +3,7 @@ import React, { createContext, useContext, useReducer } from 'react';
 import rootReducer from './root-reducer';
 
 const initialState = {
-  guestSession: null,
+  guest: null,
   theme: 'dark'
 };
 

@@ -3,7 +3,7 @@ import React, { FormEvent, useState } from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
 
 import { Button, Form, Input, InputGroup, Navbar } from '../../components';
-import { getGuestSession } from '../../services/auth/auth';
+import { getGuestSession, getGuestSessionRatedMovies } from '../../services/auth/auth';
 import { addGuestSession } from '../../store/actions';
 import { useStore } from '../../store/store';
 import Footer from './footer';
@@ -32,9 +32,11 @@ function Layout() {
 
   const handleSignIn = async () => {
     setLoading(true);
-    const guestSession = await getGuestSession();
-    console.log(guestSession);
-    dispatch(addGuestSession(guestSession));
+    const data = await getGuestSession();
+    const guestSessionRatedMovies = await getGuestSessionRatedMovies(data.guest_session_id);
+    const guestData = { ...data, rated_movies: guestSessionRatedMovies };
+    console.log(guestData);
+    dispatch(addGuestSession(guestData));
     setLoading(false);
   };
 
@@ -73,8 +75,8 @@ function Layout() {
 
         <div className="flex justify-end space-x-4">
           {/* LOGIN/USER MENU */}
-          {state?.guestSession ? (
-            <UserMenu user={state.guestSession} />
+          {state?.guest ? (
+            <UserMenu user={state.guest} />
           ) : (
             <Button color="ghost" loading={loading} onClick={handleSignIn}>
               Sign In
@@ -85,6 +87,8 @@ function Layout() {
           <ThemeSwap />
         </div>
       </Navbar>
+
+      {JSON.stringify(state)}
 
       {/* OUTLET */}
       <Outlet />
