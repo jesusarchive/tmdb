@@ -1,10 +1,6 @@
-import { StarIcon as StarIconOutline } from '@heroicons/react/24/outline';
-import { FireIcon, PhotoIcon, StarIcon, VideoCameraIcon } from '@heroicons/react/24/solid';
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
-import { Badge } from '../../components';
-import { IMAGE_BASE_URL } from '../../services/constants';
 import {
   CastType,
   CrewType,
@@ -14,6 +10,9 @@ import {
   MovieDetailType,
   MovieVideoType
 } from '../../services/movie';
+import TitleData from './title-data';
+import TitleHeaderData from './title-header-data';
+import TitleMedia from './title-media';
 
 /**
  *
@@ -29,12 +28,7 @@ const Title = () => {
   const [writers, setWriters] = useState([] as Array<CrewType>);
   const [stars, setStars] = useState([] as Array<CastType>);
 
-  const toHoursAndMinutes = (totalMinutes: number): string => {
-    const hours = Math.floor(totalMinutes / 60);
-    const minutes = totalMinutes % 60;
-
-    return `${hours}h${minutes > 0 ? ` ${minutes}m` : ''}`;
-  };
+  const handleRateClick = () => {};
 
   const getTrailer = () => {
     return videos.find(
@@ -93,133 +87,11 @@ const Title = () => {
         Object.keys(movie).length > 0 && (
           <div className="container mx-auto flex flex-col space-y-5">
             {/* HEADER DATA */}
-            <div className="w-full flex justify-around">
-              <div className="w-4/6 flex flex-col">
-                <span className="h-12 w-full flex text-3xl">{movie.title}</span>
-                <div className="flex space-x-4">
-                  <span>{new Date(movie.release_date).getFullYear()}</span>
-                  <span>|</span>
-                  <span>{toHoursAndMinutes(movie.runtime)}</span>
-                </div>
-              </div>
-              <div className="w-2/6 flex space-x-4">
-                <div className="w-2/6 flex flex-col">
-                  <span className="font-bold">TMDb RATING</span>
-                  {/* RATING */}
-                  <div className="flex space-x-2">
-                    <StarIcon className="h-8 w-8 text-yellow-600" />
-                    <span className="text-2xl font-bold">{movie.vote_average?.toFixed(1)}</span>
-                  </div>
-                </div>
-                <div className="w-2/6 flex flex-col">
-                  <span className="font-bold">YOUR RATING</span>
-                  {/* USER RATING */}
-                  <div className="flex space-x-2 text-blue-600 font-bold">
-                    <StarIconOutline className="h-8 w-8" />
-                    <span className="text-2xl">Rate</span>
-                  </div>
-                </div>
-                <div className="w-2/6 flex flex-col">
-                  <span className="font-bold">POPULARITY</span>
-                  <div className="flex space-x-2 font-bold">
-                    <FireIcon className="h-8 w-8 text-red-600" />
-                    <span className="text-2xl font-bold">{movie.popularity?.toFixed()}</span>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <TitleHeaderData movie={movie} onRateClick={handleRateClick} />
             {/* MEDIA */}
-            <div className="w-full flex justify-around space-x-2">
-              <div className="w-3/12">
-                {movie.poster_path && (
-                  <img className="w-full" src={`${IMAGE_BASE_URL}${movie.poster_path}`} alt="poster" />
-                )}
-              </div>
-
-              <iframe
-                className="w-7/12"
-                src={`https://www.youtube.com/embed/${getTrailer()?.key}`}
-                title="YouTube video player"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              ></iframe>
-              <div className="w-2/12 h-full flex flex-col space-y-1 justify-around">
-                <div className="h-full border-1 bg-base-200 flex flex-col items-center justify-center space-y-4 cursor-not-allowed">
-                  <VideoCameraIcon className="h-10 w-10"></VideoCameraIcon>
-                  <span className="font-bold">25 VIDEOS</span>
-                </div>
-                <div className="h-full border-1 bg-base-200 flex flex-col items-center justify-center space-y-4 cursor-not-allowed">
-                  <PhotoIcon className="h-10 w-10"></PhotoIcon>
-                  <span className="font-bold">99+ PHOTOS</span>
-                </div>
-              </div>
-            </div>
+            <TitleMedia movie={movie} trailer={getTrailer()} />
             {/* DATA */}
-            <div className="w-full space-y-2">
-              {/* GENRES */}
-              <div className="flex space-x-2">
-                {movie.genres?.map(({ id, name }) => (
-                  <Badge key={id} className="text-lg p-4" size="md">
-                    {name}
-                  </Badge>
-                ))}
-              </div>
-              {/* DESCRIPTION */}
-              <div className="pt-4 pb-4">
-                <p className="text-lg text-neutral-500">{movie.overview}</p>
-              </div>
-              <div className="divider"></div>
-              {/* DIRECTOR */}
-              <div className="w-full flex items-center space-x-2 text-lg">
-                <span className="font-bold">Director</span>
-                <a
-                  className="link"
-                  href={`https://www.google.com/search?q=${director.name}`}
-                  rel="noreferrer"
-                  target="_blank"
-                >
-                  {director.name}
-                </a>
-              </div>
-              <div className="divider"></div>
-              {/* WRITERS */}
-              <div className="w-full flex items-center space-x-2 text-lg">
-                <span className="font-bold">Writers</span>
-                {writers?.map((writer, i) => (
-                  <div key={writer.credit_id} className="space-x-2">
-                    <a
-                      className="link"
-                      href={`https://www.google.com/search?q=${writer.name}`}
-                      rel="noreferrer"
-                      target="_blank"
-                    >
-                      {writer.name}
-                    </a>
-                    {i !== writers.length - 1 && <span>|</span>}
-                  </div>
-                ))}
-              </div>
-              <div className="divider"></div>
-              {/* STARS */}
-              <div className="w-full flex items-center space-x-2 text-lg">
-                <span className="text-xl font-bold">Stars</span>
-                <div className="w-full flex space-x-2">
-                  {stars.map((star, i) => (
-                    <div key={star.id} className="space-x-2">
-                      <a
-                        className="link"
-                        href={`https://www.google.com/search?q=${star.name}`}
-                        rel="noreferrer"
-                        target="_blank"
-                      >
-                        {star.name}
-                      </a>
-                      {i !== stars.length - 1 && <span>|</span>}
-                    </div>
-                  ))}
-                </div>
-              </div>
-              <div className="divider"></div>
-            </div>
+            <TitleData movie={movie} director={director} writers={writers} stars={stars} />
           </div>
         )
       )}
