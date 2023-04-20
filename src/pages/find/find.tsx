@@ -1,12 +1,11 @@
 import { ChevronDownIcon } from '@heroicons/react/24/solid';
-import clsx from 'clsx';
 import React, { useEffect, useState } from 'react';
-import { Link, useSearchParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 
 import { Button } from '../../components';
-import { IMAGE_BASE_URL } from '../../services/constants';
 import { getMoviesBySearch, MovieType } from '../../services/movie';
 import { uniq } from '../../utils';
+import TitleList from './title-list';
 
 /**
  *
@@ -93,43 +92,15 @@ const Find = () => {
           </div>
         ) : search ? (
           <>
-            {/* RESULT LIST */}
+            {/* RESULTS */}
             <h3 className="text-4xl font-bold border-l-4 border-primary pl-3">Titles</h3>
             <div className="border-2 border-base-200 p-4 mt-8">
               {movies?.length ? (
-                <div>
-                  <ul>
-                    {movies?.map((movie, i) => (
-                      <li
-                        className={clsx('w-full h-24 flex justify-start space-x-2 border-base-200 pt-1 border-b-2')}
-                        key={movie.id}
-                      >
-                        {/* POSTER */}
-                        <div className="w-14">
-                          <Link to={`/title/${movie.id}`}>
-                            <img className="w-full" src={`${IMAGE_BASE_URL}${movie.poster_path}`} alt="poster" />
-                          </Link>
-                        </div>
-                        <div className="h-18 max-w-[90%] flex flex-col">
-                          <div className="flex flex-col">
-                            {/* TITLE */}
-                            <Link className="link" to={`/title/${movie.id}`}>
-                              {movie.title}
-                            </Link>
-                            {/* YEAR */}
-                            {movie.release_date && <span>{`${new Date(movie.release_date).getFullYear()}`}</span>}
-                          </div>
+                <>
+                  {/* TITLE LIST */}
+                  <TitleList titles={movies} />
 
-                          {/* DESCRIPTION */}
-                          <div className="text-md">
-                            <p className="text-neutral-500 overflow-hidden whitespace-nowrap text-ellipsis">
-                              {movie.overview}
-                            </p>
-                          </div>
-                        </div>
-                      </li>
-                    ))}
-                  </ul>
+                  {/* LOAD MORE BUTTON */}
                   {page < maxPage && (
                     <div className="pt-2">
                       <Button
@@ -143,7 +114,7 @@ const Find = () => {
                       </Button>
                     </div>
                   )}
-                </div>
+                </>
               ) : (
                 // NO RESULTS
                 <div className="p-5">
