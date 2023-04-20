@@ -17,7 +17,6 @@ const TitleMedia: React.FC<TitleMediaProps> = ({ movie, trailer }) => {
       <div className="w-3/12">
         {movie.poster_path && <img className="w-full" src={`${IMAGE_BASE_URL}${movie.poster_path}`} alt="poster" />}
       </div>
-
       <iframe
         className="w-7/12"
         src={`https://www.youtube.com/embed/${trailer?.key}`}

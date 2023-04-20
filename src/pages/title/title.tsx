@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
+import { Button, Modal } from '../../components';
 import {
   CastType,
   CrewType,
@@ -10,6 +11,7 @@ import {
   MovieDetailType,
   MovieVideoType
 } from '../../services/movie';
+import Rating from './rating';
 import TitleData from './title-data';
 import TitleHeaderData from './title-header-data';
 import TitleMedia from './title-media';
@@ -27,8 +29,11 @@ const Title = () => {
   const [director, setDirector] = useState({} as CrewType);
   const [writers, setWriters] = useState([] as Array<CrewType>);
   const [stars, setStars] = useState([] as Array<CastType>);
+  const [openRatingModal, setOpenRatingModal] = useState(false);
 
-  const handleRateClick = () => {};
+  const handleRateClick = () => {
+    setOpenRatingModal(true);
+  };
 
   const getTrailer = () => {
     return videos.find(
@@ -92,6 +97,17 @@ const Title = () => {
             <TitleMedia movie={movie} trailer={getTrailer()} />
             {/* DATA */}
             <TitleData movie={movie} director={director} writers={writers} stars={stars} />
+            {/* RATING MODAL */}
+            <Modal open={openRatingModal} onClickBackdrop={() => setOpenRatingModal(false)}>
+              <Modal.Header className="font-bold flex items-center justify-center mb-3">Rate this</Modal.Header>
+              <Modal.Body className="flex flex-col justify-center items-center">
+                <span className="pb-5 text-xl">{movie.original_title}</span>
+                <Rating onChange={console.log} />
+              </Modal.Body>
+              <Modal.Actions className="flex items-center justify-center">
+                <Button onClick={() => setOpenRatingModal(false)}>Rate</Button>
+              </Modal.Actions>
+            </Modal>
           </div>
         )
       )}
