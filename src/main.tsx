@@ -7,7 +7,6 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Layout from './layouts/layout';
 import Chart from './pages/chart';
 import Find from './pages/find';
-import Home from './pages/home';
 import NoMatch from './pages/no-match';
 import Ratings from './pages/ratings';
 import Title from './pages/title';
@@ -20,7 +19,13 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <Home />
+        async lazy() {
+          const { default: Home } = await import('./pages/home');
+
+          return {
+            Component: Home
+          };
+        }
       },
       {
         path: 'about',
