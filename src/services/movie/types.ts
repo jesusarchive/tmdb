@@ -96,3 +96,7 @@ export type CrewType = {
   popularity: number;
   profile_path: string;
 };
+
+export interface MovieWithRatingType extends MovieType {
+  rating: number;
+}

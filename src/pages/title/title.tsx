@@ -2,10 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 import { Button, Modal } from '../../components';
-import { getGuestSessionRatedMovies } from '../../services/auth/auth';
 import {
   CastType,
   CrewType,
+  getGuestSessionRatedMovies,
   getMovie,
   getMovieCredits,
   getMovieVideos,

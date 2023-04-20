@@ -1,8 +1,8 @@
 import { API_KEY, BASE_URL } from '../constants';
-import { CastType, CrewType, MovieDetailType, MoviesDataType, MovieVideoType } from './types';
+import { CastType, CrewType, MovieDetailType, MoviesDataType, MovieVideoType, MovieWithRatingType } from './types';
 
-// TODO: ADD VERBS API UTILS
-
+// TODO: Add verbs api utils
+// TODO: Review types
 // GET
 export const getPopularMovies = async (page = 1): Promise<MoviesDataType> => {
   const response = await fetch(`${BASE_URL}/3/movie/popular?api_key=${API_KEY}&language=en-US&page=${page}`);
@@ -43,12 +43,23 @@ export const getMovieCredits = async (
   return data;
 };
 
+export const getGuestSessionRatedMovies = async (
+  guestSessionId: string
+): Promise<{ results: Array<MovieWithRatingType> }> => {
+  const response = await fetch(
+    `${BASE_URL}/3/guest_session/${guestSessionId}/rated/movies?api_key=${API_KEY}&language=en-US&sort_by=created_at.asc`
+  );
+  const data = await response.json();
+
+  return data;
+};
+
 // POST
 export const postMovieRating = async (
   id: number,
   guest_session_id: number,
   payload: { value: number }
-): Promise<any> => {
+): Promise<{ page: number; results: Array<MovieWithRatingType>; total_pages: number; total_results: number }> => {
   const response = await fetch(
     `${BASE_URL}/3/movie/${id}/rating?api_key=${API_KEY}&guest_session_id=${guest_session_id}`,
     {

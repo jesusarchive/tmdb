@@ -6,8 +6,6 @@ const rootReducer = (state: StateType, action: { type: string; payload: any }) =
     case ADD_GUEST_SESSION:
       return { ...state, guest: action.payload };
     case UPDATE_GUEST_SESSION_RATED_MOVIES:
-      console.log('UPDATE', action.payload);
-
       return { ...state, guest: { ...state.guest, rated_movies: action.payload } };
     case SET_THEME:
       return { ...state, theme: action.payload };

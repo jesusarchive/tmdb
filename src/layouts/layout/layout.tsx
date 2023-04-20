@@ -3,7 +3,8 @@ import React, { FormEvent, useState } from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
 
 import { Button, Form, Input, InputGroup, Navbar } from '../../components';
-import { getGuestSession, getGuestSessionRatedMovies } from '../../services/auth/auth';
+import { getGuestSession } from '../../services/auth/auth';
+import { getGuestSessionRatedMovies } from '../../services/movie';
 import { addGuestSession } from '../../store/actions';
 import { useStore } from '../../store/store';
 import Footer from './footer';
