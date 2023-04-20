@@ -3,8 +3,8 @@ import { StarIcon } from '@heroicons/react/24/solid';
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
-import { Button, Divider, Pagination, Table } from '../../components';
-import { IMAGE_BASE_URL } from '../../services/helpers/constants';
+import { Divider, Table } from '../../components';
+import { IMAGE_BASE_URL } from '../../services/constants';
 import { getPopularMovies, MovieType } from '../../services/movie';
 import { uniq } from '../../utils';
 
@@ -19,8 +19,6 @@ import { uniq } from '../../utils';
  */
 const Chart = () => {
   const [loading, setLoading] = useState(false);
-  // const [page, setPage] = useState(1);
-  // const [maxPage, setMaxPage] = useState(-1);
   const [movies, setMovies] = useState([] as Array<MovieType>);
 
   useEffect(() => {
@@ -40,35 +38,6 @@ const Chart = () => {
       setLoading(false);
     })();
   }, []);
-
-  // useEffect(() => {
-  //   (async () => {
-  //     setLoading(true);
-  //     const data = await getPopularMovies(page);
-  //     console.log(data);
-  //     setMaxPage(data.total_pages);
-  //     setMovies(data.results);
-  //     setLoading(false);
-  //   })();
-  // }, [page]);
-
-  // const handlePreviousPaginationClick = () => {
-  //   const newPage = page - 1;
-  //   if (newPage > 0) {
-  //     setPage(newPage);
-  //   }
-  // };
-
-  // const handleNextPaginationClick = () => {
-  //   if (maxPage < 0) {
-  //     return;
-  //   }
-
-  //   const newPage = page + 1;
-  //   if (newPage <= maxPage) {
-  //     setPage(newPage);
-  //   }
-  // };
 
   return (
     <div className="min-h-[80vh] w-full flex p-5">
@@ -159,20 +128,6 @@ const Chart = () => {
             </div>
           )}
         </div>
-
-        {/* PAGINATION */}
-        {/* <Pagination className="pt-20 self-center">
-          <Button className="btn" onClick={handlePreviousPaginationClick}>
-            «
-          </Button>
-          <Button className="btn">1</Button>
-          <Button className="btn">2</Button>
-          <Button className="btn">3</Button>
-          <Button className="btn">4</Button>
-          <Button className="btn" onClick={handleNextPaginationClick}>
-            »
-          </Button>
-        </Pagination> */}
       </div>
     </div>
   );

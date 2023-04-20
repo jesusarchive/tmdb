@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 import { Badge } from '../../components';
-import { IMAGE_BASE_URL } from '../../services/helpers/constants';
+import { IMAGE_BASE_URL } from '../../services/constants';
 import {
   CastType,
   CrewType,

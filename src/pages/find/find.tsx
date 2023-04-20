@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 
 import { Button } from '../../components';
-import { IMAGE_BASE_URL } from '../../services/helpers/constants';
+import { IMAGE_BASE_URL } from '../../services/constants';
 import { getMoviesBySearch, MovieType } from '../../services/movie';
 import { uniq } from '../../utils';
 

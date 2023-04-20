@@ -1,4 +1,4 @@
-import { API_KEY, BASE_URL } from '../helpers/constants';
+import { API_KEY, BASE_URL } from '../constants';
 import { CastType, CrewType, MovieDetailType, MoviesDataType, MovieVideoType } from './types';
 
 export const getPopularMovies = async (page = 1): Promise<MoviesDataType> => {
