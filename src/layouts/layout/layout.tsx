@@ -88,8 +88,6 @@ function Layout() {
         </div>
       </Navbar>
 
-      {JSON.stringify(state)}
-
       {/* OUTLET */}
       <Outlet />
 

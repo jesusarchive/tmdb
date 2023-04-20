@@ -9,6 +9,7 @@ import Chart from './pages/chart';
 import Find from './pages/find';
 import Home from './pages/home';
 import NoMatch from './pages/no-match';
+import Ratings from './pages/ratings';
 import Title from './pages/title';
 import { StoreProvider } from './store/store';
 
@@ -35,6 +36,7 @@ const router = createBrowserRouter([
       { path: 'title/:id', element: <Title /> },
       { path: 'chart/popular', element: <Chart /> },
       { path: 'find', element: <Find /> },
+      { path: 'user/guest12345/ratings', element: <Ratings /> },
       {
         path: '*',
         element: <NoMatch />
