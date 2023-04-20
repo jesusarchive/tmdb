@@ -107,7 +107,7 @@ const Title = () => {
                 {/* RATING */}
                 <div className="flex space-x-2">
                   <StarIcon className="h-8 w-8 text-yellow-600" />
-                  <span className="text-2xl">{movie.vote_average?.toFixed(1)}</span>
+                  <span className="text-2xl font-bold">{movie.vote_average?.toFixed(1)}</span>
                 </div>
               </div>
               <div className="w-2/6 flex flex-col">
@@ -131,19 +131,19 @@ const Title = () => {
           <div className="w-full flex justify-around space-x-2">
             <img className="w-3/12" src={`${IMAGE_BASE_URL}${movie.poster_path}`} alt="poster" />
             <iframe
-              className="w-4/6"
+              className="w-7/12"
               src={`https://www.youtube.com/embed/${getTrailer()?.key}`}
               title="YouTube video player"
               frameBorder="0"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
               allowfullscreen
             ></iframe>
-            <div className="w-1/6 h-full flex flex-col space-y-1 justify-around">
-              <div className="h-full border-1 bg-base-200 flex flex-col items-center justify-center space-y-4 cursor-pointer">
+            <div className="w-2/12 h-full flex flex-col space-y-1 justify-around">
+              <div className="h-full border-1 bg-base-200 flex flex-col items-center justify-center space-y-4 cursor-not-allowed">
                 <VideoCameraIcon className="h-10 w-10"></VideoCameraIcon>
                 <span className="font-bold">25 VIDEOS</span>
               </div>
-              <div className="h-full border-1 bg-base-200 flex flex-col items-center justify-center space-y-4 cursor-pointer">
+              <div className="h-full border-1 bg-base-200 flex flex-col items-center justify-center space-y-4 cursor-not-allowed">
                 <PhotoIcon className="h-10 w-10"></PhotoIcon>
                 <span className="font-bold">99+ PHOTOS</span>
               </div>
@@ -154,44 +154,44 @@ const Title = () => {
             {/* GENRES */}
             <div className="flex space-x-2">
               {movie.genres?.map(({ id, name }) => (
-                <Badge className="text-lg" key={id} size="lg">
+                <Badge className="text-lg p-4" key={id} size="md">
                   {name}
                 </Badge>
               ))}
             </div>
             {/* DESCRIPTION */}
             <div className="pt-4 pb-4">
-              <p className="text-lg">{movie.overview}</p>
+              <p className="text-lg text-neutral-500">{movie.overview}</p>
             </div>
             <div className="divider"></div>
             {/* DIRECTOR */}
-            <div className="h-16 w-full flex items-center space-x-2 text-xl">
+            <div className="w-full flex items-center space-x-2 text-lg">
               <span className="font-bold">Director</span>
-              <span className="text-primary">{director?.name}</span>
+              <a className="link">{director?.name}</a>
             </div>
             <div className="divider"></div>
             {/* WRITERS */}
-            <div className="h-16 w-full flex items-center space-x-2 text-xl">
+            <div className="w-full flex items-center space-x-2 text-lg">
               <span className="font-bold">Writers</span>
               {writers?.map(({ id, name }, i) => (
                 <>
-                  <span className="text-primary" key={id}>
+                  <a className="link" key={id}>
                     {name}
-                  </span>
+                  </a>
                   {i !== writers.length - 1 && <span>|</span>}
                 </>
               ))}
             </div>
             <div className="divider"></div>
             {/* STARS */}
-            <div className="h-16 w-full flex items-center space-x-2 text-xl">
+            <div className="w-full flex items-center space-x-2 text-lg">
               <span className="text-xl font-bold">Stars</span>
               <div className="space-x-2">
                 {stars.map(({ id, name }, i) => (
                   <>
-                    <span className="text-primary" key={id}>
+                    <a className="link" key={id}>
                       {name}
-                    </span>
+                    </a>
                     {i !== stars.length - 1 && <span>|</span>}
                   </>
                 ))}
