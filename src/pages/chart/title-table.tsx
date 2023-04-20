@@ -7,12 +7,12 @@ import { Table } from '../../components';
 import { IMAGE_BASE_URL } from '../../services/constants';
 import { MovieType } from '../../services/movie';
 
-export type TitlesTableProps = {
-  movies: Array<MovieType>;
+export type TitleTableProps = {
+  titles: Array<MovieType>;
 };
 
 // Table of titles (movies, tv shows...)
-const TitlesTable: React.FC<TitlesTableProps> = ({ movies }) => {
+const TitleTable: React.FC<TitleTableProps> = ({ titles }) => {
   return (
     <Table className="min-h-[65vh] w-full" compact>
       <Table.Head>
@@ -24,25 +24,25 @@ const TitlesTable: React.FC<TitlesTableProps> = ({ movies }) => {
       </Table.Head>
 
       <Table.Body>
-        {movies?.map((movie) => (
-          <Table.Row key={movie.id}>
+        {titles?.map((title) => (
+          <Table.Row key={title.id}>
             {/* POSTER */}
             <div className="w-12">
-              <Link to={`/title/${movie.id}`}>
-                <img className="w-full" src={`${IMAGE_BASE_URL}${movie.poster_path}`} alt="poster" />
+              <Link to={`/title/${title.id}`}>
+                <img className="w-full" src={`${IMAGE_BASE_URL}${title.poster_path}`} alt="poster" />
               </Link>
             </div>
             {/* TITLE & YEAR */}
             <div className="space-x-2 text-lg">
-              <Link className="link" to={`/title/${movie.id}`}>
-                {movie.title}
+              <Link className="link" to={`/title/${title.id}`}>
+                {title.title}
               </Link>
-              <span>{`(${new Date(movie.release_date).getFullYear()})`}</span>
+              <span>{`(${new Date(title.release_date).getFullYear()})`}</span>
             </div>
             {/* RATING */}
             <div className="flex space-x-1 text-lg">
               <StarIcon className="h-6 w-6 text-yellow-600" />
-              <span className="font-bold">{movie.vote_average.toFixed(1)}</span>
+              <span className="font-bold">{title.vote_average.toFixed(1)}</span>
             </div>
             {/* USER RATING */}
             <div className="flex space-x-1">
@@ -74,4 +74,4 @@ const TitlesTable: React.FC<TitlesTableProps> = ({ movies }) => {
   );
 };
 
-export default TitlesTable;
+export default TitleTable;

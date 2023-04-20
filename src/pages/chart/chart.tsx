@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { Divider } from '../../components';
 import { getPopularMovies, MovieType } from '../../services/movie';
 import { uniq } from '../../utils';
-import TitlesTable from './titles-table';
+import TitleTable from './title-table';
 
 /**
  *
@@ -62,7 +62,7 @@ const Chart = () => {
                 <p className="text-base">{`Showing ${movies.length} Titles`}</p>
               </div>
               {/* TITLES TABLE */}
-              <TitlesTable movies={movies} />
+              <TitleTable titles={movies} />
             </div>
           ) : (
             // NO RESULTS
