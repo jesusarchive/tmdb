@@ -33,7 +33,7 @@ function Layout() {
       <Navbar className="h-[6vh] flex justify-between p-10 bg-base-100 shadow mb-5">
         <div>
           {/* HOME BUTTON */}
-          <Button className="text-xl normal-case" color="ghost" onClick={() => navigate({ pathname: '/' })}>
+          <Button className="text-2xl normal-case" color="ghost" onClick={() => navigate({ pathname: '/' })}>
             TMDb
           </Button>
         </div>
