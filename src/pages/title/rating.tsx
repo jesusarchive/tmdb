@@ -1,40 +1,30 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 
 export interface RatingProps extends React.HTMLAttributes<HTMLDivElement> {
   max?: number;
-  initialValue?: number;
+  value?: number;
   onChange: (...args: any) => any;
 }
 
-const Rating: React.FC<RatingProps> = ({ max = 10, initialValue = 0, onChange }) => {
-  const [value, setValue] = useState(initialValue);
-
-  useEffect(() => {
-    onChange(value);
-  }, [value]);
-
+const Rating: React.FC<RatingProps> = ({ max = 10, value, onChange }) => {
   return (
     <div className="rating rating-half">
-      {/* RESET */}
-      <input type="radio" name="rating-1" className="rating-hidden" checked={value === 0} onClick={() => setValue(0)} />
-      {/* STARS */}
-      {[...Array(max).keys()].map((el) => (
+      <input type="radio" name="rating-1" className="rating-hidden" checked={value === 0} readOnly />
+      {[...Array(max).keys()].map((el, index) => (
         <>
-          {/* HALF */}
           <input
             type="radio"
             name="rating-1"
             className="bg-blue-600 mask mask-star-2 mask-half-1"
-            checked={value === el + 0.5}
-            onClick={() => setValue(el + 0.5)}
+            checked={value === index + 0.5}
+            onChange={() => onChange?.(el + 0.5)}
           />
-          {/* COMPLETE */}
           <input
             type="radio"
             name="rating-1"
             className="bg-blue-600 mask mask-star-2 mask-half-2"
-            checked={value === el + 1}
-            onClick={() => setValue(el + 1)}
+            checked={value === index + 1}
+            onChange={() => onChange?.(index + 1)}
           />
         </>
       ))}

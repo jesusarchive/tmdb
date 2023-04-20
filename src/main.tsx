@@ -36,7 +36,7 @@ const router = createBrowserRouter([
       { path: 'title/:id', element: <Title /> },
       { path: 'chart/popular', element: <Chart /> },
       { path: 'find', element: <Find /> },
-      { path: 'user/guest12345/ratings', element: <Ratings /> },
+      { path: 'user/guest/ratings', element: <Ratings /> },
       {
         path: '*',
         element: <NoMatch />

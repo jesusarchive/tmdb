@@ -7,12 +7,12 @@ import { toHoursAndMinutes } from './utils';
 
 export type TitleHeaderDataProps = {
   movie: MovieDetailType;
-  userRating: number;
+  rating: number;
   onRateClick: (...args: any) => any;
 };
 
 // Data showed in the header of title (movies, tv shows...) detail view
-const TitleHeaderData: React.FC<TitleHeaderDataProps> = ({ movie, userRating, onRateClick }) => {
+const TitleHeaderData: React.FC<TitleHeaderDataProps> = ({ movie, rating, onRateClick }) => {
   return (
     <div className="w-full flex justify-between">
       <div className="w-4/6 flex flex-col">
@@ -36,10 +36,10 @@ const TitleHeaderData: React.FC<TitleHeaderDataProps> = ({ movie, userRating, on
           <span className="font-bold">YOUR RATING</span>
           {/* USER RATING */}
           <div className="flex space-x-2  font-bold cursor-pointer" onClick={onRateClick}>
-            {userRating ? (
+            {rating ? (
               <>
                 <StarIcon className="h-8 w-8 text-blue-600" />
-                <span className="text-2xl">{userRating}</span>
+                <span className="text-2xl">{rating}</span>
               </>
             ) : (
               <>
