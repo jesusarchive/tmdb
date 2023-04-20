@@ -11,7 +11,7 @@ function About() {
   const data = useLoaderData() as string;
 
   return (
-    <div>
+    <div className="min-h-[81vh]">
       <h2>About</h2>
       <p>{data}</p>
     </div>

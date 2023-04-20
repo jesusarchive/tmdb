@@ -3,6 +3,8 @@ import React, { FormEvent, useState } from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
 
 import { Button, Form, Input, InputGroup, Navbar } from '../../components';
+import { getGuestSession } from '../../services/auth/auth';
+import { addGuestSession } from '../../store/actions';
 import { useStore } from '../../store/store';
 import Footer from './footer';
 import NavigationMenu from './navigation-menu';
@@ -13,6 +15,7 @@ function Layout() {
   const { state, dispatch } = useStore();
   const navigate = useNavigate();
   const [currentSearchValue, setCurrentSearchValue] = useState('');
+  const [loading, setLoading] = useState(false);
 
   const handleSearchChange = (value: string) => {
     setCurrentSearchValue(value);
@@ -25,6 +28,14 @@ function Layout() {
       pathname: '/find',
       search: `?q=${currentSearchValue}`
     });
+  };
+
+  const handleSignIn = async () => {
+    setLoading(true);
+    const guestSession = await getGuestSession();
+    console.log(guestSession);
+    dispatch(addGuestSession(guestSession));
+    setLoading(false);
   };
 
   return (
@@ -62,7 +73,13 @@ function Layout() {
 
         <div className="flex justify-end space-x-4">
           {/* LOGIN/USER MENU */}
-          {state?.user?.token ? <UserMenu user={state.user} /> : <Button color="ghost">Sign In</Button>}
+          {state?.guestSession ? (
+            <UserMenu user={state.guestSession} />
+          ) : (
+            <Button color="ghost" loading={loading} onClick={handleSignIn}>
+              Sign In
+            </Button>
+          )}
 
           {/* THEME SWAP*/}
           <ThemeSwap />

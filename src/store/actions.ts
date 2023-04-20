@@ -1,9 +1,9 @@
-import { ADD_USER, SET_THEME } from './constants';
-import { UserType } from './types';
+import { ADD_GUEST_SESSION, SET_THEME } from './constants';
+import { GuestProps } from './types';
 
-export const addUser = (payload: UserType) => {
+export const addGuestSession = (payload: GuestProps) => {
   return {
-    type: ADD_USER,
+    type: ADD_GUEST_SESSION,
     payload
   };
 };

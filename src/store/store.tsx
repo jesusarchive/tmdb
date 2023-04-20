@@ -3,11 +3,8 @@ import React, { createContext, useContext, useReducer } from 'react';
 import rootReducer from './root-reducer';
 
 const initialState = {
-  theme: 'dark',
-  user: {
-    name: 'User1',
-    image: 'https://image.tmdb.org/t/p/w500/wuMc08IPKEatf9rnMNXvIDxqP4W.jpg'
-  }
+  guestSession: null,
+  theme: 'dark'
 };
 
 export const Store = createContext(initialState);

@@ -6,7 +6,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 import Layout from './layouts/layout';
 import Chart from './pages/chart';
-import Find from './pages/find/find';
+import Find from './pages/find';
 import Home from './pages/home';
 import NoMatch from './pages/no-match';
 import Title from './pages/title';
