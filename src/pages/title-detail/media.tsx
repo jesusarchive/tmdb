@@ -4,13 +4,13 @@ import React from 'react';
 import { IMAGE_BASE_URL } from '../../config/api';
 import { MovieDetailType, MovieVideoType } from '../../services/movie';
 
-export type TitleMediaProps = {
+export type MediaProps = {
   movie: MovieDetailType;
-  trailer: MovieVideoType;
+  trailer: MovieVideoType | undefined;
 };
 
 // Media of title (movies, tv shows...) detail view
-const TitleMedia: React.FC<TitleMediaProps> = ({ movie, trailer }) => {
+const Media: React.FC<MediaProps> = ({ movie, trailer }) => {
   return (
     <div className="w-full flex justify-around space-x-2">
       <div className="w-3/12">
@@ -36,4 +36,4 @@ const TitleMedia: React.FC<TitleMediaProps> = ({ movie, trailer }) => {
   );
 };
 
-export default TitleMedia;
+export default Media;

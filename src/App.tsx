@@ -18,7 +18,7 @@ const router = createBrowserRouter([
       {
         path: 'title/:id',
         async lazy() {
-          const { default: Title } = await import('./pages/title');
+          const { default: Title } = await import('./pages/title-detail');
 
           return {
             Component: Title

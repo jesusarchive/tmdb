@@ -5,14 +5,14 @@ import React from 'react';
 import { MovieDetailType } from '../../services/movie';
 import { toHoursAndMinutes } from './utils';
 
-export type TitleHeaderDataProps = {
+export type HeaderProps = {
   movie: MovieDetailType;
   rating: number;
   onRateClick: (...args: any) => any;
 };
 
 // Data showed in the header of title (movies, tv shows...) detail view
-const TitleHeaderData: React.FC<TitleHeaderDataProps> = ({ movie, rating, onRateClick }) => {
+const Header: React.FC<HeaderProps> = ({ movie, rating, onRateClick }) => {
   return (
     <div className="w-full flex justify-between">
       <div className="w-4/6 flex flex-col">
@@ -62,4 +62,4 @@ const TitleHeaderData: React.FC<TitleHeaderDataProps> = ({ movie, rating, onRate
   );
 };
 
-export default TitleHeaderData;
+export default Header;

@@ -7,8 +7,8 @@ export const filterTrailerFromVideos = (videos: Array<MovieVideoType>): MovieVid
   );
 };
 
-export const filterDirectorFromCrew = (crew: Array<CrewType>): CrewType => {
-  return crew.find(({ job }) => job.toLowerCase() === 'director') || ({} as CrewType);
+export const filterDirectorFromCrew = (crew: Array<CrewType>): Array<CrewType> => {
+  return crew.filter(({ job }) => job.toLowerCase() === 'director') || ([] as Array<CrewType>);
 };
 
 export const filterWritersFromCrew = (crew: Array<CrewType>): Array<CrewType> => {

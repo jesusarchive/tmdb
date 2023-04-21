@@ -16,6 +16,8 @@ import {
 } from '../../services/movie';
 import { updateGuestSessionRatedMovies } from '../../store/actions';
 import { useStore } from '../../store/store';
+import Genres from './genres';
+import Header from './header';
 import {
   filterDirectorFromCrew,
   filterStarsFromCast,
@@ -23,10 +25,10 @@ import {
   filterWritersFromCrew,
   getMovieRatingFromUserState
 } from './helpers';
+import Media from './media';
+import Plot from './plot';
+import Presentation from './presentation';
 import Rating from './rating';
-import TitleData from './title-data';
-import TitleHeaderData from './title-header-data';
-import TitleMedia from './title-media';
 
 /**
  *
@@ -39,7 +41,7 @@ const Title = () => {
   const [loading, setLoading] = useState(false);
   const [movie, setMovie] = useState({} as MovieDetailType);
   const [videos, setVideos] = useState([] as Array<MovieVideoType>);
-  const [director, setDirector] = useState({} as CrewType);
+  const [director, setDirector] = useState({} as Array<CrewType>);
   const [writers, setWriters] = useState([] as Array<CrewType>);
   const [stars, setStars] = useState([] as Array<CastType>);
   const [openRatingModal, setOpenRatingModal] = useState(false);
@@ -112,11 +114,15 @@ const Title = () => {
         Object.keys(movie).length > 0 && (
           <div className="container mx-auto flex flex-col space-y-5">
             {/* HEADER DATA */}
-            <TitleHeaderData movie={movie} rating={stateRating} onRateClick={handleRateOpenClick} />
+            <Header movie={movie} rating={stateRating} onRateClick={handleRateOpenClick} />
             {/* MEDIA */}
-            <TitleMedia movie={movie} trailer={filterTrailerFromVideos(videos)} />
+            <Media movie={movie} trailer={filterTrailerFromVideos(videos)} />
             {/* DATA */}
-            <TitleData movie={movie} director={director} writers={writers} stars={stars} />
+            <div className="w-full space-y-2">
+              <Genres genres={movie.genres} />
+              <Plot plot={movie.overview} />
+              <Presentation data={{ director, writers, stars }} />
+            </div>
             {/* RATING MODAL */}
             {createPortal(
               <Modal open={openRatingModal} onClickBackdrop={() => setOpenRatingModal(false)}>
