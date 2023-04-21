@@ -1,14 +1,6 @@
-// ALERT
-export { default as Alert } from './alert';
-export * from './alert';
-
 // BADGE
 export { default as Badge } from './badge';
 export * from './badge';
-
-// BREADCRUMBS
-export { default as Breadcrubms } from './breadcrumbs';
-export * from './breadcrumbs';
 
 // BUTTON
 export { default as Button } from './button';
