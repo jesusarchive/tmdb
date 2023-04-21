@@ -14,6 +14,7 @@ export type TitleHeaderDataProps = {
 // Data showed in the header of title (movies, tv shows...) detail view
 const TitleHeaderData: React.FC<TitleHeaderDataProps> = ({ movie, rating, onRateClick }) => {
   console.log(rating);
+
   return (
     <div className="w-full flex justify-between">
       <div className="w-4/6 flex flex-col">
