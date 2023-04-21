@@ -48,15 +48,14 @@ const Title = () => {
     if (state?.guest?.guest_session_id) {
       const guestSessionRatedMovies = await getGuestSessionRatedMovies(state.guest.guest_session_id);
       dispatch(updateGuestSessionRatedMovies(guestSessionRatedMovies));
-      console.log(guestSessionRatedMovies);
 
       return guestSessionRatedMovies;
     }
   };
 
   const handleUserRateClick = async () => {
-    const result = await postMovieRating(movie.id, state.guest.guest_session_id, { value: rating });
-    console.log(result);
+    await postMovieRating(movie.id, state.guest.guest_session_id, { value: rating });
+
     setStateRating(rating);
     setOpenRatingModal(false);
   };

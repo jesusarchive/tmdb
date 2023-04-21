@@ -36,7 +36,6 @@ function Layout() {
     const data = await getGuestSession();
     const guestSessionRatedMovies = await getGuestSessionRatedMovies(data.guest_session_id);
     const guestData = { ...data, rated_movies: guestSessionRatedMovies };
-    console.log(guestData);
     dispatch(addGuestSession(guestData));
     setLoading(false);
   };

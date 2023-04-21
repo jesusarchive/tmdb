@@ -10,7 +10,6 @@ export type TitleMediaProps = {
 };
 
 // Media of title (movies, tv shows...) detail view
-// ! VIDEOS AND PHOTOS BUTTON MOCKED
 const TitleMedia: React.FC<TitleMediaProps> = ({ movie, trailer }) => {
   return (
     <div className="w-full flex justify-around space-x-2">

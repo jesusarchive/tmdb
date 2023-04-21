@@ -34,15 +34,17 @@ const Find = () => {
   useEffect(() => {
     (async () => {
       setLoading(true);
+
       if (search) {
         setMovies([]);
         setPage(1);
+
         const data = await getMoviesBySearch(page, search);
-        console.log(data);
         setMaxPage(data.total_pages);
 
         setMovies(data.results);
       }
+
       setLoading(false);
     })();
   }, [search]);
@@ -57,9 +59,9 @@ const Find = () => {
       if (page > 1 && movies?.length && page <= maxPage) {
         setLoadingMore(true);
         const data = await getMoviesBySearch(page, search);
-        console.log(data);
         setMaxPage(data.total_pages);
-        console.log(uniq(movies.concat(data.results)));
+
+        // Add timeout for loading animation
         setTimeout(() => {
           setMovies(uniq(movies.concat(data.results)));
           setLoadingMore(false);

@@ -21,15 +21,16 @@ const Chart = () => {
   useEffect(() => {
     (async () => {
       setLoading(true);
+
       const data = await getPopularMovies(1);
       const firstPageMovies = data.results;
-      console.log(data);
+
       if (data.total_pages >= 6) {
         const nextPagesData = await Promise.all([2, 3, 4, 5, 6].map(async (el) => await getPopularMovies(el)));
         const newMovies = nextPagesData.reduce((acc, el) => acc.concat(el.results), firstPageMovies);
-        console.log(uniq(newMovies).slice(0, 100));
         setMovies(uniq(newMovies).slice(0, 100));
       }
+
       setLoading(false);
     })();
   }, []);
