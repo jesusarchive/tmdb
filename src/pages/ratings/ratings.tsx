@@ -3,7 +3,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import { Card } from '../../components';
-import { IMAGE_BASE_URL } from '../../services/constants';
+import { IMAGE_BASE_URL } from '../../config/api';
 import { MovieWithRatingType } from '../../services/movie';
 import { useStore } from '../../store/store';
 

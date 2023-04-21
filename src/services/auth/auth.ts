@@ -1,4 +1,4 @@
-import { API_KEY, BASE_URL } from '../constants';
+import { API_KEY, BASE_URL } from '../../config/api';
 
 export const getGuestSession = async (): Promise<{
   success: boolean;

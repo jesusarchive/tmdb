@@ -1,7 +1,7 @@
 import { PhotoIcon, VideoCameraIcon } from '@heroicons/react/24/solid';
 import React from 'react';
 
-import { IMAGE_BASE_URL } from '../../services/constants';
+import { IMAGE_BASE_URL } from '../../config/api';
 import { MovieDetailType, MovieVideoType } from '../../services/movie';
 
 export type TitleMediaProps = {

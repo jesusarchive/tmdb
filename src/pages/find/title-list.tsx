@@ -2,7 +2,7 @@ import clsx from 'clsx';
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import { IMAGE_BASE_URL } from '../../services/constants';
+import { IMAGE_BASE_URL } from '../../config/api';
 import { MovieType } from '../../services/movie';
 
 export type TitleListProps = {

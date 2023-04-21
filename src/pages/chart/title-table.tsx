@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 
 // import BookmarkIcon from '../../assets/bookmark.svg';
 import { Table } from '../../components';
-import { IMAGE_BASE_URL } from '../../services/constants';
+import { IMAGE_BASE_URL } from '../../config/api';
 import { MovieType } from '../../services/movie';
 import { useStore } from '../../store/store';
 

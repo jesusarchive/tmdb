@@ -1,4 +1,4 @@
-import { API_KEY, BASE_URL } from '../constants';
+import { API_KEY,BASE_URL } from '../../config/api';
 import { CastType, CrewType, MovieDetailType, MoviesDataType, MovieVideoType, MovieWithRatingType } from './types';
 
 // TODO: Add verbs api utils
