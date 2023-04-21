@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { Divider } from '../../components';
 import { getPopularMovies, MovieType } from '../../services/movie';
 import { uniq } from '../../utils';
-import TitleTable from './movie-table';
+import MovieTable from './movie-table';
 
 const PopularMovies = () => {
   const [loading, setLoading] = useState(false);
@@ -64,7 +64,7 @@ const PopularMovies = () => {
                 <p className="text-base">{`Showing ${movies.length} Titles`}</p>
               </div>
               {/* TITLES TABLE */}
-              <TitleTable titles={movies} />
+              <MovieTable titles={movies} />
             </div>
           ) : (
             // NO RESULTS
