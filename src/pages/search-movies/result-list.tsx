@@ -5,12 +5,11 @@ import { Link } from 'react-router-dom';
 import { IMAGE_BASE_URL } from '../../config/api';
 import { MovieType } from '../../services/movie';
 
-export type TitleListProps = {
+export type ResultListProps = {
   titles: Array<MovieType>;
 };
 
-// List of titles (movies, tv shows...)
-const TitleList: React.FC<TitleListProps> = ({ titles }) => {
+const ResultList: React.FC<ResultListProps> = ({ titles }) => {
   return (
     <ul>
       {titles?.map((title, i) => (
@@ -41,4 +40,4 @@ const TitleList: React.FC<TitleListProps> = ({ titles }) => {
   );
 };
 
-export default TitleList;
+export default ResultList;

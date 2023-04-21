@@ -30,12 +30,7 @@ import Plot from './plot';
 import Presentation from './presentation';
 import Rating from './rating';
 
-/**
- *
- * View of title (movie, tv show...) detail data
- *
- */
-const Title = () => {
+const MovieDetail = () => {
   const params = useParams();
   const { state, dispatch } = useStore();
   const [loading, setLoading] = useState(false);
@@ -144,4 +139,4 @@ const Title = () => {
   );
 };
 
-export default Title;
+export default MovieDetail;

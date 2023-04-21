@@ -18,40 +18,40 @@ const router = createBrowserRouter([
       {
         path: 'title/:id',
         async lazy() {
-          const { default: Title } = await import('./pages/title-detail');
+          const { default: MovieDetail } = await import('./pages/movie-detail');
 
           return {
-            Component: Title
+            Component: MovieDetail
           };
         }
       },
       {
         path: 'chart/popular',
         async lazy() {
-          const { default: Chart } = await import('./pages/chart');
+          const { default: PopularMovies } = await import('./pages/popular-movies');
 
           return {
-            Component: Chart
+            Component: PopularMovies
           };
         }
       },
       {
         path: 'find',
         async lazy() {
-          const { default: Find } = await import('./pages/find');
+          const { default: SearchMovies } = await import('./pages/search-movies');
 
           return {
-            Component: Find
+            Component: SearchMovies
           };
         }
       },
       {
         path: 'user/guest/ratings',
         async lazy() {
-          const { default: Ratings } = await import('./pages/ratings');
+          const { default: UserRatings } = await import('./pages/user-ratings');
 
           return {
-            Component: Ratings
+            Component: UserRatings
           };
         }
       },

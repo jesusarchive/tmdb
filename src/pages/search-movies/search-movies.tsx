@@ -5,14 +5,9 @@ import { useSearchParams } from 'react-router-dom';
 import { Button } from '../../components';
 import { getMoviesBySearch, MovieType } from '../../services/movie';
 import { uniq } from '../../utils';
-import TitleList from './title-list';
+import ResultList from './result-list';
 
-/**
- *
- * View with a list of search results
- *
- */
-const Find = () => {
+const SearchMovies = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(1);
@@ -113,7 +108,7 @@ const Find = () => {
               {movies?.length ? (
                 <>
                   {/* TITLE LIST */}
-                  <TitleList titles={movies} />
+                  <ResultList titles={movies} />
 
                   {/* LOAD MORE BUTTON */}
                   {page < maxPage && (
@@ -144,4 +139,4 @@ const Find = () => {
   );
 };
 
-export default Find;
+export default SearchMovies;

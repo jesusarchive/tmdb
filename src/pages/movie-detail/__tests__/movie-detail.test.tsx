@@ -2,11 +2,11 @@ import { render } from '@testing-library/react';
 import React from 'react';
 import { describe, expect, test } from 'vitest';
 
-import Title from '../title-detail';
+import MovieDetail from '../movie-detail';
 
-describe('<Title />', () => {
-  test('Title mounts properly', () => {
-    const wrapper = render(<Title />);
+describe('<MovieDetail />', () => {
+  test('MovieDetail mounts properly', () => {
+    const wrapper = render(<MovieDetail />);
     expect(wrapper).toBeTruthy();
   });
 });

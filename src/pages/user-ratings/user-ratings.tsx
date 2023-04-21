@@ -1,9 +1,9 @@
 import React from 'react';
 
 import { useStore } from '../../store/store';
-import Lister from './lister';
+import RatingList from './rating-list';
 
-const Ratings = () => {
+const UserRatings = () => {
   const { state } = useStore();
 
   return (
@@ -13,7 +13,7 @@ const Ratings = () => {
           <h1 className="text-3xl pb-5">Your Ratings</h1>
 
           {state?.guest?.rated_movies.results ? (
-            <Lister titles={state?.guest?.rated_movies.results} />
+            <RatingList titles={state?.guest?.rated_movies.results} />
           ) : (
             <span>No results</span>
           )}
@@ -25,4 +25,4 @@ const Ratings = () => {
   );
 };
 
-export default Ratings;
+export default UserRatings;

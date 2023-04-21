@@ -6,11 +6,11 @@ import { Card } from '../../components';
 import { IMAGE_BASE_URL } from '../../config/api';
 import { MovieWithRatingType } from '../../services/movie';
 
-export type ListerProps = {
+export type RatingListProps = {
   titles: Array<MovieWithRatingType>;
 };
 
-const Lister: React.FC<ListerProps> = ({ titles }) => {
+const RatingList: React.FC<RatingListProps> = ({ titles }) => {
   return (
     <div>
       {titles.map((title: MovieWithRatingType) => (
@@ -37,4 +37,4 @@ const Lister: React.FC<ListerProps> = ({ titles }) => {
   );
 };
 
-export default Lister;
+export default RatingList;

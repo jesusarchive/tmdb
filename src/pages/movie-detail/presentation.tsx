@@ -6,6 +6,7 @@ export type PresentationProps = {
   data: { director: Array<CrewType>; writers: Array<CrewType>; stars: Array<CastType> };
 };
 
+// TODO: FIX DIRECTOR SINGLE AND PLURAL
 const Presentation: React.FC<PresentationProps> = ({ data }) => {
   return (
     <>

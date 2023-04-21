@@ -3,18 +3,9 @@ import React, { useEffect, useState } from 'react';
 import { Divider } from '../../components';
 import { getPopularMovies, MovieType } from '../../services/movie';
 import { uniq } from '../../utils';
-import TitleTable from './title-table';
+import TitleTable from './movie-table';
 
-/**
- *
- * View with a table showing TMDb charts
- *
- * Example charts:
- *   - Most Popular Movies
- *   - Top Rated Movies
- *
- */
-const Chart = () => {
+const PopularMovies = () => {
   const [loading, setLoading] = useState(false);
   const [movies, setMovies] = useState([] as Array<MovieType>);
 
@@ -51,7 +42,7 @@ const Chart = () => {
         <div className="h-full w-full flex flex-col justify-around">
           {/* HEADER */}
           <div className="">
-            <h3 className="text-xl pb-2">TMDb Charts</h3>
+            <h3 className="text-xl pb-2">TMDb PopularMoviess</h3>
             {/* CHART TITLE */}
             <h1 className="text-3xl">Most Popular movies</h1>
             {/* DESCRIPTION */}
@@ -87,4 +78,4 @@ const Chart = () => {
   );
 };
 
-export default Chart;
+export default PopularMovies;
