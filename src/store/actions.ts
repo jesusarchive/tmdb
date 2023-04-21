@@ -1,5 +1,5 @@
 import { ADD_GUEST_SESSION, SET_THEME, UPDATE_GUEST_SESSION_RATED_MOVIES } from './constants';
-import { GuestProps } from './types';
+import { GuestProps } from './store';
 
 export const addGuestSession = (payload: GuestProps) => {
   return {

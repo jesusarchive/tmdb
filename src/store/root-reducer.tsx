@@ -1,5 +1,5 @@
 import { ADD_GUEST_SESSION, SET_THEME, UPDATE_GUEST_SESSION_RATED_MOVIES } from './constants';
-import { StateType } from './types';
+import { StateType } from './store';
 
 const rootReducer = (state: StateType, action: { type: string; payload: any }) => {
   switch (action.type) {

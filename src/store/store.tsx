@@ -2,10 +2,22 @@ import React, { createContext, useContext, useEffect, useReducer } from 'react';
 
 import rootReducer from './root-reducer';
 
+export type GuestProps = {
+  success: boolean;
+  guest_session_id: string;
+  expires_at: string;
+  rated_movies: any;
+};
+
+export type StateType = {
+  guest: GuestProps | null;
+  theme: string;
+};
+
 const initialState = {
   guest: null,
   theme: 'dark'
-};
+} as StateType;
 
 export const Store = createContext(initialState);
 

@@ -3,6 +3,7 @@ import { StarIcon } from '@heroicons/react/24/solid';
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+// import BookmarkIcon from '../../assets/bookmark.svg';
 import { Table } from '../../components';
 import { IMAGE_BASE_URL } from '../../services/constants';
 import { MovieType } from '../../services/movie';
@@ -26,7 +27,7 @@ const TitleTable: React.FC<TitleTableProps> = ({ titles }) => {
         <span>Title</span>
         <span>TMDb Rating</span>
         <span>Your Rating</span>
-        <span />
+        {/* <span /> */}
       </Table.Head>
 
       <Table.Body>
@@ -68,24 +69,9 @@ const TitleTable: React.FC<TitleTableProps> = ({ titles }) => {
                 )}
               </div>
               {/* BOOKMARK */}
-              <div>
-                <svg
-                  className="cursor-pointer"
-                  width="30px"
-                  height="30px"
-                  viewBox="0 0 24 24"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="black"
-                  stroke="white"
-                  strokeWidth="1"
-                  strokeLinecap="round"
-                  strokeLinejoin="miter"
-                >
-                  <polygon points="20 22 12 16 4 22 4 2 20 2 20 22"></polygon>
-                  <line x1="12" y1="6" x2="12" y2="12"></line>
-                  <line x1="15" y1="9" x2="9" y2="9"></line>
-                </svg>
-              </div>
+              {/* <div>
+                <img src={BookmarkIcon} alt="bookmark" />
+              </div> */}
             </Table.Row>
           );
         })}
