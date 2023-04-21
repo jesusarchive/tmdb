@@ -12,11 +12,17 @@ import {
   getMovieVideos,
   MovieDetailType,
   MovieVideoType,
-  MovieWithRatingType,
   postMovieRating
 } from '../../services/movie';
 import { updateGuestSessionRatedMovies } from '../../store/actions';
 import { useStore } from '../../store/store';
+import {
+  filterDirectorFromCrew,
+  filterStarsFromCast,
+  filterTrailerFromVideos,
+  filterWritersFromCrew,
+  getMovieRatingFromUserState
+} from './helpers';
 import Rating from './rating';
 import TitleData from './title-data';
 import TitleHeaderData from './title-header-data';
@@ -41,13 +47,21 @@ const Title = () => {
   const [stateRating, setStateRating] = useState(null as any);
 
   const handleRateOpenClick = () => {
-    if (state?.guest?.guest_session_id) {
+    const isGuestSessionActive = !!state?.guest?.guest_session_id;
+    if (isGuestSessionActive) {
       setOpenRatingModal(true);
     }
   };
 
+  const handleUserRateClick = async () => {
+    await postMovieRating(movie.id, state.guest.guest_session_id, { value: rating });
+    setStateRating(rating);
+    setOpenRatingModal(false);
+  };
+
   const updateUserRatedMovies = async () => {
-    if (state?.guest?.guest_session_id) {
+    const isGuestSessionActive = !!state?.guest?.guest_session_id;
+    if (isGuestSessionActive) {
       const guestSessionRatedMovies = await getGuestSessionRatedMovies(state.guest.guest_session_id);
       dispatch(updateGuestSessionRatedMovies(guestSessionRatedMovies));
 
@@ -55,60 +69,24 @@ const Title = () => {
     }
   };
 
-  const handleUserRateClick = async () => {
-    await postMovieRating(movie.id, state.guest.guest_session_id, { value: rating });
-
-    setStateRating(rating);
-    setOpenRatingModal(false);
+  const loadMovieData = async () => {
+    const { id } = params;
+    if (id) {
+      const movieDetailData = await getMovie(Number(id));
+      const movieVideosData = await getMovieVideos(Number(id));
+      const movieCredits = await getMovieCredits(Number(id));
+      setMovie(movieDetailData);
+      setVideos(movieVideosData.results);
+      setDirector(filterDirectorFromCrew(movieCredits.crew));
+      setWriters(filterWritersFromCrew(movieCredits.crew));
+      setStars(filterStarsFromCast(movieCredits.cast));
+    }
   };
-
-  const getTrailer = () => {
-    return videos.find(
-      ({ type, name }) => type === 'Trailer' && (name === 'Trailer' || name.toLowerCase().includes('trailer'))
-    );
-  };
-
-  const getDirector = (crew: Array<CrewType>): CrewType => {
-    return crew.find(({ job }) => job.toLowerCase() === 'director') || ({} as CrewType);
-  };
-
-  const getWriters = (crew: Array<CrewType>): Array<CrewType> => {
-    return crew.filter(({ department }) => department.toLowerCase() === 'writing') || ([] as Array<CrewType>);
-  };
-
-  const getStars = (cast: Array<CastType>): Array<CastType> => {
-    return cast.slice(0, 3);
-  };
-
-  const handleMovieCreditsData = (movieCredits: { id: number; crew: Array<CrewType>; cast: Array<CastType> }) => {
-    setDirector(getDirector(movieCredits.crew));
-    setWriters(getWriters(movieCredits.crew));
-    setStars(getStars(movieCredits.cast));
-  };
-
-  const getMovieRatingFromUserState = () =>
-    state?.guest && state?.guest?.rated_movies?.results?.find((el: MovieWithRatingType) => el.id === movie?.id)?.rating;
 
   const init = async () => {
     setLoading(true);
-
-    // update guest session rated movies if logged in
     await updateUserRatedMovies();
-
-    // get current id movie data
-    const { id } = params;
-
-    if (id) {
-      const movieDetailData = await getMovie(Number(id));
-      setMovie(movieDetailData);
-
-      const movieVideosData = await getMovieVideos(Number(id));
-      setVideos(movieVideosData.results);
-
-      const movieCredits = await getMovieCredits(Number(id));
-      handleMovieCreditsData(movieCredits);
-    }
-
+    await loadMovieData();
     setLoading(false);
   };
 
@@ -120,7 +98,7 @@ const Title = () => {
 
   useEffect(() => {
     setLoading(true);
-    const currentStateRating = getMovieRatingFromUserState();
+    const currentStateRating = getMovieRatingFromUserState(state, movie);
     setStateRating(currentStateRating);
     setRating(currentStateRating);
     setLoading(false);
@@ -136,7 +114,7 @@ const Title = () => {
             {/* HEADER DATA */}
             <TitleHeaderData movie={movie} rating={stateRating} onRateClick={handleRateOpenClick} />
             {/* MEDIA */}
-            <TitleMedia movie={movie} trailer={getTrailer()} />
+            <TitleMedia movie={movie} trailer={filterTrailerFromVideos(videos)} />
             {/* DATA */}
             <TitleData movie={movie} director={director} writers={writers} stars={stars} />
             {/* RATING MODAL */}

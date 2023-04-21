@@ -6,8 +6,9 @@ import { Link } from 'react-router-dom';
 // import BookmarkIcon from '../../assets/bookmark.svg';
 import { Table } from '../../components';
 import { IMAGE_BASE_URL } from '../../config/api';
-import { MovieType, MovieWithRatingType } from '../../services/movie';
+import { MovieType } from '../../services/movie';
 import { useStore } from '../../store/store';
+import { getMovieRatingFromUserState } from './helpers';
 
 export type TitleTableProps = {
   titles: Array<MovieType>;
@@ -16,9 +17,6 @@ export type TitleTableProps = {
 // Table of titles (movies, tv shows...)
 const TitleTable: React.FC<TitleTableProps> = ({ titles }) => {
   const { state } = useStore();
-
-  const getMovieRatingFromUserState = (movie: MovieType) =>
-    state?.guest && state?.guest?.rated_movies?.results?.find((el: MovieWithRatingType) => el.id === movie?.id)?.rating;
 
   return (
     <Table className="min-h-[65vh] w-full" compact>
@@ -32,7 +30,7 @@ const TitleTable: React.FC<TitleTableProps> = ({ titles }) => {
 
       <Table.Body>
         {titles?.map((title) => {
-          const rating = getMovieRatingFromUserState(title);
+          const rating = getMovieRatingFromUserState(state, title);
 
           return (
             <Table.Row key={title.id}>

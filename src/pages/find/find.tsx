@@ -30,16 +30,30 @@ const Find = () => {
     setPage(page + 1);
   };
 
+  const loadSearchResults = async () => {
+    const data = await getMoviesBySearch(page, search);
+    setMaxPage(data.total_pages);
+    setMovies(data.results);
+  };
+
+  const loadMoreSearchResults = async () => {
+    setLoadingMore(true);
+    const data = await getMoviesBySearch(page, search);
+    setMaxPage(data.total_pages);
+
+    // Add timeout for loading animation
+    setTimeout(() => {
+      setMovies(uniq(movies.concat(data.results)));
+      setLoadingMore(false);
+    }, 1000);
+  };
+
   const handleSearchChange = async () => {
     setLoading(true);
-
     if (search) {
       reset();
-      const data = await getMoviesBySearch(page, search);
-      setMaxPage(data.total_pages);
-      setMovies(data.results);
+      await loadSearchResults();
     }
-
     setLoading(false);
   };
 
@@ -49,16 +63,9 @@ const Find = () => {
   };
 
   const handlePageChange = async () => {
-    if (page > 1 && movies?.length && page <= maxPage) {
-      setLoadingMore(true);
-      const data = await getMoviesBySearch(page, search);
-      setMaxPage(data.total_pages);
-
-      // Add timeout for loading animation
-      setTimeout(() => {
-        setMovies(uniq(movies.concat(data.results)));
-        setLoadingMore(false);
-      }, 1000);
+    const isValidState = page > 1 && movies?.length && page <= maxPage;
+    if (isValidState) {
+      await loadMoreSearchResults();
     }
   };
 
