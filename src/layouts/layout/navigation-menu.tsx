@@ -14,7 +14,7 @@ const NavigationMenu = () => {
       </Button>
       <Dropdown.Menu className="w-52 menu-compact">
         <Dropdown.Item onClick={() => navigate({ pathname: '/chart/popular' })}>Most Popular Movies</Dropdown.Item>
-        <Dropdown.Item>Top Rated Movies</Dropdown.Item>
+        {/* <Dropdown.Item>Top Rated Movies</Dropdown.Item> */}
       </Dropdown.Menu>
     </Dropdown>
   );

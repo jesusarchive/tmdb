@@ -18,20 +18,31 @@ const Chart = () => {
   const [loading, setLoading] = useState(false);
   const [movies, setMovies] = useState([] as Array<MovieType>);
 
+  const load100PopularMovies = async () => {
+    setLoading(true);
+    // total movies to show
+    const TOTAL = 100;
+    // api results per page
+    const RESULTS_PER_PAGE = 20;
+    const neededPages = TOTAL / RESULTS_PER_PAGE + 1;
+    const popularMoviesRaw = await Promise.all(
+      [...Array(neededPages).keys()].map(async (_, index) => await getPopularMovies(index + 1))
+    );
+    const mappedPopularMovies = popularMoviesRaw.reduce((acc, el) => acc.concat(el.results), [] as Array<MovieType>);
+    // api sends duplicated movies
+    const filteredMovies = uniq(mappedPopularMovies).slice(0, TOTAL);
+    console.log(filteredMovies);
+    setMovies(filteredMovies);
+    setLoading(false);
+  };
+
+  const init = async () => {
+    await load100PopularMovies();
+  };
+
   useEffect(() => {
     (async () => {
-      setLoading(true);
-
-      const data = await getPopularMovies(1);
-      const firstPageMovies = data.results;
-
-      if (data.total_pages >= 6) {
-        const nextPagesData = await Promise.all([2, 3, 4, 5, 6].map(async (el) => await getPopularMovies(el)));
-        const newMovies = nextPagesData.reduce((acc, el) => acc.concat(el.results), firstPageMovies);
-        setMovies(uniq(newMovies).slice(0, 100));
-      }
-
-      setLoading(false);
+      await init();
     })();
   }, []);
 

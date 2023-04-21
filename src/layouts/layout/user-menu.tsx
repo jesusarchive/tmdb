@@ -20,9 +20,9 @@ const UserMenu: React.FC<UserMenuProps> = ({ user }) => {
         <span className="ml-2">{`GUEST${user.guest_session_id.slice(0, 8)}`}</span>
       </Button>
       <Dropdown.Menu className="w-52 menu-compact">
-        <Dropdown.Item onClick={() => navigate({ pathname: '/user/guest/watchlist' })}>Your watchlist</Dropdown.Item>
+        {/* <Dropdown.Item onClick={() => navigate({ pathname: '/user/guest/watchlist' })}>Your watchlist</Dropdown.Item> */}
         <Dropdown.Item onClick={() => navigate({ pathname: '/user/guest/ratings' })}>Your ratings</Dropdown.Item>
-        <Dropdown.Item>Sign out</Dropdown.Item>
+        {/* <Dropdown.Item>Sign out</Dropdown.Item> */}
       </Dropdown.Menu>
     </Dropdown>
   );

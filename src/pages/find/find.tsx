@@ -21,52 +21,58 @@ const Find = () => {
   const [movies, setMovies] = useState([] as Array<MovieType>);
   const [loadingMore, setLoadingMore] = useState(false);
 
-  // const getMovieStars = async (movieId: number): Promise<CastType[]> => {
-  //   const movieCredits = await getMovieCredits(Number(movieId));
-
-  //   return movieCredits.cast.slice(0, 2);
-  // };
+  const reset = () => {
+    setMovies([]);
+    setPage(1);
+  };
 
   const handleNextPageClick = () => {
     setPage(page + 1);
   };
 
+  const handleSearchChange = async () => {
+    setLoading(true);
+
+    if (search) {
+      reset();
+      const data = await getMoviesBySearch(page, search);
+      setMaxPage(data.total_pages);
+      setMovies(data.results);
+    }
+
+    setLoading(false);
+  };
+
+  const handleSearchParamsChange = () => {
+    const newSearch = searchParams.get('q') || '';
+    setSearch(newSearch);
+  };
+
+  const handlePageChange = async () => {
+    if (page > 1 && movies?.length && page <= maxPage) {
+      setLoadingMore(true);
+      const data = await getMoviesBySearch(page, search);
+      setMaxPage(data.total_pages);
+
+      // Add timeout for loading animation
+      setTimeout(() => {
+        setMovies(uniq(movies.concat(data.results)));
+        setLoadingMore(false);
+      }, 1000);
+    }
+  };
+
   useEffect(() => {
     (async () => {
-      setLoading(true);
-
-      if (search) {
-        setMovies([]);
-        setPage(1);
-
-        const data = await getMoviesBySearch(page, search);
-        setMaxPage(data.total_pages);
-
-        setMovies(data.results);
-      }
-
-      setLoading(false);
+      await handleSearchChange();
     })();
   }, [search]);
 
-  useEffect(() => {
-    const newSearch = searchParams.get('q');
-    setSearch(newSearch || '');
-  }, [searchParams]);
+  useEffect(handleSearchParamsChange, [searchParams]);
 
   useEffect(() => {
     (async () => {
-      if (page > 1 && movies?.length && page <= maxPage) {
-        setLoadingMore(true);
-        const data = await getMoviesBySearch(page, search);
-        setMaxPage(data.total_pages);
-
-        // Add timeout for loading animation
-        setTimeout(() => {
-          setMovies(uniq(movies.concat(data.results)));
-          setLoadingMore(false);
-        }, 1000);
-      }
+      await handlePageChange();
     })();
   }, [page]);
 
