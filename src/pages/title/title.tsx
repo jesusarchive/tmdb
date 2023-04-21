@@ -11,6 +11,7 @@ import {
   getMovieVideos,
   MovieDetailType,
   MovieVideoType,
+  MovieWithRatingType,
   postMovieRating
 } from '../../services/movie';
 import { updateGuestSessionRatedMovies } from '../../store/actions';
@@ -85,7 +86,7 @@ const Title = () => {
   };
 
   const getMovieRatingFromUserState = () =>
-    state?.guest && state.guest?.rated_movies?.results?.find((el) => el.id === movie?.id)?.rating;
+    state?.guest && state?.guest?.rated_movies?.results?.find((el: MovieWithRatingType) => el.id === movie?.id)?.rating;
 
   const init = async () => {
     setLoading(true);
@@ -117,9 +118,11 @@ const Title = () => {
   }, []);
 
   useEffect(() => {
+    setLoading(true);
     const currentStateRating = getMovieRatingFromUserState();
     setStateRating(currentStateRating);
     setRating(currentStateRating);
+    setLoading(false);
   }, [state]);
 
   return (

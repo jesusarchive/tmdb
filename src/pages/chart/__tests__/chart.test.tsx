@@ -3,7 +3,7 @@ import React from 'react';
 import { describe, expect, test } from 'vitest';
 
 import { renderWithRouter } from '../../../helpers/testing';
-import MOCK_MOVIES from '../__mocks__/movies.json';
+import MOVIES_MOCK from '../__mocks__/movies.json';
 import Chart from '../chart';
 import TitleTable from '../title-table';
 
@@ -14,7 +14,7 @@ describe('<Chart />', () => {
   });
 
   test('Title table', () => {
-    const wrapper = renderWithRouter(<TitleTable titles={MOCK_MOVIES} />);
+    const wrapper = renderWithRouter(<TitleTable titles={MOVIES_MOCK} />);
     expect(wrapper).toBeTruthy();
   });
 });
