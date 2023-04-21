@@ -22,17 +22,9 @@ export * from './button-group';
 export { default as Card } from './card';
 export * from './card';
 
-// CHECKBOX
-export { default as Checkbox } from './checkbox';
-export * from './checkbox';
-
 // DIVIDER
 export { default as Divider } from './divider';
 export * from './divider';
-
-// DRAWER
-export { default as Drawer } from './drawer';
-export * from './drawer';
 
 // DROPDOWN
 export { default as Dropdown } from './dropdown';
@@ -50,10 +42,6 @@ export * from './input';
 export { default as InputGroup } from './input-group';
 export * from './input-group';
 
-// MENU
-export { default as Menu } from './menu';
-export * from './menu';
-
 // MODAL
 export { default as Modal } from './modal';
 export * from './modal';
@@ -62,36 +50,6 @@ export * from './modal';
 export { default as Navbar } from './navbar';
 export * from './navbar';
 
-// PAGINATION
-export { default as Pagination } from './pagination';
-export * from './pagination';
-
-// SELECT
-export { default as Select } from './select';
-export * from './select';
-
-// STATS
-export { default as Stats } from './stats';
-export * from './stats';
-export { default as Stat } from './stats/stat';
-export * from './stats/stat';
-
-// STEPS
-export { default as Steps } from './steps';
-export * from './steps';
-
 // TABLE
 export { default as Table } from './table';
 export * from './table';
-
-// TEXTAREA
-export { default as Textarea } from './textarea';
-export * from './textarea';
-
-// TOAST
-export { default as Toast } from './toast';
-export * from './toast';
-
-// TOOLTIP
-export { default as Tooltip } from './tooltip';
-export * from './tooltip';

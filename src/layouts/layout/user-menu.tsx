@@ -2,7 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { Button, Dropdown } from '../../components';
-import { GuestProps } from '../../store/types';
+import { GuestProps } from '../../store/store';
 
 export type UserMenuProps = {
   user: GuestProps;
