@@ -13,7 +13,7 @@ describe('<Chart />', () => {
     expect(wrapper).toBeTruthy();
   });
 
-  test('Chart title table', () => {
+  test('Title table', () => {
     const wrapper = renderWithRouter(<TitleTable titles={MOCK_MOVIES} />);
     expect(wrapper).toBeTruthy();
   });

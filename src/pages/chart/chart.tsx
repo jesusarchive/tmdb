@@ -31,7 +31,6 @@ const Chart = () => {
     const mappedPopularMovies = popularMoviesRaw.reduce((acc, el) => acc.concat(el.results), [] as Array<MovieType>);
     // api sends duplicated movies
     const filteredMovies = uniq(mappedPopularMovies).slice(0, TOTAL);
-    console.log(filteredMovies);
     setMovies(filteredMovies);
     setLoading(false);
   };
