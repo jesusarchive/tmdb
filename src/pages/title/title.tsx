@@ -86,7 +86,7 @@ const Title = () => {
   };
 
   const getMovieRatingFromUserState = () =>
-    state.guest && state.guest?.rated_movies?.results?.find((el) => el.id === movie?.id)?.rating;
+    state?.guest && state.guest?.rated_movies?.results?.find((el) => el.id === movie?.id)?.rating;
 
   const init = async () => {
     setLoading(true);

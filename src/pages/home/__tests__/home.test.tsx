@@ -10,11 +10,9 @@ describe('<Home />', () => {
     const wrapper = render(<Home />);
     expect(wrapper).toBeTruthy();
 
-    // Get by element
     const h1 = wrapper.container.querySelector('h1');
     expect(h1?.textContent).toBe('TMDb');
 
-    // Get by text using the React testing library
     const text = screen.getByText(/TMDb/i);
     expect(text.textContent).toBeTruthy();
   });
