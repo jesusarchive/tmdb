@@ -1,5 +1,5 @@
 import { MagnifyingGlassIcon } from '@heroicons/react/24/solid';
-import React, { FormEvent, useState } from 'react';
+import React, { FormEvent, useEffect, useState } from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
 
 import { Button, Form, Input, InputGroup, Navbar } from '../../components';
@@ -40,8 +40,12 @@ function Layout() {
     setLoading(false);
   };
 
+  useEffect(() => {
+    document.documentElement.setAttribute('data-theme', state.theme);
+  }, [state.theme]);
+
   return (
-    <div className="min-h-screen w-full flex flex-col justify-between" data-theme={state.theme}>
+    <div className="min-h-screen w-full flex flex-col justify-between">
       {/* NAVBAR */}
       <Navbar className="h-[6vh] flex justify-between p-10 bg-base-100 shadow mb-5">
         <div>

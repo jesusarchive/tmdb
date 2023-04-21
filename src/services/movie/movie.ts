@@ -57,7 +57,7 @@ export const getGuestSessionRatedMovies = async (
   return data;
 };
 
-// Post movie rating
+// Post movie rating for guest session
 export const postMovieRating = async (
   id: number,
   guestSessionId: number,

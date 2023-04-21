@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { createPortal } from 'react-dom';
 import { useParams } from 'react-router-dom';
 
 import { Button, Modal } from '../../components';
@@ -139,16 +140,19 @@ const Title = () => {
             {/* DATA */}
             <TitleData movie={movie} director={director} writers={writers} stars={stars} />
             {/* RATING MODAL */}
-            <Modal open={openRatingModal} onClickBackdrop={() => setOpenRatingModal(false)}>
-              <Modal.Header className="font-bold flex items-center justify-center mb-3">Rate this</Modal.Header>
-              <Modal.Body className="flex flex-col justify-center items-center">
-                <span className="pb-5 text-xl">{movie.original_title}</span>
-                <Rating value={rating} onChange={setRating} />
-              </Modal.Body>
-              <Modal.Actions className="flex items-center justify-center">
-                <Button onClick={handleUserRateClick}>Rate</Button>
-              </Modal.Actions>
-            </Modal>
+            {createPortal(
+              <Modal open={openRatingModal} onClickBackdrop={() => setOpenRatingModal(false)}>
+                <Modal.Header className="font-bold flex items-center justify-center mb-3">Rate this</Modal.Header>
+                <Modal.Body className="flex flex-col justify-center items-center">
+                  <span className="pb-5 text-xl">{movie.original_title}</span>
+                  <Rating value={rating} onChange={setRating} />
+                </Modal.Body>
+                <Modal.Actions className="flex items-center justify-center">
+                  <Button onClick={handleUserRateClick}>Rate</Button>
+                </Modal.Actions>
+              </Modal>,
+              document.body
+            )}
           </div>
         )
       )}
