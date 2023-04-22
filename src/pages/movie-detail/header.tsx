@@ -38,7 +38,7 @@ const Header: React.FC<HeaderProps> = ({ movie, rating, onRateClick }) => {
           <span className="font-bold">YOUR RATING</span>
           {/* USER RATING */}
           <div className="flex space-x-2  font-bold cursor-pointer" onClick={onRateClick}>
-            {rating ? (
+            {rating === null ? (
               <>
                 <StarIcon className="h-8 w-8 text-blue-600" />
                 <span className="text-2xl">{rating}</span>

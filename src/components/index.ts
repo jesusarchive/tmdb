@@ -42,6 +42,10 @@ export * from './modal';
 export { default as Navbar } from './navbar';
 export * from './navbar';
 
+// RATING
+export { default as Rating } from './rating';
+export * from './rating';
+
 // TABLE
 export { default as Table } from './table';
 export * from './table';
