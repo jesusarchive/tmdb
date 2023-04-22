@@ -3,31 +3,32 @@ import React, { useEffect, useState } from 'react';
 import { Divider } from '../../components';
 import { getPopularMovies, MovieType } from '../../services/movie';
 import { uniq } from '../../utils';
+import { API_RESULTS_PER_PAGE, NUMBER_OF_POPULAR_MOVIES_TO_SHOW } from './contants';
+import Header from './header';
 import MovieTable from './movie-table';
 
 const PopularMovies = () => {
   const [loading, setLoading] = useState(false);
   const [movies, setMovies] = useState([] as Array<MovieType>);
+  const title = 'TMDb Charts';
+  const subtitle = 'Most Popular movies';
+  const description = 'As determined by TMDb Users';
 
-  const load100PopularMovies = async () => {
+  const loadNPopularMovies = async (n = NUMBER_OF_POPULAR_MOVIES_TO_SHOW) => {
     setLoading(true);
-    // total movies to show
-    const TOTAL = 100;
-    // api results per page
-    const RESULTS_PER_PAGE = 20;
-    const neededPages = TOTAL / RESULTS_PER_PAGE + 1;
+    const neededPages = n / API_RESULTS_PER_PAGE + 1;
     const popularMoviesRaw = await Promise.all(
       [...Array(neededPages).keys()].map(async (_, index) => await getPopularMovies(index + 1))
     );
     const mappedPopularMovies = popularMoviesRaw.reduce((acc, el) => acc.concat(el.results), [] as Array<MovieType>);
     // api sends duplicated movies
-    const filteredMovies = uniq(mappedPopularMovies).slice(0, TOTAL);
+    const filteredMovies = uniq(mappedPopularMovies).slice(0, n);
     setMovies(filteredMovies);
     setLoading(false);
   };
 
   const init = async () => {
-    await load100PopularMovies();
+    await loadNPopularMovies(NUMBER_OF_POPULAR_MOVIES_TO_SHOW);
   };
 
   useEffect(() => {
@@ -40,14 +41,7 @@ const PopularMovies = () => {
     <div className="min-h-[80vh] w-full flex p-5">
       <div className="container mx-auto flex flex-col justify-around">
         <div className="h-full w-full flex flex-col justify-around">
-          {/* HEADER */}
-          <div className="">
-            <h3 className="text-xl pb-2">TMDb Charts</h3>
-            {/* CHART TITLE */}
-            <h1 className="text-3xl">Most Popular movies</h1>
-            {/* DESCRIPTION */}
-            <p>As determined by TMDb Users</p>
-          </div>
+          <Header title={title} subtitle={subtitle} description={description} />
 
           <Divider />
 

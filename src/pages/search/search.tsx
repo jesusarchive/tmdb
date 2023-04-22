@@ -5,6 +5,7 @@ import { useSearchParams } from 'react-router-dom';
 import { Button } from '../../components';
 import { getMoviesBySearch, MovieType } from '../../services/movie';
 import { uniq } from '../../utils';
+import Header from './header';
 import ResultList from './result-list';
 
 const Search = () => {
@@ -15,6 +16,8 @@ const Search = () => {
   const [search, setSearch] = useState('');
   const [movies, setMovies] = useState([] as Array<MovieType>);
   const [loadingMore, setLoadingMore] = useState(false);
+  const title = 'Search TMDb';
+  const description = 'Search TMDb by typing a word or phrase in the search box at the top of this page.';
 
   const reset = () => {
     setMovies([]);
@@ -81,19 +84,7 @@ const Search = () => {
   return (
     <div className="min-h-[80vh] w-full flex p-5">
       <div className="container mx-auto flex flex-col">
-        <div className="pb-20">
-          {/* HEADING */}
-          {search ? (
-            <h1 className="text-6xl">{`Search "${search}"`}</h1>
-          ) : (
-            <>
-              <h1 className="text-5xl pb-4">Search TMDb</h1>
-              <p className="text-lg">
-                Search TMDb by typing a word or phrase in the search box at the top of this page.
-              </p>
-            </>
-          )}
-        </div>
+        <Header search={search} title={title} description={description} />
 
         {loading ? (
           // LOADING

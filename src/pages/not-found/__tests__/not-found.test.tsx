@@ -4,11 +4,11 @@ import React from 'react';
 import { describe, expect, test } from 'vitest';
 
 import { renderWithRouter } from '../../../helpers/testing';
-import NoMatch from '../no-match';
+import NotFound from '../not-found';
 
-describe('<NoMatch />', () => {
-  test('NoMatch mounts properly', () => {
-    const wrapper = renderWithRouter(<NoMatch />);
+describe('<NotFound />', () => {
+  test('NotFound mounts properly', () => {
+    const wrapper = renderWithRouter(<NotFound />);
     expect(wrapper).toBeTruthy();
 
     const text = screen.getByText(/Nothing to see here!/i);

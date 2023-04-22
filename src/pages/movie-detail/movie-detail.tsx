@@ -16,6 +16,7 @@ import {
 } from '../../services/movie';
 import { updateGuestSessionRatedMovies } from '../../store/actions';
 import { useStore } from '../../store/store';
+import { MAX_RATING } from './constants';
 import Genres from './genres';
 import Header from './header';
 import {
@@ -98,7 +99,7 @@ const MovieDetail = () => {
     setStateRating(currentStateRating);
     setRating(currentStateRating);
     setLoading(false);
-  }, [state]);
+  }, [state.guest]);
 
   return (
     <div className="min-h-[80vh] w-full flex p-5">
@@ -107,7 +108,7 @@ const MovieDetail = () => {
       ) : (
         Object.keys(movie).length > 0 && (
           <div className="container mx-auto flex flex-col space-y-5">
-            {/* HEADER DATA */}
+            {/* HEADER */}
             <Header movie={movie} rating={stateRating} onRateClick={handleRateOpenClick} />
             {/* MEDIA */}
             <Media movie={movie} trailer={filterTrailerFromVideos(videos)} />
@@ -125,7 +126,7 @@ const MovieDetail = () => {
                   <Modal.Body className="flex flex-col justify-center items-center">
                     <span className="pb-5 text-xl">{movie.original_title}</span>
                     <Rating value={rating || 0} onChange={setRating}>
-                      {[...Array(10).keys()].map((_, index) => (
+                      {[...Array(MAX_RATING).keys()].map((_, index) => (
                         <Rating.Item key={`rating-${index}`} name="rating-1" className="mask mask-star" />
                       ))}
                     </Rating>

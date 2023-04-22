@@ -3,13 +3,13 @@ import React from 'react';
 
 import { IMAGE_BASE_URL } from '../../config/api';
 import { MovieDetailType, MovieVideoType } from '../../services/movie';
+import { YOUTUBE_EMBED_URL } from './constants';
 
 export type MediaProps = {
   movie: MovieDetailType;
   trailer: MovieVideoType | undefined;
 };
 
-// Media of title (movies, tv shows...) detail view
 const Media: React.FC<MediaProps> = ({ movie, trailer }) => {
   return (
     <div className="w-full flex justify-around space-x-2">
@@ -18,7 +18,7 @@ const Media: React.FC<MediaProps> = ({ movie, trailer }) => {
       </div>
       <iframe
         className="w-7/12"
-        src={`https://www.youtube.com/embed/${trailer?.key}`}
+        src={`${YOUTUBE_EMBED_URL}/${trailer?.key}`}
         title="YouTube video player"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
       ></iframe>

@@ -9,7 +9,6 @@ const UserRatings = () => {
   const { state, dispatch } = useStore();
   const [loading, setLoading] = useState(false);
 
-  // TODO: Review if needed, check to trigger the update on rate click
   const updateUserRatedMovies = async () => {
     const isGuestSessionActive = !!state?.guest?.guest_session_id;
     if (isGuestSessionActive) {

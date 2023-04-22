@@ -3,7 +3,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 import Layout from './layouts/layout';
 import Home from './pages/home';
-import NoMatch from './pages/no-match';
+import NotFound from './pages/not-found';
 import { StoreProvider } from './store/store';
 
 const router = createBrowserRouter([
@@ -57,7 +57,7 @@ const router = createBrowserRouter([
       },
       {
         path: '*',
-        element: <NoMatch />
+        element: <NotFound />
       }
     ]
   }

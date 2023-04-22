@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
 import { StarIcon as StarOutlineIcon } from '@heroicons/react/24/outline';
 import { FireIcon, StarIcon } from '@heroicons/react/24/solid';
 import React from 'react';
@@ -5,7 +7,7 @@ import React from 'react';
 import { MovieDetailType } from '../../services/movie';
 import { toHoursAndMinutes } from './utils';
 
-export type HeaderProps = {
+type HeaderProps = {
   movie: MovieDetailType;
   rating: number;
   onRateClick: (...args: any) => any;
