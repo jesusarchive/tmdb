@@ -21,7 +21,7 @@ const Presentation: React.FC<PresentationProps> = ({ data }) => {
     <>
       {Object.entries(data).map(([category, values]) => {
         return (
-          <>
+          <div key={category}>
             <div className="divider"></div>
             <div className="w-full flex items-center space-x-2 text-lg">
               <span className="font-bold capitalize">{getFormattedCategoryName(category, values)}</span>
@@ -35,7 +35,7 @@ const Presentation: React.FC<PresentationProps> = ({ data }) => {
                 </div>
               ))}
             </div>
-          </>
+          </div>
         );
       })}
       <div className="divider"></div>

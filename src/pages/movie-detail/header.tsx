@@ -9,13 +9,14 @@ import { minutesToHHMM } from '../../utils';
 
 type HeaderProps = {
   movie: MovieDetailType;
-  rating: number;
+  userRating: number;
   onRateClick: (...args: any) => any;
 };
 
-const Header: React.FC<HeaderProps> = ({ movie, rating, onRateClick }) => {
+const Header: React.FC<HeaderProps> = ({ movie, userRating, onRateClick }) => {
   const year = new Date(movie.release_date).getFullYear();
   const duration = minutesToHHMM(movie.runtime);
+  const globalRating = movie.vote_average?.toFixed(1);
 
   return (
     <div className="w-full flex justify-between">
@@ -27,23 +28,23 @@ const Header: React.FC<HeaderProps> = ({ movie, rating, onRateClick }) => {
           <span>{duration}</span>
         </div>
       </div>
+
       <div className="w-2/6 flex space-x-4">
         <div className="w-2/6 flex flex-col">
           <span className="font-bold">TMDb RATING</span>
-          {/* RATING */}
           <div className="flex space-x-2">
             <StarIcon className="h-8 w-8 text-yellow-600" />
-            <span className="text-2xl font-bold">{movie.vote_average?.toFixed(1)}</span>
+            <span className="text-2xl font-bold">{globalRating}</span>
           </div>
         </div>
+
         <div className="w-2/6 flex flex-col">
           <span className="font-bold">YOUR RATING</span>
-          {/* USER RATING */}
           <div className="flex space-x-2  font-bold cursor-pointer" onClick={onRateClick}>
-            {rating ? (
+            {userRating ? (
               <>
                 <StarIcon className="h-8 w-8 text-blue-600" />
-                <span className="text-2xl">{rating}</span>
+                <span className="text-2xl">{userRating}</span>
               </>
             ) : (
               <>
@@ -53,7 +54,7 @@ const Header: React.FC<HeaderProps> = ({ movie, rating, onRateClick }) => {
             )}
           </div>
         </div>
-        {/* POPULARITY */}
+
         <div className="w-2/6 flex flex-col">
           <span className="font-bold">POPULARITY</span>
           <div className="flex space-x-2 font-bold">

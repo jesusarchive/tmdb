@@ -21,7 +21,7 @@ import { MAX_RATING } from './constants';
 import Genres from './genres';
 import Header from './header';
 import {
-  filterDirectorFromCrew,
+  filterDirectorsFromCrew,
   filterStarsFromCast,
   filterTrailerFromVideos,
   filterWritersFromCrew,
@@ -41,8 +41,8 @@ const MovieDetail = () => {
   const [writers, setWriters] = useState([] as Array<CrewType>);
   const [stars, setStars] = useState([] as Array<CastType>);
   const [openRatingModal, setOpenRatingModal] = useState(false);
-  const [rating, setRating] = useState(null as any);
-  const [stateRating, setStateRating] = useState(null as any);
+  const [userRating, setUserRating] = useState(null as any);
+  const [stateUserRating, setStateUserRating] = useState(null as any);
 
   const handleRateOpenClick = () => {
     const isGuestSessionActive = !!state?.guest?.guest_session_id;
@@ -52,8 +52,8 @@ const MovieDetail = () => {
   };
 
   const handleUserRateClick = async () => {
-    await postMovieRating(movie.id, state.guest.guest_session_id, { value: rating });
-    setStateRating(rating);
+    await postMovieRating(movie.id, state.guest.guest_session_id, { value: userRating });
+    setStateUserRating(userRating);
     setOpenRatingModal(false);
   };
 
@@ -86,7 +86,7 @@ const MovieDetail = () => {
       const movieCredits = await getMovieCredits(Number(id));
       setMovie(movieDetailData);
       setVideos(movieVideosData.results);
-      setDirector(filterDirectorFromCrew(movieCredits.crew));
+      setDirector(filterDirectorsFromCrew(movieCredits.crew));
       setWriters(filterWritersFromCrew(movieCredits.crew));
       setStars(filterStarsFromCast(movieCredits.cast));
     }
@@ -108,8 +108,8 @@ const MovieDetail = () => {
   useEffect(() => {
     setLoading(true);
     const currentStateRating = getMovieRatingFromUserState(state, movie);
-    setStateRating(currentStateRating);
-    setRating(currentStateRating);
+    setStateUserRating(currentStateRating);
+    setUserRating(currentStateRating);
     setLoading(false);
   }, [state?.guest]);
 
@@ -121,7 +121,7 @@ const MovieDetail = () => {
         Object.keys(movie).length > 0 && (
           <div className="container mx-auto flex flex-col space-y-5">
             {/* HEADER */}
-            <Header movie={movie} rating={stateRating} onRateClick={handleRateOpenClick} />
+            <Header movie={movie} userRating={stateUserRating} onRateClick={handleRateOpenClick} />
             {/* MEDIA */}
             <Media movie={movie} trailer={filterTrailerFromVideos(videos)} />
             {/* DATA */}
@@ -137,7 +137,7 @@ const MovieDetail = () => {
                   <Modal.Header className="font-bold flex items-center justify-center mb-3">Rate this</Modal.Header>
                   <Modal.Body className="flex flex-col justify-center items-center">
                     <span className="pb-5 text-xl">{movie.original_title}</span>
-                    <Rating value={rating || 0} onChange={setRating}>
+                    <Rating value={userRating || 0} onChange={setUserRating}>
                       {[...Array(MAX_RATING).keys()].map((_, index) => (
                         <Rating.Item key={`rating-${index}`} name="rating-1" className="mask mask-star" />
                       ))}

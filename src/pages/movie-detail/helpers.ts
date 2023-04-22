@@ -7,12 +7,12 @@ export const filterTrailerFromVideos = (videos: Array<MovieVideoType>): MovieVid
   );
 };
 
-export const filterDirectorFromCrew = (crew: Array<CrewType>): Array<CrewType> => {
-  return crew.filter(({ job }) => job.toLowerCase() === 'director') || ([] as Array<CrewType>);
+export const filterDirectorsFromCrew = (crew: Array<CrewType>): Array<CrewType> => {
+  return crew.filter(({ job }) => job.toLowerCase() === 'director');
 };
 
 export const filterWritersFromCrew = (crew: Array<CrewType>): Array<CrewType> => {
-  return crew.filter(({ department }) => department.toLowerCase() === 'writing') || ([] as Array<CrewType>);
+  return crew.filter(({ department }) => department.toLowerCase() === 'writing');
 };
 
 export const filterStarsFromCast = (cast: Array<CastType>): Array<CastType> => {
