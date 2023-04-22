@@ -97,6 +97,20 @@ export type CrewType = {
   profile_path: string;
 };
 
-export interface MovieWithRatingType extends MovieType {
+export interface RatedMovieType extends MovieType {
+  adult: boolean;
+  backdrop_path: string;
+  genre_ids: Array<number>;
+  id: number;
+  original_language: string;
+  original_title: string;
+  overview: string;
+  popularity: number;
+  poster_path: string;
   rating: number;
+  release_date: string;
+  title: string;
+  video: boolean;
+  vote_average: number;
+  vote_count: number;
 }

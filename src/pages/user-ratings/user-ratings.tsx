@@ -13,6 +13,7 @@ const UserRatings = () => {
     const isGuestSessionActive = !!state?.guest?.guest_session_id;
     if (isGuestSessionActive) {
       const guestSessionRatedMovies = await getGuestSessionRatedMovies(state.guest.guest_session_id);
+      console.log(guestSessionRatedMovies);
       dispatch(updateGuestSessionRatedMovies(guestSessionRatedMovies));
 
       return guestSessionRatedMovies;

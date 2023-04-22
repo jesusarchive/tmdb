@@ -4,16 +4,16 @@ import { Link } from 'react-router-dom';
 
 import { Card } from '../../components';
 import { IMAGE_BASE_URL } from '../../config/api';
-import { MovieWithRatingType } from '../../services/movie';
+import { RatedMovieType } from '../../services/movie';
 
 export type RatingListProps = {
-  titles: Array<MovieWithRatingType>;
+  titles: Array<RatedMovieType>;
 };
 
 const RatingList: React.FC<RatingListProps> = ({ titles }) => {
   return (
     <div>
-      {titles.map((title: MovieWithRatingType) => (
+      {titles.map((title: RatedMovieType) => (
         <div key={title.id}>
           <Card className="rounded-none" side compact>
             <Card.Image className="w-40" src={`${IMAGE_BASE_URL}${title.poster_path}`} alt="poster" />

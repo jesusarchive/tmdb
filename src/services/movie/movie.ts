@@ -1,5 +1,5 @@
 import { API_KEY, BASE_URL } from '../../config/api';
-import { CastType, CrewType, MovieDetailType, MoviesDataType, MovieVideoType, MovieWithRatingType } from './types';
+import { CastType, CrewType, MovieDetailType, MoviesDataType, MovieVideoType, RatedMovieType } from './types';
 
 // Get popular movies
 export const getPopularMovies = async (page = 1): Promise<MoviesDataType> => {
@@ -48,7 +48,12 @@ export const getMovieCredits = async (
 // Get guest user rated movie list
 export const getGuestSessionRatedMovies = async (
   guestSessionId: string
-): Promise<{ results: Array<MovieWithRatingType> }> => {
+): Promise<{
+  page: number;
+  results: Array<RatedMovieType>;
+  total_pages: number;
+  total_results: number;
+}> => {
   const response = await fetch(
     `${BASE_URL}/3/guest_session/${guestSessionId}/rated/movies?api_key=${API_KEY}&language=en-US&sort_by=created_at.asc`
   );
@@ -62,7 +67,7 @@ export const postMovieRating = async (
   id: number,
   guestSessionId: number,
   payload: { value: number }
-): Promise<{ page: number; results: Array<MovieWithRatingType>; total_pages: number; total_results: number }> => {
+): Promise<{ page: number; results: Array<RatedMovieType>; total_pages: number; total_results: number }> => {
   const response = await fetch(
     `${BASE_URL}/3/movie/${id}/rating?api_key=${API_KEY}&guest_session_id=${guestSessionId}`,
     {

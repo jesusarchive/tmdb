@@ -4,7 +4,7 @@ import { describe, expect, test } from 'vitest';
 
 import { renderWithRouter } from '../../../helpers/testing';
 import MOVIES_MOCK from '../__mocks__/movies.json';
-import MovieTable from '../movie-table';
+import Chart from '../chart';
 import PopularMovies from '../popular-movies';
 
 describe('<PopularMovies />', () => {
@@ -14,9 +14,9 @@ describe('<PopularMovies />', () => {
   });
 });
 
-describe('<MovieTable />', () => {
-  test('MovieTable mounts properly', () => {
-    const wrapper = renderWithRouter(<MovieTable titles={MOVIES_MOCK} />);
+describe('<Chart />', () => {
+  test('Chart mounts properly', () => {
+    const wrapper = renderWithRouter(<Chart titles={MOVIES_MOCK} />);
     expect(wrapper).toBeTruthy();
   });
 });

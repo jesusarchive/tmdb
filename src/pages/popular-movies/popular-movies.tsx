@@ -3,9 +3,9 @@ import React, { useEffect, useState } from 'react';
 import { Divider } from '../../components';
 import { getPopularMovies, MovieType } from '../../services/movie';
 import { uniq } from '../../utils';
+import Chart from './chart';
 import { API_RESULTS_PER_PAGE, NUMBER_OF_POPULAR_MOVIES_TO_SHOW } from './contants';
 import Header from './header';
-import MovieTable from './movie-table';
 
 const PopularMovies = () => {
   const [loading, setLoading] = useState(false);
@@ -46,22 +46,17 @@ const PopularMovies = () => {
           <Divider />
 
           {loading ? (
-            // LOADING
             <div className="h-full w-full flex">
               <span>loading...</span>
             </div>
           ) : movies?.length ? (
-            // RESULTS
             <div>
-              {/* SHOW MESSAGE */}
               <div className="pt-5 pb-5">
                 <p className="text-base">{`Showing ${movies.length} Titles`}</p>
               </div>
-              {/* TITLES TABLE */}
-              <MovieTable titles={movies} />
+              <Chart titles={movies} />
             </div>
           ) : (
-            // NO RESULTS
             <div className="min-h-[65vh]">
               <span>No results</span>
             </div>

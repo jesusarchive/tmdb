@@ -10,11 +10,11 @@ import { MovieType } from '../../services/movie';
 import { useStore } from '../../store/store';
 import { getMovieRatingFromUserState } from './helpers';
 
-export type MovieTableProps = {
+export type ChartProps = {
   titles: Array<MovieType>;
 };
 
-const MovieTable: React.FC<MovieTableProps> = ({ titles }) => {
+const Chart: React.FC<ChartProps> = ({ titles }) => {
   const { state } = useStore();
 
   return (
@@ -77,4 +77,4 @@ const MovieTable: React.FC<MovieTableProps> = ({ titles }) => {
   );
 };
 
-export default MovieTable;
+export default Chart;
