@@ -12,7 +12,8 @@ import {
   getMovieVideos,
   MovieDetailType,
   MovieVideoType,
-  postMovieRating
+  postMovieRating,
+  RatedMovieType
 } from '../../services/movie';
 import { updateGuestSessionRatedMovies } from '../../store/actions';
 import { useStore } from '../../store/store';
@@ -59,10 +60,21 @@ const MovieDetail = () => {
   const updateUserRatedMovies = async () => {
     const isGuestSessionActive = !!state?.guest?.guest_session_id;
     if (isGuestSessionActive) {
-      const guestSessionRatedMovies = await getGuestSessionRatedMovies(state.guest.guest_session_id);
-      dispatch(updateGuestSessionRatedMovies(guestSessionRatedMovies));
+      let ratedMovies = [];
+      const data = await getGuestSessionRatedMovies(state.guest.guest_session_id, 1);
+      ratedMovies = data.results;
 
-      return guestSessionRatedMovies;
+      if (data.total_pages > 1) {
+        const allPagesData = await Promise.all(
+          [...Array(data.total_pages).keys()].map(async (_, index) =>
+            index + 1 === 1 ? data : await getGuestSessionRatedMovies(state.guest.guest_session_id, index + 1)
+          )
+        );
+        const mappedRatings = allPagesData.reduce((acc, el) => acc.concat(el.results), [] as Array<RatedMovieType>);
+        ratedMovies = mappedRatings;
+      }
+
+      dispatch(updateGuestSessionRatedMovies(ratedMovies));
     }
   };
 
@@ -72,7 +84,6 @@ const MovieDetail = () => {
       const movieDetailData = await getMovie(Number(id));
       const movieVideosData = await getMovieVideos(Number(id));
       const movieCredits = await getMovieCredits(Number(id));
-      console.log(movieCredits);
       setMovie(movieDetailData);
       setVideos(movieVideosData.results);
       setDirector(filterDirectorFromCrew(movieCredits.crew));

@@ -2,6 +2,7 @@ import clsx from 'clsx';
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+import defaultPoster from '../../assets/default-poster.png';
 import { IMAGE_BASE_URL } from '../../config/api';
 import { MovieType } from '../../services/movie';
 
@@ -14,6 +15,7 @@ const ResultList: React.FC<ResultListProps> = ({ titles }) => {
     <ul>
       {titles?.map((title) => {
         const resultDetailUrl = `/title/${title.id}`;
+        const poster = title.poster_path ? `${IMAGE_BASE_URL}${title.poster_path}` : defaultPoster;
 
         return (
           <li
@@ -23,7 +25,7 @@ const ResultList: React.FC<ResultListProps> = ({ titles }) => {
             {/* POSTER */}
             <div className="w-14">
               <Link to={resultDetailUrl}>
-                <img className="w-full" src={`${IMAGE_BASE_URL}${title.poster_path}`} alt="poster" />
+                <img className="w-full" src={poster} alt="poster" />
               </Link>
             </div>
             <div className="h-18 max-w-[90%] flex flex-col">

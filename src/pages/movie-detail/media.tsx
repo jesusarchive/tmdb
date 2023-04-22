@@ -1,6 +1,7 @@
 import { PhotoIcon, VideoCameraIcon } from '@heroicons/react/24/solid';
 import React from 'react';
 
+import defaultPoster from '../../assets/default-poster.png';
 import { IMAGE_BASE_URL } from '../../config/api';
 import { MovieDetailType, MovieVideoType } from '../../services/movie';
 import { YOUTUBE_EMBED_URL } from './constants';
@@ -11,10 +12,12 @@ type MediaProps = {
 };
 
 const Media: React.FC<MediaProps> = ({ movie, trailer }) => {
+  const poster = movie.poster_path ? `${IMAGE_BASE_URL}${movie.poster_path}` : defaultPoster;
+
   return (
     <div className="w-full flex justify-around space-x-2">
       <div className="w-3/12">
-        {movie.poster_path && <img className="w-full" src={`${IMAGE_BASE_URL}${movie.poster_path}`} alt="poster" />}
+        <img className="w-full" src={poster} alt="poster" />
       </div>
       <iframe
         className="w-7/12"

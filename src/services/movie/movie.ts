@@ -47,7 +47,8 @@ export const getMovieCredits = async (
 
 // Get guest user rated movie list
 export const getGuestSessionRatedMovies = async (
-  guestSessionId: string
+  guestSessionId: string,
+  page: number
 ): Promise<{
   page: number;
   results: Array<RatedMovieType>;
@@ -55,7 +56,7 @@ export const getGuestSessionRatedMovies = async (
   total_results: number;
 }> => {
   const response = await fetch(
-    `${BASE_URL}/3/guest_session/${guestSessionId}/rated/movies?api_key=${API_KEY}&language=en-US&sort_by=created_at.asc`
+    `${BASE_URL}/3/guest_session/${guestSessionId}/rated/movies?api_key=${API_KEY}&language=en-US&sort_by=created_at.asc&page=${page}`
   );
   const data = await response.json();
 

@@ -3,6 +3,7 @@ import { StarIcon } from '@heroicons/react/24/solid';
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+import defaultPoster from '../../assets/default-poster.png';
 // import BookmarkIcon from '../../assets/bookmark.svg';
 import { Table } from '../../components';
 import { IMAGE_BASE_URL } from '../../config/api';
@@ -30,13 +31,14 @@ const Chart: React.FC<ChartProps> = ({ titles }) => {
       <Table.Body>
         {titles?.map((title) => {
           const rating = getMovieRatingFromUserState(state, title);
+          const poster = title.poster_path ? `${IMAGE_BASE_URL}${title.poster_path}` : defaultPoster;
 
           return (
             <Table.Row key={title.id}>
               {/* POSTER */}
               <div className="w-12">
                 <Link to={`/title/${title.id}`}>
-                  <img className="w-full" src={`${IMAGE_BASE_URL}${title.poster_path}`} alt="poster" />
+                  <img className="w-full" src={poster} alt="poster" />
                 </Link>
               </div>
               {/* TITLE & YEAR */}

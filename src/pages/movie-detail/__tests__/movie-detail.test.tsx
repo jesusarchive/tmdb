@@ -2,14 +2,14 @@ import { render } from '@testing-library/react';
 import React from 'react';
 import { describe, expect, test } from 'vitest';
 
-import MOVIE_CREDITS from '../__mocks__/movie-credits-mock.json';
-import MOVIE_DETAIL_MOCK from '../__mocks__/movie-detail-mock.json';
-import MOVIE_TRAILER from '../__mocks__/movie-video-mock.json';
+import MOVIE_CREDITS from '../__mocks__/movie-credits.json';
+import MOVIE_DETAIL_MOCK from '../__mocks__/movie-detail.json';
+import MOVIE_TRAILER from '../__mocks__/movie-video.json';
 import Genres from '../genres';
 import Media from '../media';
 import MovieDetail from '../movie-detail';
-import Presentation from '../presentation';
 import Plot from '../plot';
+import Presentation from '../presentation';
 
 describe('<MovieDetail />', () => {
   test('MovieDetail mounts properly', () => {

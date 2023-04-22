@@ -5,7 +5,7 @@ import { FireIcon, StarIcon } from '@heroicons/react/24/solid';
 import React from 'react';
 
 import { MovieDetailType } from '../../services/movie';
-import { toHoursAndMinutes } from './utils';
+import { minutesToHHMM } from '../../utils';
 
 type HeaderProps = {
   movie: MovieDetailType;
@@ -15,7 +15,7 @@ type HeaderProps = {
 
 const Header: React.FC<HeaderProps> = ({ movie, rating, onRateClick }) => {
   const year = new Date(movie.release_date).getFullYear();
-  const duration = toHoursAndMinutes(movie.runtime);
+  const duration = minutesToHHMM(movie.runtime);
 
   return (
     <div className="w-full flex justify-between">
@@ -40,7 +40,7 @@ const Header: React.FC<HeaderProps> = ({ movie, rating, onRateClick }) => {
           <span className="font-bold">YOUR RATING</span>
           {/* USER RATING */}
           <div className="flex space-x-2  font-bold cursor-pointer" onClick={onRateClick}>
-            {rating !== null ? (
+            {rating ? (
               <>
                 <StarIcon className="h-8 w-8 text-blue-600" />
                 <span className="text-2xl">{rating}</span>

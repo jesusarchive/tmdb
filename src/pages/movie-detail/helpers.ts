@@ -20,4 +20,4 @@ export const filterStarsFromCast = (cast: Array<CastType>): Array<CastType> => {
 };
 
 export const getMovieRatingFromUserState = (state: StateType, movie: MovieDetailType) =>
-  state?.guest && state?.guest?.rated_movies?.results?.find((el: RatedMovieType) => el.id === movie?.id)?.rating;
+  state?.guest && state?.guest?.rated_movies?.find((el: RatedMovieType) => el.id === movie?.id)?.rating;
