@@ -119,23 +119,24 @@ const MovieDetail = () => {
               <Presentation data={{ directors, writers, stars }} />
             </div>
             {/* RATING MODAL */}
-            {createPortal(
-              <Modal open={openRatingModal} onClickBackdrop={() => setOpenRatingModal(false)}>
-                <Modal.Header className="font-bold flex items-center justify-center mb-3">Rate this</Modal.Header>
-                <Modal.Body className="flex flex-col justify-center items-center">
-                  <span className="pb-5 text-xl">{movie.original_title}</span>
-                  <Rating value={rating || 0} onChange={setRating}>
-                    {[...Array(10).keys()].map((_, index) => (
-                      <Rating.Item key={`rating-${index}`} name="rating-1" className="mask mask-star" />
-                    ))}
-                  </Rating>
-                </Modal.Body>
-                <Modal.Actions className="flex items-center justify-center">
-                  <Button onClick={handleUserRateClick}>Rate</Button>
-                </Modal.Actions>
-              </Modal>,
-              document.body
-            )}
+            {openRatingModal &&
+              createPortal(
+                <Modal open={openRatingModal} onClickBackdrop={() => setOpenRatingModal(false)}>
+                  <Modal.Header className="font-bold flex items-center justify-center mb-3">Rate this</Modal.Header>
+                  <Modal.Body className="flex flex-col justify-center items-center">
+                    <span className="pb-5 text-xl">{movie.original_title}</span>
+                    <Rating value={rating || 0} onChange={setRating}>
+                      {[...Array(10).keys()].map((_, index) => (
+                        <Rating.Item key={`rating-${index}`} name="rating-1" className="mask mask-star" />
+                      ))}
+                    </Rating>
+                  </Modal.Body>
+                  <Modal.Actions className="flex items-center justify-center">
+                    <Button onClick={handleUserRateClick}>Rate</Button>
+                  </Modal.Actions>
+                </Modal>,
+                document.body
+              )}
           </div>
         )
       )}
