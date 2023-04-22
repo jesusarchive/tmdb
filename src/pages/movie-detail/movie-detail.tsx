@@ -28,7 +28,6 @@ import {
 import Media from './media';
 import Plot from './plot';
 import Presentation from './presentation';
-// import Rating from './rating';
 
 const MovieDetail = () => {
   const params = useParams();
