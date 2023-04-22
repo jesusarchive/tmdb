@@ -5,11 +5,11 @@ import { describe, expect, test } from 'vitest';
 import { renderWithRouter } from '../../../helpers/testing';
 import MOVIES_MOCK from '../__mocks__/movies.json';
 import ResultList from '../result-list';
-import SearchMovies from '../search-movies';
+import Search from '../search';
 
-describe('<SearchMovies />', () => {
-  test('SearchMovies mounts properly', () => {
-    const wrapper = renderWithRouter(<SearchMovies />);
+describe('<Search />', () => {
+  test('Search mounts properly', () => {
+    const wrapper = renderWithRouter(<Search />);
     expect(wrapper).toBeTruthy();
   });
 });

@@ -26,7 +26,7 @@ function Layout() {
     event.preventDefault();
     setCurrentSearchValue('');
     navigate({
-      pathname: '/find',
+      pathname: '/search',
       search: `?q=${currentSearchValue}`
     });
   };

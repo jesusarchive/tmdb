@@ -36,7 +36,7 @@ const MovieDetail = () => {
   const [loading, setLoading] = useState(false);
   const [movie, setMovie] = useState({} as MovieDetailType);
   const [videos, setVideos] = useState([] as Array<MovieVideoType>);
-  const [director, setDirector] = useState({} as Array<CrewType>);
+  const [directors, setDirector] = useState({} as Array<CrewType>);
   const [writers, setWriters] = useState([] as Array<CrewType>);
   const [stars, setStars] = useState([] as Array<CastType>);
   const [openRatingModal, setOpenRatingModal] = useState(false);
@@ -116,7 +116,7 @@ const MovieDetail = () => {
             <div className="w-full space-y-2">
               <Genres genres={movie.genres} />
               <Plot plot={movie.overview} />
-              <Presentation data={{ director, writers, stars }} />
+              <Presentation data={{ directors, writers, stars }} />
             </div>
             {/* RATING MODAL */}
             {createPortal(

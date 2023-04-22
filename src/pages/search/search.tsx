@@ -7,7 +7,7 @@ import { getMoviesBySearch, MovieType } from '../../services/movie';
 import { uniq } from '../../utils';
 import ResultList from './result-list';
 
-const SearchMovies = () => {
+const Search = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(1);
@@ -139,4 +139,4 @@ const SearchMovies = () => {
   );
 };
 
-export default SearchMovies;
+export default Search;

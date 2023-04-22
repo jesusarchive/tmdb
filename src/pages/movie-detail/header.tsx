@@ -11,16 +11,18 @@ export type HeaderProps = {
   onRateClick: (...args: any) => any;
 };
 
-// Data showed in the header of title (movies, tv shows...) detail view
 const Header: React.FC<HeaderProps> = ({ movie, rating, onRateClick }) => {
+  const year = new Date(movie.release_date).getFullYear();
+  const duration = toHoursAndMinutes(movie.runtime);
+
   return (
     <div className="w-full flex justify-between">
       <div className="w-4/6 flex flex-col">
         <span className="h-12 w-full flex text-3xl">{movie.title}</span>
         <div className="flex space-x-4">
-          <span>{new Date(movie.release_date).getFullYear()}</span>
+          <span>{year}</span>
           <span>|</span>
-          <span>{toHoursAndMinutes(movie.runtime)}</span>
+          <span>{duration}</span>
         </div>
       </div>
       <div className="w-2/6 flex space-x-4">

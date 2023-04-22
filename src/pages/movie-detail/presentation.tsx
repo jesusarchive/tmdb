@@ -3,31 +3,36 @@ import React from 'react';
 import { CastType, CrewType } from '../../services/movie';
 
 export type PresentationProps = {
-  data: { director: Array<CrewType>; writers: Array<CrewType>; stars: Array<CastType> };
+  data: {
+    directors: Array<CrewType>;
+    writers: Array<CrewType>;
+    stars: Array<CastType>;
+  };
 };
 
-// TODO: FIX DIRECTOR SINGLE AND PLURAL
 const Presentation: React.FC<PresentationProps> = ({ data }) => {
+  const GOOGLE_SEARCH_LINK = 'https://www.google.com/search?q=';
+
+  // return singular or plural depending on values length
+  const getFormattedCategoryName = (category: string, values: Array<CrewType | CastType>): string => {
+    return values.length > 1 ? category : category.slice(0, -1);
+  };
+
   return (
     <>
-      {Object.entries(data).map(([key, value]) => {
+      {Object.entries(data).map(([category, values]) => {
         return (
           <>
             <div className="divider"></div>
             <div className="w-full flex items-center space-x-2 text-lg">
-              <span className="font-bold capitalize">{key}</span>
+              <span className="font-bold capitalize">{getFormattedCategoryName(category, values)}</span>
 
-              {value.map((el: CastType | CrewType, i) => (
-                <div key={el.credit_id} className="space-x-2">
-                  <a
-                    className="link"
-                    href={`https://www.google.com/search?q=${el.name}`}
-                    rel="noreferrer"
-                    target="_blank"
-                  >
-                    {el.name}
+              {values.map((person: CastType | CrewType, i) => (
+                <div key={person.credit_id} className="space-x-2">
+                  <a className="link" href={`${GOOGLE_SEARCH_LINK}${person.name}`} rel="noreferrer" target="_blank">
+                    {person.name}
                   </a>
-                  {i !== value.length - 1 && <span>|</span>}
+                  {i !== values.length - 1 && <span>|</span>}
                 </div>
               ))}
             </div>

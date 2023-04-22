@@ -36,12 +36,12 @@ const router = createBrowserRouter([
         }
       },
       {
-        path: 'find',
+        path: 'search',
         async lazy() {
-          const { default: SearchMovies } = await import('./pages/search-movies');
+          const { default: Search } = await import('./pages/search');
 
           return {
-            Component: SearchMovies
+            Component: Search
           };
         }
       },
