@@ -14,18 +14,18 @@ type HeaderProps = {
 };
 
 const Header: React.FC<HeaderProps> = ({ movie, userRating, onRateClick }) => {
-  const year = new Date(movie.release_date).getFullYear();
-  const duration = minutesToHHMM(movie.runtime);
-  const globalRating = movie.vote_average?.toFixed(1);
-
   return (
     <div className="w-full flex justify-between">
       <div className="w-4/6 flex flex-col">
         <span className="h-12 w-full flex text-3xl">{movie.title}</span>
         <div className="flex space-x-4">
-          <span>{year}</span>
-          <span>|</span>
-          <span>{duration}</span>
+          {movie.release_date && (
+            <>
+              <span>{new Date(movie.release_date).getFullYear()}</span>
+              <span>|</span>
+            </>
+          )}
+          <span>{minutesToHHMM(movie.runtime)}</span>
         </div>
       </div>
 
@@ -34,7 +34,7 @@ const Header: React.FC<HeaderProps> = ({ movie, userRating, onRateClick }) => {
           <span className="font-bold">TMDb RATING</span>
           <div className="flex space-x-2">
             <StarIcon className="h-8 w-8 text-yellow-600" />
-            <span className="text-2xl font-bold">{globalRating}</span>
+            <span className="text-2xl font-bold">{movie.vote_average?.toFixed(1)}</span>
           </div>
         </div>
 

@@ -46,7 +46,7 @@ const Chart: React.FC<ChartProps> = ({ titles }) => {
                 <Link className="link" to={`/title/${title.id}`}>
                   {title.title}
                 </Link>
-                <span>{`(${new Date(title.release_date).getFullYear()})`}</span>
+                {title.release_date && <span>{`(${new Date(title.release_date).getFullYear()})`}</span>}
               </div>
               {/* RATING */}
               <div className="flex space-x-1 text-lg">
