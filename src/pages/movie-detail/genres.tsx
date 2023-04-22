@@ -2,8 +2,8 @@ import React from 'react';
 
 import { Badge } from '../../components';
 
-export type GenresProps = {
-  genres: Array<{ id: string; name: string }>;
+type GenresProps = {
+  genres: Array<{ id: number; name: string }>;
 };
 
 const Genres: React.FC<GenresProps> = ({ genres }) => {

@@ -5,7 +5,7 @@ import { IMAGE_BASE_URL } from '../../config/api';
 import { MovieDetailType, MovieVideoType } from '../../services/movie';
 import { YOUTUBE_EMBED_URL } from './constants';
 
-export type MediaProps = {
+type MediaProps = {
   movie: MovieDetailType;
   trailer: MovieVideoType | undefined;
 };

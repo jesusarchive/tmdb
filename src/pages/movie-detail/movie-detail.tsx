@@ -72,6 +72,7 @@ const MovieDetail = () => {
       const movieDetailData = await getMovie(Number(id));
       const movieVideosData = await getMovieVideos(Number(id));
       const movieCredits = await getMovieCredits(Number(id));
+      console.log(movieCredits);
       setMovie(movieDetailData);
       setVideos(movieVideosData.results);
       setDirector(filterDirectorFromCrew(movieCredits.crew));
@@ -99,7 +100,7 @@ const MovieDetail = () => {
     setStateRating(currentStateRating);
     setRating(currentStateRating);
     setLoading(false);
-  }, [state.guest]);
+  }, [state?.guest]);
 
   return (
     <div className="min-h-[80vh] w-full flex p-5">

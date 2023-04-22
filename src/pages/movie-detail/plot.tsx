@@ -1,6 +1,6 @@
 import React from 'react';
 
-export type PlotProps = {
+type PlotProps = {
   plot: string;
 };
 

@@ -3,7 +3,7 @@ import React from 'react';
 import { CastType, CrewType } from '../../services/movie';
 import { GOOGLE_SEARCH_URL } from './constants';
 
-export type PresentationProps = {
+type PresentationProps = {
   data: {
     directors: Array<CrewType>;
     writers: Array<CrewType>;

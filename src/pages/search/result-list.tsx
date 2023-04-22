@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 
 import { IMAGE_BASE_URL } from '../../config/api';
 import { MovieType } from '../../services/movie';
-import { RESULT_DETAIL_URL } from './constants';
 
 export type ResultListProps = {
   titles: Array<MovieType>;
@@ -14,7 +13,7 @@ const ResultList: React.FC<ResultListProps> = ({ titles }) => {
   return (
     <ul>
       {titles?.map((title) => {
-        const resultDetailUrl = `${RESULT_DETAIL_URL}/${title.id}`;
+        const resultDetailUrl = `/title/${title.id}`;
 
         return (
           <li
