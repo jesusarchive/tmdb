@@ -30,6 +30,7 @@ const Chart: React.FC<ChartProps> = ({ titles }) => {
 
       <Table.Body>
         {titles?.map((title) => {
+          const movieDetailUrl = `/title/${title.id}`;
           const rating = getMovieRatingFromUserState(state, title);
           const poster = title.poster_path ? `${IMAGE_BASE_URL}${title.poster_path}` : defaultPoster;
 
@@ -43,7 +44,7 @@ const Chart: React.FC<ChartProps> = ({ titles }) => {
               </div>
               {/* TITLE & YEAR */}
               <div className="space-x-2 text-lg">
-                <Link className="link" to={`/title/${title.id}`}>
+                <Link className="link" to={movieDetailUrl}>
                   {title.title}
                 </Link>
                 {title.release_date && <span>{`(${new Date(title.release_date).getFullYear()})`}</span>}
@@ -61,10 +62,10 @@ const Chart: React.FC<ChartProps> = ({ titles }) => {
                     <span className="font-bold">{rating}</span>
                   </>
                 ) : (
-                  <>
+                  <Link className="flex space-x-1" to={movieDetailUrl}>
                     <StarOutlineIcon className="h-6 w-6 text-blue-600" />
                     <span className="font-bold text-blue-600">Rate</span>
-                  </>
+                  </Link>
                 )}
               </div>
               {/* BOOKMARK */}
