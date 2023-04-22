@@ -4,7 +4,7 @@ import React, { ReactElement } from 'react';
 import { Size } from '../types';
 import RatingItem, { RatingItemProps } from './rating-item';
 
-export interface RatingProps0 extends Omit<React.HTMLAttributes<HTMLDivElement>, 'onChange'> {
+export interface RatingProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 'onChange'> {
   size?: Size;
   half?: boolean;
   hidden?: boolean;
@@ -12,7 +12,7 @@ export interface RatingProps0 extends Omit<React.HTMLAttributes<HTMLDivElement>,
   onChange?: (newRating: number) => void;
 }
 
-const Rating: React.FC<RatingProps0> = ({ children, size, half, hidden, className, value, onChange, ...props }) => {
+const Rating: React.FC<RatingProps> = ({ children, size, half, hidden, className, value, onChange, ...props }) => {
   const classes = clsx('rating', className, {
     [`rating-${size}`]: size,
     'rating-half': half,
