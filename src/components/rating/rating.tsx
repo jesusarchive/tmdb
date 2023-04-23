@@ -28,7 +28,7 @@ const Rating: React.FC<RatingProps> = ({ children, size, half, hidden, className
         return React.cloneElement(childComponent, {
           key: index + value,
           checked: value === index + 1,
-          readOnly: onChange == null,
+          readOnly: !!onChange,
           onChange: () => {
             onChange?.(index + 1);
           }

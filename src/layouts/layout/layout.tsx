@@ -4,7 +4,7 @@ import { Outlet, useNavigate } from 'react-router-dom';
 
 import { Button, Form, Input, InputGroup, Navbar } from '../../components';
 import { getGuestSession } from '../../services/auth/auth';
-import { getGuestSessionRatedMovies } from '../../services/movie';
+import { getGuestSessionRatedMovies, RatedMovieType } from '../../services/movie';
 import { addGuestSession } from '../../store/actions';
 import { useStore } from '../../store/store';
 import Footer from './footer';
@@ -31,11 +31,30 @@ function Layout() {
     });
   };
 
+  // TODO: FIX DUPLICATED FUNCTION IN PAGES
+  const getAllGuestSessionRatedMovies = async (id: string) => {
+    let ratedMovies = [];
+    const data = await getGuestSessionRatedMovies(id, 1);
+    ratedMovies = data.results;
+
+    if (data.total_pages > 1) {
+      const allPagesData = await Promise.all(
+        [...Array(data.total_pages).keys()].map(async (_, index) =>
+          index + 1 === 1 ? data : await getGuestSessionRatedMovies(id, index + 1)
+        )
+      );
+      const mappedRatings = allPagesData.reduce((acc, el) => acc.concat(el.results), [] as Array<RatedMovieType>);
+      ratedMovies = mappedRatings;
+    }
+
+    return ratedMovies;
+  };
+
   const handleSignIn = async () => {
     setLoading(true);
     const data = await getGuestSession();
-    const guestSessionRatedMovies = await getGuestSessionRatedMovies(data.guest_session_id);
-    const guestData = { ...data, rated_movies: guestSessionRatedMovies };
+    const allGuestSessionRatedMovies = await getAllGuestSessionRatedMovies(data.guest_session_id);
+    const guestData = { ...data, rated_movies: allGuestSessionRatedMovies };
     dispatch(addGuestSession(guestData));
     setLoading(false);
   };
