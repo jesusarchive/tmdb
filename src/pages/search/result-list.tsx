@@ -3,7 +3,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import defaultPoster from '../../assets/default-poster.png';
-import { IMAGE_BASE_URL } from '../../config/api';
+import { IMAGE_BASE_URL } from '../../config';
 import { MovieType } from '../../services/movie';
 
 export type ResultListProps = {

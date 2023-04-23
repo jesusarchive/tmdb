@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 import defaultPoster from '../../assets/default-poster.png';
 import { Card } from '../../components';
-import { IMAGE_BASE_URL } from '../../config/api';
+import { IMAGE_BASE_URL } from '../../config';
 import { RatedMovieType } from '../../services/movie';
 
 export type RatingListProps = {

@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import defaultPoster from '../../assets/default-poster.png';
 // import BookmarkIcon from '../../assets/bookmark.svg';
 import { Table } from '../../components';
-import { IMAGE_BASE_URL } from '../../config/api';
+import { IMAGE_BASE_URL } from '../../config';
 import { MovieType } from '../../services/movie';
 import { useStore } from '../../store';
 import { getMovieRatingFromUserState } from './helpers';

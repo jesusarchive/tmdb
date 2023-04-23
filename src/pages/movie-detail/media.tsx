@@ -2,7 +2,7 @@ import { PhotoIcon, VideoCameraIcon } from '@heroicons/react/24/solid';
 import React from 'react';
 
 import defaultPoster from '../../assets/default-poster.png';
-import { IMAGE_BASE_URL } from '../../config/api';
+import { IMAGE_BASE_URL } from '../../config';
 import { MovieDetailType, MovieVideoType } from '../../services/movie';
 import { YOUTUBE_EMBED_URL } from './constants';
 

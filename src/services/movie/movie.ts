@@ -1,4 +1,4 @@
-import { API_KEY, BASE_URL } from '../../config/api';
+import { API_KEY, BASE_URL } from '../../config';
 import { makeRequest } from '../../utils/make-request';
 import {
   GuestSessionRatedMoviesType,
