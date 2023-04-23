@@ -1,12 +1,12 @@
 import React from 'react';
 
-// type HeaderProps = {
-//   title: string;
-//   subtitle: string;
-//   description: string;
-// };
+type HeaderProps = {
+  search: string;
+  title: string;
+  description: string;
+};
 
-const Header: React.FC<any> = ({ search, title, description }) => {
+const Header: React.FC<HeaderProps> = ({ search, title, description }) => {
   return (
     <div className="pb-20">
       {search ? (
