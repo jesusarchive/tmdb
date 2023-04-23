@@ -1,5 +1,5 @@
 import { API_KEY, BASE_URL } from '../../config';
-import { makeRequest } from '../../utils/make-request';
+import { makeRequest } from '../../utils';
 
 export type GuestSessionType = {
   success: boolean;
