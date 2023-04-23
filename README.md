@@ -2,7 +2,7 @@
 
 TMDb is a React TypeScript application using themoviedb api inspired in IMDb
 
-# Run the app
+## Run the app
 
 - Add themoviedb api key in ./src/config/config.ts file
 
@@ -12,9 +12,11 @@ TMDb is a React TypeScript application using themoviedb api inspired in IMDb
 
 ## Scripts
 
-pnpm run dev
-pnpm run test
-pnpm run coverage
+- pnpm run dev
+- pnpm run test
+- pnpm run coverage
+- pnpm run lint
+- pnpm run lint:fix
 
 ## Technologies
 
