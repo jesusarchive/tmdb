@@ -17,7 +17,7 @@ const UserMenu: React.FC<UserMenuProps> = ({ user }) => {
         <div className="w-10 rounded-full">
           <img src="https://image.tmdb.org/t/p/w500/wuMc08IPKEatf9rnMNXvIDxqP4W.jpg" alt="user" />
         </div>
-        <span className="ml-2">{`GUEST${user.guest_session_id.slice(0, 8)}`}</span>
+        <span className="ml-2 hidden lg:flex">{`GUEST${user.guest_session_id.slice(0, 8)}`}</span>
       </Button>
       <Dropdown.Menu className="w-52 menu-compact">
         {/* <Dropdown.Item onClick={() => navigate({ pathname: '/user/guest/watchlist' })}>Your watchlist</Dropdown.Item> */}

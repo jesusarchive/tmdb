@@ -72,14 +72,14 @@ function Layout() {
     <div className="min-h-screen w-full flex flex-col justify-between">
       {/* NAVBAR */}
       <Navbar className="h-[6vh] flex justify-between p-10 bg-base-100 shadow mb-5">
-        <div>
+        <Navbar.Start>
           {/* HOME BUTTON */}
           <Button className="text-2xl normal-case" color="ghost" onClick={() => navigate({ pathname: '/' })}>
             TMDb
           </Button>
-        </div>
+        </Navbar.Start>
 
-        <div className="w-3/6 space-x-4 flex justify-center">
+        <Navbar.Center className="flex w-3/6 space-x-4 justify-center">
           {/* MENU */}
           <NavigationMenu />
 
@@ -99,9 +99,9 @@ function Layout() {
               </Button>
             </InputGroup>
           </Form>
-        </div>
+        </Navbar.Center>
 
-        <div className="flex justify-end space-x-4">
+        <Navbar.End className="flex justify-end space-x-4">
           {/* LOGIN/USER MENU */}
           {state?.guest ? (
             <UserMenu user={state.guest} />
@@ -113,7 +113,7 @@ function Layout() {
 
           {/* THEME SWAP*/}
           <ThemeSwap />
-        </div>
+        </Navbar.End>
       </Navbar>
 
       {/* OUTLET */}

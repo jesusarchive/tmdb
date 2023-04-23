@@ -10,7 +10,7 @@ const NavigationMenu = () => {
   return (
     <Dropdown>
       <Button className="w-20" shape="square" color="ghost" startIcon={<Bars3Icon className="h-6 w-6" />}>
-        Menu
+        <span className="hidden lg:flex">Menu</span>
       </Button>
       <Dropdown.Menu className="w-52 menu-compact">
         <Dropdown.Item onClick={() => navigate({ pathname: '/chart/popular' })}>Most Popular Movies</Dropdown.Item>
