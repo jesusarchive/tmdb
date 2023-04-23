@@ -24,17 +24,17 @@ Vite + React + TypeScript
 
 ### Testing
 
-Vitest + @testing-library + happy-dom
+[Vitest](https://vitest.dev/) + [@testing-library](https://testing-library.com/docs/react-testing-library/intro/) + [happy-dom](https://github.com/capricorn86/happy-dom)
 
 ### Styles
 
-TailwindCSS with daisyUI plugin
+[Tailwind CSS](https://tailwindcss.com/) with [daisyUI](https://daisyui.com/) plugin
 
 ### Icons
 
-@heroicons/react
+[@heroicons/react](https://github.com/tailwindlabs/heroicons)
 
-## Store
+### Store
 React context with useReducer hook
 
 ## Components
