@@ -1,4 +1,3 @@
-// eslint-disable-next-line import/named
 import React from 'react';
 import { describe, expect, test } from 'vitest';
 

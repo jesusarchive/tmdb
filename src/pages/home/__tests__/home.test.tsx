@@ -3,6 +3,7 @@ import { render, screen } from '@testing-library/react';
 import React from 'react';
 import { describe, expect, test } from 'vitest';
 
+import { renderWithStore } from '../../../helpers/testing';
 import Home from '../home';
 
 describe('<Home />', () => {
@@ -15,5 +16,10 @@ describe('<Home />', () => {
 
     const text = screen.getByText(/TMDb/i);
     expect(text.textContent).toBeTruthy();
+  });
+
+  test('render with store', () => {
+    const wrapper = renderWithStore(<Home />);
+    expect(wrapper).toBeTruthy();
   });
 });
