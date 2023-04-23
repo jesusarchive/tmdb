@@ -1,5 +1,5 @@
 import { CastType, CrewType, MovieDetailType, MovieVideoType, RatedMovieType } from '../../services/movie';
-import { StateType } from '../../store/store';
+import { StateType } from '../../store';
 
 export const filterTrailerFromVideos = (videos: Array<MovieVideoType>): MovieVideoType | undefined => {
   return videos.find(

@@ -2,22 +2,22 @@ import { render } from '@testing-library/react';
 import React from 'react';
 import { describe, expect, test } from 'vitest';
 
+import { CastType, CrewType } from '../../../services/movie';
 import MOVIE_CREDITS_MOCK from '../__mocks__/movie-credits.json';
 import MOVIE_DETAIL_MOCK from '../__mocks__/movie-detail.json';
 import MOVIE_VIDEOS_MOCK from '../__mocks__/movie-videos.json';
 import Genres from '../genres';
 import Header from '../header';
-import Media from '../media';
-import MovieDetail from '../movie-detail';
-import Plot from '../plot';
-import Presentation from '../presentation';
 import {
   filterDirectorsFromCrew,
   filterStarsFromCast,
   filterTrailerFromVideos,
   filterWritersFromCrew
 } from '../helpers';
-import { CastType, CrewType } from '../../../services/movie';
+import Media from '../media';
+import MovieDetail from '../movie-detail';
+import Plot from '../plot';
+import Presentation from '../presentation';
 
 describe('<MovieDetail />', () => {
   test('MovieDetail mounts properly', () => {

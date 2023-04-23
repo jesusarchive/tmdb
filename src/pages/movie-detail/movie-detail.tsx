@@ -15,8 +15,8 @@ import {
   postMovieRating,
   RatedMovieType
 } from '../../services/movie';
+import { useStore } from '../../store';
 import { updateGuestSessionRatedMovies } from '../../store/actions';
-import { useStore } from '../../store/store';
 import { MAX_RATING } from './constants';
 import Genres from './genres';
 import Header from './header';

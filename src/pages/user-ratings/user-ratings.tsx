@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 
 import { getGuestSessionRatedMovies, RatedMovieType } from '../../services/movie';
+import { useStore } from '../../store';
 import { updateGuestSessionRatedMovies } from '../../store/actions';
-import { useStore } from '../../store/store';
 import Header from './header';
 import RatingList from './rating-list';
 

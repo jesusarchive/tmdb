@@ -4,7 +4,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Layout from './layouts/layout';
 import Home from './pages/home';
 import NotFound from './pages/not-found';
-import { StoreProvider } from './store/store';
+import { StoreProvider } from './store';
 
 const router = createBrowserRouter([
   {

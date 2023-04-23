@@ -8,7 +8,7 @@ import defaultPoster from '../../assets/default-poster.png';
 import { Table } from '../../components';
 import { IMAGE_BASE_URL } from '../../config/api';
 import { MovieType } from '../../services/movie';
-import { useStore } from '../../store/store';
+import { useStore } from '../../store';
 import { getMovieRatingFromUserState } from './helpers';
 
 export type ChartProps = {
