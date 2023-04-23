@@ -6,14 +6,13 @@ import { Button, Modal, Rating } from '../../components';
 import {
   CastType,
   CrewType,
-  getGuestSessionRatedMovies,
+  getAllGuestSessionRatedMovies,
   getMovie,
   getMovieCredits,
   getMovieVideos,
   MovieDetailType,
   MovieVideoType,
-  postMovieRating,
-  RatedMovieType
+  postMovieRating
 } from '../../services/movie';
 import { useStore } from '../../store';
 import { updateGuestSessionRatedMovies } from '../../store/actions';
@@ -59,23 +58,7 @@ const MovieDetail = () => {
 
   const updateUserRatedMovies = async () => {
     if (state.guest) {
-      let ratedMovies = [];
-      const data = await getGuestSessionRatedMovies(state?.guest?.guest_session_id, 1);
-      ratedMovies = data?.results || [];
-
-      if (data && data.total_pages > 1) {
-        const allPagesData = await Promise.all(
-          [...Array(data.total_pages).keys()].map(async (_, index) =>
-            index + 1 === 1 ? data : await getGuestSessionRatedMovies(state?.guest?.guest_session_id || '', index + 1)
-          )
-        );
-        const mappedRatings = allPagesData.reduce(
-          (acc, el) => acc.concat(el?.results || []),
-          [] as Array<RatedMovieType>
-        );
-        ratedMovies = mappedRatings;
-      }
-
+      const ratedMovies = await getAllGuestSessionRatedMovies(state?.guest?.guest_session_id);
       dispatch(updateGuestSessionRatedMovies(ratedMovies));
     }
   };

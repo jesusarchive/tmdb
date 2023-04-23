@@ -4,7 +4,7 @@ import { Outlet, useNavigate } from 'react-router-dom';
 
 import { Button, Form, Input, InputGroup, Navbar } from '../../components';
 import { createGuestSession } from '../../services/auth/auth';
-import { getGuestSessionRatedMovies, RatedMovieType } from '../../services/movie';
+import { getAllGuestSessionRatedMovies } from '../../services/movie';
 import { useStore } from '../../store';
 import { addGuestSession } from '../../store/actions';
 import Footer from './footer';
@@ -29,28 +29,6 @@ function Layout() {
       pathname: '/search',
       search: `?q=${currentSearchValue}`
     });
-  };
-
-  // TODO: FIX DUPLICATED FUNCTION IN PAGES
-  const getAllGuestSessionRatedMovies = async (id: string) => {
-    let ratedMovies = [];
-    const data = await getGuestSessionRatedMovies(id, 1);
-    ratedMovies = data?.results || [];
-
-    if (data && data.total_pages > 1) {
-      const allPagesData = await Promise.all(
-        [...Array(data.total_pages).keys()].map(async (_, index) =>
-          index + 1 === 1 ? data : await getGuestSessionRatedMovies(id, index + 1)
-        )
-      );
-      const mappedRatings = allPagesData.reduce(
-        (acc, el) => acc.concat(el?.results || []),
-        [] as Array<RatedMovieType>
-      );
-      ratedMovies = mappedRatings;
-    }
-
-    return ratedMovies;
   };
 
   const handleSignIn = async () => {

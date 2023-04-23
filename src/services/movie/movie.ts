@@ -6,7 +6,8 @@ import {
   MovieDetailType,
   MoviesDataType,
   MovieVideosType,
-  PostMovieRatingType
+  PostMovieRatingType,
+  RatedMovieType
 } from './types';
 
 const MOVIES_API_URL = `${BASE_URL}/3/movie`;
@@ -63,4 +64,22 @@ export const getGuestSessionRatedMovies = async (
   const url = `${BASE_URL}/3/guest_session/${guestSessionId}/rated/movies?api_key=${API_KEY}&language=en-US&sort_by=created_at.asc&page=${page}`;
 
   return await makeRequest(url);
+};
+
+// Custom method for geting all pages of user rated movies at once
+export const getAllGuestSessionRatedMovies = async (guestSessionId: string): Promise<Array<RatedMovieType>> => {
+  const data = await getGuestSessionRatedMovies(guestSessionId, 1);
+  let ratedMovies = data?.results || [];
+
+  if (data && data.total_pages > 1) {
+    const allPagesData = await Promise.all(
+      [...Array(data.total_pages).keys()].map(async (_, index) =>
+        index + 1 === 1 ? data : await getGuestSessionRatedMovies(guestSessionId, index + 1)
+      )
+    );
+    const mappedRatings = allPagesData.reduce((acc, el) => acc.concat(el?.results || []), [] as Array<RatedMovieType>);
+    ratedMovies = mappedRatings;
+  }
+
+  return ratedMovies;
 };
