@@ -7,7 +7,7 @@ export type GuestSessionType = {
   expires_at: string;
 };
 
-export const getGuestSession = async (): Promise<GuestSessionType | null> => {
+export const createGuestSession = async (): Promise<GuestSessionType | null> => {
   const url = `${BASE_URL}/3/authentication/guest_session/new?api_key=${API_KEY}`;
 
   return await makeRequest(url);
