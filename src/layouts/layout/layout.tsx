@@ -3,7 +3,7 @@ import React, { FormEvent, useEffect, useState } from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
 
 import { Button, Form, Input, InputGroup, Navbar } from '../../components';
-import { getGuestSession } from '../../services/auth/auth';
+import { createGuestSession } from '../../services/auth/auth';
 import { getGuestSessionRatedMovies, RatedMovieType } from '../../services/movie';
 import { useStore } from '../../store';
 import { addGuestSession } from '../../store/actions';
@@ -55,7 +55,7 @@ function Layout() {
 
   const handleSignIn = async () => {
     setLoading(true);
-    const data = await getGuestSession();
+    const data = await createGuestSession();
     if (data) {
       const allGuestSessionRatedMovies = await getAllGuestSessionRatedMovies(data.guest_session_id);
       const guestData = { ...data, rated_movies: allGuestSessionRatedMovies };
