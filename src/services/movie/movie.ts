@@ -9,47 +9,36 @@ import {
   PostMovieRatingType
 } from './types';
 
-export const getPopularMovies = async (page = 1): Promise<MoviesDataType | null> => {
-  const data = await makeRequest(`${BASE_URL}/3/movie/popular?api_key=${API_KEY}&language=en-US&page=${page}`);
+const MOVIES_API_URL = `${BASE_URL}/3/movie`;
 
-  return data;
+export const getPopularMovies = async (page = 1): Promise<MoviesDataType | null> => {
+  const url = `${MOVIES_API_URL}/popular?api_key=${API_KEY}&language=en-US&page=${page}`;
+
+  return await makeRequest(url);
 };
 
 export const getMoviesBySearch = async (page = 1, search = ''): Promise<MoviesDataType | null> => {
-  const data = await makeRequest(
-    `${BASE_URL}/3/sarch/movie?api_key=${API_KEY}&language=en-US&page=${page}&query=${search}&include_adult=false`
-  );
+  const url = `${BASE_URL}/3/search/movie?api_key=${API_KEY}&language=en-US&page=${page}&query=${search}&include_adult=false`;
 
-  return data;
+  return await makeRequest(url);
 };
 
 export const getMovie = async (id: number): Promise<MovieDetailType | null> => {
-  const data = await makeRequest(`${BASE_URL}/3/movie/${id}?api_key=${API_KEY}&language=en-US`);
+  const url = `${MOVIES_API_URL}/${id}?api_key=${API_KEY}&language=en-US`;
 
-  return data;
+  return await makeRequest(url);
 };
 
 export const getMovieVideos = async (id: number): Promise<MovieVideosType | null> => {
-  const data = await makeRequest(`${BASE_URL}/3/movie/${id}/videos?api_key=${API_KEY}&language=en-US`);
+  const url = `${MOVIES_API_URL}/${id}/videos?api_key=${API_KEY}&language=en-US`;
 
-  return data;
+  return await makeRequest(url);
 };
 
 export const getMovieCredits = async (id: number): Promise<MovieCreditsType | null> => {
-  const data = await makeRequest(`${BASE_URL}/3/movie/${id}/credits?api_key=${API_KEY}&language=en-US`);
+  const url = `${MOVIES_API_URL}/${id}/credits?api_key=${API_KEY}&language=en-US`;
 
-  return data;
-};
-
-export const getGuestSessionRatedMovies = async (
-  guestSessionId: string,
-  page: number
-): Promise<GuestSessionRatedMoviesType | null> => {
-  const data = await makeRequest(
-    `${BASE_URL}/3/guest_session/${guestSessionId}/rated/movies?api_key=${API_KEY}&language=en-US&sort_by=created_at.asc&page=${page}`
-  );
-
-  return data;
+  return await makeRequest(url);
 };
 
 export const postMovieRating = async (
@@ -57,14 +46,21 @@ export const postMovieRating = async (
   guestSessionId: string,
   payload: { value: number }
 ): Promise<PostMovieRatingType | null> => {
-  const data = await makeRequest(
-    `${BASE_URL}/3/movie/${id}/rating?api_key=${API_KEY}&guest_session_id=${guestSessionId}`,
-    {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload)
-    }
-  );
+  const url = `${MOVIES_API_URL}/${id}/rating?api_key=${API_KEY}&guest_session_id=${guestSessionId}`;
+  const config = {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload)
+  };
 
-  return data;
+  return await makeRequest(url, config);
+};
+
+export const getGuestSessionRatedMovies = async (
+  guestSessionId: string,
+  page: number
+): Promise<GuestSessionRatedMoviesType | null> => {
+  const url = `${BASE_URL}/3/guest_session/${guestSessionId}/rated/movies?api_key=${API_KEY}&language=en-US&sort_by=created_at.asc&page=${page}`;
+
+  return await makeRequest(url);
 };

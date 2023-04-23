@@ -35,15 +35,18 @@ function Layout() {
   const getAllGuestSessionRatedMovies = async (id: string) => {
     let ratedMovies = [];
     const data = await getGuestSessionRatedMovies(id, 1);
-    ratedMovies = data.results;
+    ratedMovies = data?.results || [];
 
-    if (data.total_pages > 1) {
+    if (data && data.total_pages > 1) {
       const allPagesData = await Promise.all(
         [...Array(data.total_pages).keys()].map(async (_, index) =>
           index + 1 === 1 ? data : await getGuestSessionRatedMovies(id, index + 1)
         )
       );
-      const mappedRatings = allPagesData.reduce((acc, el) => acc.concat(el.results), [] as Array<RatedMovieType>);
+      const mappedRatings = allPagesData.reduce(
+        (acc, el) => acc.concat(el?.results || []),
+        [] as Array<RatedMovieType>
+      );
       ratedMovies = mappedRatings;
     }
 
@@ -53,9 +56,11 @@ function Layout() {
   const handleSignIn = async () => {
     setLoading(true);
     const data = await getGuestSession();
-    const allGuestSessionRatedMovies = await getAllGuestSessionRatedMovies(data.guest_session_id);
-    const guestData = { ...data, rated_movies: allGuestSessionRatedMovies };
-    dispatch(addGuestSession(guestData));
+    if (data) {
+      const allGuestSessionRatedMovies = await getAllGuestSessionRatedMovies(data.guest_session_id);
+      const guestData = { ...data, rated_movies: allGuestSessionRatedMovies };
+      dispatch(addGuestSession(guestData));
+    }
     setLoading(false);
   };
 

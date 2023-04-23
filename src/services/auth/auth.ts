@@ -1,4 +1,5 @@
 import { API_KEY, BASE_URL } from '../../config/api';
+import { makeRequest } from '../../utils/make-request';
 
 export type GuestSessionType = {
   success: boolean;
@@ -6,9 +7,8 @@ export type GuestSessionType = {
   expires_at: string;
 };
 
-export const getGuestSession = async (): Promise<GuestSessionType> => {
-  const response = await fetch(`${BASE_URL}/3/authentication/guest_session/new?api_key=${API_KEY}`);
-  const data = await response.json();
+export const getGuestSession = async (): Promise<GuestSessionType | null> => {
+  const url = `${BASE_URL}/3/authentication/guest_session/new?api_key=${API_KEY}`;
 
-  return data;
+  return await makeRequest(url);
 };
