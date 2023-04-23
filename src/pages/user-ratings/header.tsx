@@ -1,9 +1,7 @@
 import { LockClosedIcon } from '@heroicons/react/24/solid';
 import React from 'react';
 
-type HeaderProps = {};
-
-const Header: React.FC<HeaderProps> = () => {
+const Header = () => {
   return (
     <div className="pb-5">
       <h1 className="text-3xl font-bold">Your Ratings</h1>

@@ -14,7 +14,6 @@ const Navbar: React.FC<NavbarProps> = ({ children, className, ...props }) => {
   );
 };
 
-// TODO: Review navbar sections
 const NavbarStart: React.FC<Omit<NavbarSectionProps, 'section'>> = (props) => (
   <NavbarSection {...props} section="start" />
 );
