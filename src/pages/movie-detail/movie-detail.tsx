@@ -52,25 +52,27 @@ const MovieDetail = () => {
   };
 
   const handleUserRateClick = async () => {
-    await postMovieRating(movie.id, state.guest.guest_session_id, { value: userRating });
+    await postMovieRating(movie.id, state?.guest?.guest_session_id || '', { value: userRating });
     setStateUserRating(userRating);
     setOpenRatingModal(false);
   };
 
   const updateUserRatedMovies = async () => {
-    const isGuestSessionActive = !!state?.guest?.guest_session_id;
-    if (isGuestSessionActive) {
+    if (state.guest) {
       let ratedMovies = [];
-      const data = await getGuestSessionRatedMovies(state.guest.guest_session_id, 1);
-      ratedMovies = data.results;
+      const data = await getGuestSessionRatedMovies(state?.guest?.guest_session_id, 1);
+      ratedMovies = data?.results || [];
 
-      if (data.total_pages > 1) {
+      if (data && data.total_pages > 1) {
         const allPagesData = await Promise.all(
           [...Array(data.total_pages).keys()].map(async (_, index) =>
-            index + 1 === 1 ? data : await getGuestSessionRatedMovies(state.guest.guest_session_id, index + 1)
+            index + 1 === 1 ? data : await getGuestSessionRatedMovies(state?.guest?.guest_session_id || '', index + 1)
           )
         );
-        const mappedRatings = allPagesData.reduce((acc, el) => acc.concat(el.results), [] as Array<RatedMovieType>);
+        const mappedRatings = allPagesData.reduce(
+          (acc, el) => acc.concat(el?.results || []),
+          [] as Array<RatedMovieType>
+        );
         ratedMovies = mappedRatings;
       }
 
@@ -84,11 +86,11 @@ const MovieDetail = () => {
       const movieDetailData = await getMovie(Number(id));
       const movieVideosData = await getMovieVideos(Number(id));
       const movieCredits = await getMovieCredits(Number(id));
-      setMovie(movieDetailData);
-      setVideos(movieVideosData.results);
-      setDirector(filterDirectorsFromCrew(movieCredits.crew));
-      setWriters(filterWritersFromCrew(movieCredits.crew));
-      setStars(filterStarsFromCast(movieCredits.cast));
+      setMovie(movieDetailData || ({} as MovieDetailType));
+      setVideos(movieVideosData?.results || ([] as Array<MovieVideoType>));
+      setDirector(filterDirectorsFromCrew(movieCredits?.crew || []));
+      setWriters(filterWritersFromCrew(movieCredits?.crew || []));
+      setStars(filterStarsFromCast(movieCredits?.cast || []));
     }
   };
 

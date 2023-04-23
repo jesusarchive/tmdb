@@ -11,19 +11,21 @@ const UserRatings = () => {
   const [loading, setLoading] = useState(false);
 
   const updateUserRatedMovies = async () => {
-    const isGuestSessionActive = !!state?.guest?.guest_session_id;
-    if (isGuestSessionActive) {
+    if (state?.guest) {
       let ratedMovies = [];
-      const data = await getGuestSessionRatedMovies(state.guest.guest_session_id, 1);
-      ratedMovies = data.results;
+      const data = await getGuestSessionRatedMovies(state?.guest?.guest_session_id, 1);
+      ratedMovies = data?.results || [];
 
-      if (data.total_pages > 1) {
+      if (data && data.total_pages > 1) {
         const allPagesData = await Promise.all(
           [...Array(data.total_pages).keys()].map(async (_, index) =>
-            index + 1 === 1 ? data : await getGuestSessionRatedMovies(state.guest.guest_session_id, index + 1)
+            index + 1 === 1 ? data : await getGuestSessionRatedMovies(state?.guest?.guest_session_id || '', index + 1)
           )
         );
-        const mappedRatings = allPagesData.reduce((acc, el) => acc.concat(el.results), [] as Array<RatedMovieType>);
+        const mappedRatings = allPagesData.reduce(
+          (acc, el) => acc.concat(el?.results || []),
+          [] as Array<RatedMovieType>
+        );
         ratedMovies = mappedRatings;
       }
 
@@ -51,7 +53,7 @@ const UserRatings = () => {
         <div>
           <Header />
 
-          {state?.guest?.rated_movies?.length > 0 ? (
+          {state?.guest && state?.guest?.rated_movies?.length > 0 ? (
             <RatingList titles={state?.guest?.rated_movies} />
           ) : (
             <span>No results</span>

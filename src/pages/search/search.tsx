@@ -30,18 +30,18 @@ const Search = () => {
 
   const loadSearchResults = async () => {
     const data = await getMoviesBySearch(page, search);
-    setMaxPage(data.total_pages);
-    setMovies(data.results);
+    setMaxPage(data?.total_pages || 0);
+    setMovies(data?.results || []);
   };
 
   const loadMoreSearchResults = async () => {
     setLoadingMore(true);
     const data = await getMoviesBySearch(page, search);
-    setMaxPage(data.total_pages);
+    setMaxPage(data?.total_pages || 0);
 
     // Add timeout for loading animation
     setTimeout(() => {
-      setMovies(uniq(movies.concat(data.results)));
+      setMovies(uniq(movies.concat(data?.results || [])));
       setLoadingMore(false);
     }, 1000);
   };

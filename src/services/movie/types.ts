@@ -68,6 +68,11 @@ export type MovieVideoType = {
   type: string;
 };
 
+export type MovieVideosType = {
+  id: number;
+  results: Array<MovieVideoType>;
+};
+
 export type CastType = {
   adult: boolean;
   cast_id: number;
@@ -97,6 +102,12 @@ export type CrewType = {
   profile_path: string;
 };
 
+export type MovieCreditsType = {
+  id: number;
+  cast: Array<CastType>;
+  crew: Array<CrewType>;
+};
+
 export interface RatedMovieType extends MovieType {
   adult: boolean;
   backdrop_path: string;
@@ -114,3 +125,17 @@ export interface RatedMovieType extends MovieType {
   vote_average: number;
   vote_count: number;
 }
+
+export type GuestSessionRatedMoviesType = {
+  page: number;
+  results: Array<RatedMovieType>;
+  total_pages: number;
+  total_results: number;
+};
+
+export type PostMovieRatingType = {
+  page: number;
+  results: Array<RatedMovieType>;
+  total_pages: number;
+  total_results: number;
+};

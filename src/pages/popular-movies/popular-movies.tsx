@@ -20,7 +20,10 @@ const PopularMovies = () => {
     const popularMoviesRaw = await Promise.all(
       [...Array(neededPages).keys()].map(async (_, index) => await getPopularMovies(index + 1))
     );
-    const mappedPopularMovies = popularMoviesRaw.reduce((acc, el) => acc.concat(el.results), [] as Array<MovieType>);
+    const mappedPopularMovies = popularMoviesRaw.reduce(
+      (acc, el) => acc.concat(el?.results || []),
+      [] as Array<MovieType>
+    );
     // api sends duplicated movies
     const filteredMovies = uniq(mappedPopularMovies).slice(0, n);
     setMovies(filteredMovies);
