@@ -16,46 +16,6 @@ const router = createBrowserRouter([
         element: <Home />
       },
       {
-        path: 'title/:id',
-        async lazy() {
-          const { default: MovieDetail } = await import('./pages/movie-detail');
-
-          return {
-            Component: MovieDetail
-          };
-        }
-      },
-      {
-        path: 'chart/popular',
-        async lazy() {
-          const { default: PopularMovies } = await import('./pages/popular-movies');
-
-          return {
-            Component: PopularMovies
-          };
-        }
-      },
-      {
-        path: 'search',
-        async lazy() {
-          const { default: Search } = await import('./pages/search');
-
-          return {
-            Component: Search
-          };
-        }
-      },
-      {
-        path: 'user/guest/ratings',
-        async lazy() {
-          const { default: UserRatings } = await import('./pages/user-ratings');
-
-          return {
-            Component: UserRatings
-          };
-        }
-      },
-      {
         path: '*',
         element: <NotFound />
       }
